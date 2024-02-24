@@ -171,21 +171,6 @@ pipeline {
 		 			dontSetBuildResultOnFailure: false, 
 		 			dontWaitForConcurrentBuildCompletion: false, 
 		 			entries: [[
-		 				bucket: 'sshtools-public/Jadbus/' + env.FULL_VERSION, 
-		 				noUploadOnFailure: true, 
-		 				selectedRegion: 'eu-west-1', 
-		 				sourceFile: 'installer/target/media/*', 
-		 				storageClass: 'STANDARD', 
-		 				useServerSideEncryption: false]], 
-		 			pluginFailureResultConstraint: 'FAILURE', 
-		 			profileName: 'JADAPTIVE Buckets', 
-		 			userMetadata: []
-		 		)
-		 		s3Upload(
-		 			consoleLogLevel: 'INFO', 
-		 			dontSetBuildResultOnFailure: false, 
-		 			dontWaitForConcurrentBuildCompletion: false, 
-		 			entries: [[
 		 				bucket: 'sshtools-public/jadbus/' + env.FULL_VERSION, 
 		 				noUploadOnFailure: true, 
 		 				selectedRegion: 'eu-west-1', 
