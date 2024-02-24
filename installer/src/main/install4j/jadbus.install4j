@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <install4j version="10.0.6" transformSequenceNumber="10">
-  <directoryPresets config="../icons" />
+  <directoryPresets config="../../../../daemon/target/jadbus-daemon${compiler:install4j.exe.suffix}" />
   <application name="Jadbus" applicationId="8481-6265-9451-2326" mediaDir="target/media" mediaFilePattern="${compiler:sys.shortName}-${compiler:sys.platform}-${compiler:sys.version}" shortName="jadbus" publisher="JADAPTIVE Limited" publisherWeb="https://jadaptive.com" version="0.0.1" allPathsRelative="true" convertDotsToUnderscores="false" macVolumeId="ffee23fd2eeafa87" javaMinVersion="21" javaMaxVersion="21">
     <searchSequence>
       <directory location=".install4j/jre.bundle" />
@@ -63,7 +63,7 @@
   </files>
   <launchers>
     <launcher name="jadbusmgr" id="181" menuName="Jadbus Manager">
-      <executable name="jadbusmgr" iconSet="true" executableDir="." stderrFile="${installer:sys.javaHome}/.jadbus/ui.log" redirectStdout="true" stdoutFile="${installer:sys.javaHome}/.jadbus/ui.log" executableMode="console" checkConsoleParameter="true" />
+      <executable name="jadbusmgr" iconSet="true" executableDir="." redirectStderr="false" stderrFile="${installer:sys.javaHome}/.jadbus/ui.log" stdoutFile="${installer:sys.javaHome}/.jadbus/ui.log" executableMode="console" checkConsoleParameter="true" />
       <java mainClass="com.sshtools.jadbus.tools/com.sshtools.jadbus.tools.Manager" mainMode="module" vmParameters="-Dinstall4j.installationDir=${launcher:sys.launcherDirectory}">
         <modulePath>
           <directory location="lib" failOnError="false" />
