@@ -134,6 +134,18 @@
 									<systemPropertyVariables>
                                         <build.version>${product.version}</build.version>
                                     </systemPropertyVariables>
+                                    <buildArgs>
+                                        <buildArg>-H:Log=registerResource:verbose</buildArg>
+                                        
+                                        <!-- https://github.com/oracle/graal/issues/6648 -->
+                                        <buildArg>-H:TempDirectory=${project.build.directory}/tmp</buildArg>
+                                        
+                                        <buildArg>-R:MaxHeapSize=64m</buildArg>
+                                        <buildArg>--install-exit-handlers</buildArg>
+                                        
+                                        <!--TODO This should not be necessary! For some reason native-image-annotations is not working for these -->
+                                        <buildArg>-H:IncludeResources=win32.*</buildArg>
+                                    </buildArgs>
 								</configuration>
 							</execution>
 						</executions>
