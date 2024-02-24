@@ -27,7 +27,7 @@ pipeline {
                             withMaven(
                                 globalMavenSettingsConfig: '4bc608a8-6e52-4765-bd72-4763f45bfbde'
                             ) {
-                                sh 'mvn -U  ' +
+                                sh 'mvn -U -pl lib ' +
                                    '-Dbuild.projectProperties=$BUILD_PROPERTIES ' +
                                    'clean deploy'
                             }
