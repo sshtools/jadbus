@@ -28,6 +28,7 @@ pipeline {
                                 globalMavenSettingsConfig: '14324b85-c597-44e8-a575-61f925dba528'
                             ) {
                                 sh 'mvn -U -pl lib ' +
+                                   '-DperformRelease=true ' +
                                    '-Dbuild.projectProperties=$BUILD_PROPERTIES ' +
                                    'clean deploy'
                             }
