@@ -26,6 +26,7 @@ import org.slf4j.event.Level;
 import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.UncheckedIOException;
 import java.lang.ProcessBuilder.Redirect;
@@ -157,6 +158,12 @@ public class DBusDaemon implements Closeable, Callable<Integer> {
 
     @Override
     public Integer call() throws Exception {
+        if(Boolean.getBoolean("jadbus.redirectStd")) {
+            var strm = new PrintStream(new File("jadbus.log"));
+            System.setErr(strm);
+            System.setOut(strm);  
+                    
+        }
 
         level.ifPresent(lvl -> System.getProperty("org.slf4j.simpleLogger.defaultLogLevel", lvl.toString()));
         LOGGER = LoggerFactory.getLogger(DBusDaemon.class);

@@ -133,6 +133,7 @@
 									</metadataRepository>
 									<systemPropertyVariables>
                                         <build.version>${product.version}</build.version>
+                                        <jadbus.redirectStd>true</jadbus.redirectStd>
                                     </systemPropertyVariables>
                                     <buildArgs>
                                         <buildArg>-H:Log=registerResource:verbose</buildArg>
