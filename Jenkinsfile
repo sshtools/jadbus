@@ -64,6 +64,7 @@ pipeline {
 					 			globalMavenSettingsConfig: '4bc608a8-6e52-4765-bd72-4763f45bfbde'
 					 		) {
 					 		  	bat 'mvn -U -Dinstall4j.verbose=true -Dbuild.mediaTypes=windows,windowsArchive ' +
+					 		  	    '-Dinstall4j.exe.suffix=.exe ' +
 					 		  	    '"-Dbuild.projectProperties=%BUILD_PROPERTIES%" ' +
 					 		  	   '-P cross-platform,installers ' +
 				 		  	        'clean package'
