@@ -21,6 +21,12 @@
     </variables>
     <codeSigning macEnabled="true" macPkcs12File="${compiler:install4j.macPkcs12File}" windowsEnabled="true" windowsKeySource="windows" macNotarize="true" appleId="${compiler:install4j.appleId}">
       <windowsKeystoreIdentifier issuer="${compiler:install4j.windowsKeystoreIssuer}" serial="${compiler:install4j.windowsKeystoreSerial}" subject="${compiler:install4j.windowsKeystoreSubject}" />
+      <macAdditionalBinaries>
+        <entry>*.dylib</entry>
+        <entry>*.so</entry>
+        <entry>*.jnilib</entry>
+        <entry>jadbus-daemon${compiler:install4j.exe.suffix}</entry>
+      </macAdditionalBinaries>
       <macSearchedJars>
         <entry>jna-*</entry>
         <entry>swt-*</entry>
