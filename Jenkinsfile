@@ -20,7 +20,7 @@ pipeline {
                                 configFile(
                                     fileId: 'b60f3998-d8fd-434b-b3c8-ed52aa52bc2e',  
                                     replaceTokens: true,
-                                    targetLocation: 'hypersocket.build.properties',
+                                    targetLocation: 'jadaptive.build.properties',
                                     variable: 'BUILD_PROPERTIES'
                                 )
                             ]) {
@@ -48,7 +48,7 @@ pipeline {
 					 			configFile(
 					 				fileId: 'b60f3998-d8fd-434b-b3c8-ed52aa52bc2e',  
 					 				replaceTokens: true,
-					 				targetLocation: 'hypersocket.build.properties',
+					 				targetLocation: 'jadaptive.build.properties',
 					 				variable: 'BUILD_PROPERTIES'
 					 			)
 					 		]) {
@@ -84,7 +84,7 @@ pipeline {
 					 			configFile(
 					 				fileId: 'b60f3998-d8fd-434b-b3c8-ed52aa52bc2e',  
 					 				replaceTokens: true,
-					 				targetLocation: 'hypersocket.build.properties',
+					 				targetLocation: 'jadaptive.build.properties',
 					 				variable: 'BUILD_PROPERTIES'
 					 			)
 					 		]) {
@@ -121,7 +121,7 @@ pipeline {
 					 			configFile(
 					 				fileId: 'b60f3998-d8fd-434b-b3c8-ed52aa52bc2e',  
 					 				replaceTokens: true,
-					 				targetLocation: 'hypersocket.build.properties',
+					 				targetLocation: 'jadaptive.build.properties',
 					 				variable: 'BUILD_PROPERTIES'
 					 			)
 					 		]) {
