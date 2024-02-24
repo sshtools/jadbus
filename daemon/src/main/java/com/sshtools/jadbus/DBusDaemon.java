@@ -175,8 +175,14 @@ public class DBusDaemon implements Closeable, Callable<Integer> {
         }
         
         // Check the path
-        var path = address.getParameterValue("path");
-        if(path != null) {
+        if(address.hasParameter("path")) {
+            var path = address.getParameterValue("path");
+            path =  path.replace("\\", File.separator).replace("/", File.separator);
+            
+            address.removeParameter("path");
+            addr = address.toString() + ",path=" + path;
+            address = BusAddress.of(addr);
+            
             var pathObj = Paths.get(path);
             var dir = pathObj.getParent();
             if(dir != null) {
@@ -238,6 +244,7 @@ public class DBusDaemon implements Closeable, Callable<Integer> {
         LOGGER.info("Binding to {}", addr);
 
         LOGGER.debug("About to initialize transport on: {}", address);
+        var path = address.getParameterValue("path");
         transport = TransportBuilder.create(address).
                 configure().
                     withAfterBindCallback(transport -> {
