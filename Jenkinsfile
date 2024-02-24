@@ -18,14 +18,14 @@ pipeline {
                     steps {
                         configFileProvider([
                                 configFile(
-                                    fileId: 'bb62be43-6246-4ab5-9d7a-e1f35e056d69',  
+                                    fileId: 'b60f3998-d8fd-434b-b3c8-ed52aa52bc2e',  
                                     replaceTokens: true,
                                     targetLocation: 'hypersocket.build.properties',
                                     variable: 'BUILD_PROPERTIES'
                                 )
                             ]) {
                             withMaven(
-                                globalMavenSettingsConfig: '4bc608a8-6e52-4765-bd72-4763f45bfbde'
+                                globalMavenSettingsConfig: '14324b85-c597-44e8-a575-61f925dba528'
                             ) {
                                 sh 'mvn -U -pl lib ' +
                                    '-Dbuild.projectProperties=$BUILD_PROPERTIES ' +
@@ -45,14 +45,14 @@ pipeline {
 					steps {
 						configFileProvider([
 					 			configFile(
-					 				fileId: 'bb62be43-6246-4ab5-9d7a-e1f35e056d69',  
+					 				fileId: 'b60f3998-d8fd-434b-b3c8-ed52aa52bc2e',  
 					 				replaceTokens: true,
 					 				targetLocation: 'hypersocket.build.properties',
 					 				variable: 'BUILD_PROPERTIES'
 					 			)
 					 		]) {
 					 		withMaven(
-					 			globalMavenSettingsConfig: '4bc608a8-6e52-4765-bd72-4763f45bfbde'
+					 			globalMavenSettingsConfig: '14324b85-c597-44e8-a575-61f925dba528'
 					 		) {
 					 		  	sh 'mvn -U -Dbuild.mediaTypes=unixInstaller,unixArchive,linuxRPM,linuxDeb ' +
 					 		  	   '-P cross-platform,installers ' +
@@ -81,14 +81,14 @@ pipeline {
 					steps {
 						configFileProvider([
 					 			configFile(
-					 				fileId: 'bb62be43-6246-4ab5-9d7a-e1f35e056d69',  
+					 				fileId: 'b60f3998-d8fd-434b-b3c8-ed52aa52bc2e',  
 					 				replaceTokens: true,
 					 				targetLocation: 'hypersocket.build.properties',
 					 				variable: 'BUILD_PROPERTIES'
 					 			)
 					 		]) {
 					 		withMaven(
-					 			globalMavenSettingsConfig: '4bc608a8-6e52-4765-bd72-4763f45bfbde'
+					 			globalMavenSettingsConfig: '14324b85-c597-44e8-a575-61f925dba528'
 					 		) {
 					 		  	bat 'mvn -U -Dinstall4j.verbose=true -Dbuild.mediaTypes=windows,windowsArchive ' +
 					 		  	    '-Dinstall4j.exe.suffix=.exe ' +
@@ -118,14 +118,14 @@ pipeline {
 					steps {
 						configFileProvider([
 					 			configFile(
-					 				fileId: 'bb62be43-6246-4ab5-9d7a-e1f35e056d69',  
+					 				fileId: 'b60f3998-d8fd-434b-b3c8-ed52aa52bc2e',  
 					 				replaceTokens: true,
 					 				targetLocation: 'hypersocket.build.properties',
 					 				variable: 'BUILD_PROPERTIES'
 					 			)
 					 		]) {
 					 		withMaven(
-					 			globalMavenSettingsConfig: '4bc608a8-6e52-4765-bd72-4763f45bfbde'
+					 			globalMavenSettingsConfig: '14324b85-c597-44e8-a575-61f925dba528'
 					 		) {
 					 			// -Dinstall4j.disableNotarization=true 
 					 		  	sh 'mvn -U -Dbuild.mediaTypes=macos,macosFolder,macosFolderArchive ' +
@@ -155,7 +155,7 @@ pipeline {
     			
     			/* Clean */
     			withMaven(
-		 			globalMavenSettingsConfig: '4bc608a8-6e52-4765-bd72-4763f45bfbde',
+		 			globalMavenSettingsConfig: '14324b85-c597-44e8-a575-61f925dba528',
 		 		) {
 					sh 'mvn clean'
 		 		}
@@ -188,7 +188,7 @@ pipeline {
     			
     			/* Merge all updates.xml into one */
     			withMaven(
-		 			globalMavenSettingsConfig: '4bc608a8-6e52-4765-bd72-4763f45bfbde',
+		 			globalMavenSettingsConfig: '14324b85-c597-44e8-a575-61f925dba528',
 		 		) {
 					sh 'mvn -P merge-installers -pl installer com.sshtools:updatesxmlmerger-maven-plugin:merge'
 		 		}
