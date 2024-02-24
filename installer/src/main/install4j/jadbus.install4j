@@ -76,7 +76,7 @@
         <urlHandler scheme="jaul" />
       </macStaticAssociations>
     </launcher>
-    <launcher name="jadbus-daemon${compiler:install4j.exe.suffix}" id="194" external="true" excludeFromMenu="true" externalFile="jadbus-daemon${compiler:install4j.exe.suffix}" />
+    <launcher name="jadbus-daemon" id="194" external="true" excludeFromMenu="true" externalFile="jadbus-daemon${compiler:install4j.exe.suffix}" />
   </launchers>
   <installerGui autoUpdateDescriptorUrl="https://sshtools-public.s3.eu-west-1.amazonaws.com/jadbus/${compiler:install4j.phase}/updates.xml" useAutoUpdateBaseUrl="true" autoUpdateBaseUrl="https://sshtools-public.s3.eu-west-1.amazonaws.com/jadbus/${compiler:sys.version}/">
     <applications>
