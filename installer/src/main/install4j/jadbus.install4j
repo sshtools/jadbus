@@ -62,8 +62,8 @@
     </components>
   </files>
   <launchers>
-    <launcher name="jadbusmgr" id="181" menuName="Push SFTP GUI">
-      <executable name="jadbusmgr" iconSet="true" executableDir="." stderrFile="${installer:sys.javaHome}/.dj-feet/ui.log" redirectStdout="true" stdoutFile="${installer:sys.javaHome}/.dj-feet/ui.log" executableMode="console" checkConsoleParameter="true" />
+    <launcher name="jadbusmgr" id="181" menuName="Jadbus Manager">
+      <executable name="jadbusmgr" iconSet="true" executableDir="." stderrFile="${installer:sys.javaHome}/.jadbus/ui.log" redirectStdout="true" stdoutFile="${installer:sys.javaHome}/.jadbus/ui.log" executableMode="console" checkConsoleParameter="true" />
       <java mainClass="com.sshtools.jadbus.tools/com.sshtools.jadbus.tools.Manager" mainMode="module" vmParameters="-Dinstall4j.installationDir=${launcher:sys.launcherDirectory}">
         <modulePath>
           <directory location="lib" failOnError="false" />
@@ -206,10 +206,10 @@ return console.askOkCancel(message, true);
               </action>
               <action id="121" beanClass="com.install4j.runtime.beans.actions.desktop.CreateStartMenuEntryAction" actionElevationType="elevated" rollbackBarrierExitCode="0">
                 <serializedBean>
-                  <property name="entryName" type="string">dj-feet</property>
+                  <property name="entryName" type="string">Jadbus</property>
                   <property name="file">
                     <object class="java.io.File">
-                      <string>dj-feet</string>
+                      <string>jadbus</string>
                     </object>
                   </property>
                 </serializedBean>
@@ -533,7 +533,7 @@ return console.askYesNo(message, true);
           </property>
           <property name="executableName" type="string">updater</property>
           <property name="executionMode" type="enum" class="com.install4j.runtime.beans.applications.ExecutionMode" value="UNATTENDED_WITH_PROGRESS" />
-          <property name="splashMessage" type="string">Downloading dj-feet</property>
+          <property name="splashMessage" type="string">Downloading Jadbus</property>
           <property name="unattendedAlerts" type="boolean" value="true" />
           <property name="useCustomIcon" type="boolean" value="true" />
           <property name="windowTitle" type="string">${i18n:updater.WindowTitle("${compiler:sys.fullName}")}</property>
@@ -1343,7 +1343,7 @@ return true;</property>
         <entry location="VC_redist.x64.exe" />
       </exclude>
     </linuxDeb>
-    <windows name="Windows x64" id="34" installDir="dj-feet" architecture="64">
+    <windows name="Windows x64" id="34" installDir="Jadaptive\Jadbus" architecture="64">
       <exclude>
         <entry location="mac" />
         <entry location="linux" />
