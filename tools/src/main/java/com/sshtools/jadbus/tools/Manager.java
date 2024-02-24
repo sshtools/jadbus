@@ -19,7 +19,7 @@ import picocli.CommandLine.Option;
 import picocli.CommandLine.Spec;
 
 @Command(name = "jaul", mixinStandardHelpOptions = true, description = "Register or de-register to and from the Jaul update system", subcommands = {
-        Manager.Register.class, Manager.Deregister.class })
+        Manager.Register.class, Manager.Deregister.class, Manager.Update.class })
 @JaulApp(id = Manager.TOOLBOX_APP_ID, category = AppCategory.SERVICE, updaterId = "54", updatesUrl = "https://sshtools-public.s3.eu-west-1.amazonaws.com/jadbus/${phase}/updates.xml")
 public class Manager implements Callable<Integer> {
 
