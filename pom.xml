@@ -38,16 +38,6 @@
 		<native.image.annotations.version>0.9.1</native.image.annotations.version>
 	</properties>
 	<url>https://jadaptive.com</url>
-    <distributionManagement>
-        <snapshotRepository>
-            <id>ossrh-sshtools</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-        <repository>
-            <id>ossrh-sshtools</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
-    </distributionManagement>
 	<licenses>
 		<license>
 			<name>GPL</name>
