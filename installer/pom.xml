@@ -100,6 +100,7 @@
                             <variables>
                                 <install4j.phase>${install4j.phase}</install4j.phase>
                                 <install4j.appleId>${install4j.appleId}</install4j.appleId>
+                                <install4j.exe.suffix>${install4j.appleId}</install4j.exe.suffix>
                                 <install4j.macSigning>${install4j.macSigning}</install4j.macSigning>
                                 <install4j.macPkcs12File>${install4j.macPkcs12File}</install4j.macPkcs12File>
                                 <install4j.windowsSigning>${install4j.windowsSigning}</install4j.windowsSigning>
