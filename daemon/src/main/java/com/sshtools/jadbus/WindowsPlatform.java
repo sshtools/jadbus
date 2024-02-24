@@ -1,5 +1,6 @@
 package com.sshtools.jadbus;
 
+import com.sshtools.jadbus.lib.OS;
 import com.sun.jna.platform.win32.Advapi32Util;
 
 import org.slf4j.Logger;
@@ -9,7 +10,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.nio.file.attribute.AclEntry;
 import java.nio.file.attribute.AclEntryPermission;
 import java.nio.file.attribute.AclEntryType;
@@ -38,17 +38,6 @@ public class WindowsPlatform implements Platform {
     public long usernameToUid(String username) {
         // TODO Auto-generated method stub
         return 0;
-    }
-
-    @Override
-    public String publicPath(String publicPath) {
-        var publicDir = Paths.get("C:\\Users\\Public");
-        if (Files.exists(publicDir)) {
-            return publicDir.resolve("AppData").resolve("Jadbus").toString();
-        } else {
-            log.warn("{} does not exist, cannot determine path to use for public DBus socket.", publicDir);
-            return publicPath;
-        }
     }
 
     @Override

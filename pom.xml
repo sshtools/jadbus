@@ -38,6 +38,16 @@
 		<native.image.annotations.version>0.9.1</native.image.annotations.version>
 	</properties>
 	<url>https://jadaptive.com</url>
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh-sshtools</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh-sshtools</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
 	<licenses>
 		<license>
 			<name>GPL</name>
@@ -134,6 +144,23 @@
 		</plugins>
 		<pluginManagement>
 			<plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-gpg-plugin</artifactId>
+                    <version>3.1.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.sonatype.plugins</groupId>
+                    <artifactId>nexus-staging-maven-plugin</artifactId>
+                    <version>1.6.13</version>
+                    <extensions>true</extensions>
+                    <configuration>
+                        <serverId>ossrh-sshtools</serverId>
+                        <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                        <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                        <stagingProgressTimeoutMinutes>10</stagingProgressTimeoutMinutes>
+                    </configuration>
+                </plugin>
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>versions-maven-plugin</artifactId>
@@ -192,6 +219,38 @@
 			</plugins>
 		</pluginManagement>
 	</build>
+    <profiles>
+        <profile>
+            <id>release-sign-artifacts</id>
+            <activation>
+                <property>
+                    <name>performRelease</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 	<pluginRepositories>
 		<pluginRepository>
 			<id>ej-technologies</id>
@@ -213,6 +272,7 @@
 	</repositories>
 	<modules>
 		<module>daemon</module>
+        <module>lib</module>
         <module>tools</module>
 		<module>installer</module>
 	</modules>

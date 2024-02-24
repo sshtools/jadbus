@@ -8,9 +8,4 @@ public class MacPlatform extends UnixPlatform {
         return super.usernameToUid(username);
     }
 
-    @Override
-    public String publicPath(String publicPath) {
-        return "/tmp/jadbus";
-    }
-
 }

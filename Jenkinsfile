@@ -8,6 +8,33 @@ pipeline {
 	stages {
 		stage ('Jadbus Installers') {
 			parallel {
+			    /*
+                 * Deploy helper library to maven centrals
+                 */
+                stage ('Deploy Helper Library To Maven Repo') {
+                    agent {
+                        label 'any'
+                    }
+                    steps {
+                        configFileProvider([
+                                configFile(
+                                    fileId: 'bb62be43-6246-4ab5-9d7a-e1f35e056d69',  
+                                    replaceTokens: true,
+                                    targetLocation: 'hypersocket.build.properties',
+                                    variable: 'BUILD_PROPERTIES'
+                                )
+                            ]) {
+                            withMaven(
+                                globalMavenSettingsConfig: '4bc608a8-6e52-4765-bd72-4763f45bfbde'
+                            ) {
+                                sh 'mvn -U  ' +
+                                   '-Dbuild.projectProperties=$BUILD_PROPERTIES ' +
+                                   'clean deploy'
+                            }
+                        }
+                    }
+                }
+                
 				/*
 				 * Linux Installers and Packages
 				 */

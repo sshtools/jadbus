@@ -1,5 +1,6 @@
 package com.sshtools.jadbus;
 
+import com.sshtools.jadbus.lib.JadbusAddress;
 import com.sshtools.jini.INI;
 
 import org.freedesktop.dbus.annotations.DBusMemberName;
@@ -69,9 +70,11 @@ public class DBusDaemon implements Closeable, Callable<Integer> {
 
     public final static class Version implements IVersionProvider {
 
+        private static final String VERSION = System.getProperty("build.version", "Unknown");
+
         @Override
         public String[] getVersion() throws Exception {
-            return new String[] { System.getProperty("build.version", "Unknown") };
+            return new String[] { VERSION };
         }
     }
 
@@ -168,7 +171,7 @@ public class DBusDaemon implements Closeable, Callable<Integer> {
         level.ifPresent(lvl -> System.getProperty("org.slf4j.simpleLogger.defaultLogLevel", lvl.toString()));
         LOGGER = LoggerFactory.getLogger(DBusDaemon.class);
 
-        var addr = processAddress(this.addr.orElseGet(this::defaultAddress));
+        var addr = JadbusAddress.processAddress(this.addr.orElseGet(this::defaultAddress));
 
         var address = BusAddress.of(addr);
         if (!address.hasParameter("listen")) {
@@ -307,9 +310,8 @@ public class DBusDaemon implements Closeable, Callable<Integer> {
         if (unix && !tcp) {
             if (systemBus.orElseGet(platform::isAdministrator)) {
                 var busAddress = BusAddress.of(TransportBuilder.createDynamicSession("UNIX", true));
-                var path = busAddress.getParameterValue("path");
                 busAddress.removeParameter("path");
-                var publicPath = new File(platform.publicPath(path) + "/" + "system-bus") ;
+                var publicPath = JadbusAddress.systemBusPath();
                 return busAddress.toString() + ",path=" + publicPath;
             } else {
                 return "unix:path=~/.jadbus/session-bus";
@@ -317,10 +319,6 @@ public class DBusDaemon implements Closeable, Callable<Integer> {
         } else {
             return TransportBuilder.createDynamicSession("TCP", true);
         }
-    }
-
-    private String processAddress(String addr) {
-        return addr.replace("~", System.getProperty("user.home")).replace("%u", System.getProperty("user.name"));
     }
 
     @DBusMemberName("ReloadConfig")

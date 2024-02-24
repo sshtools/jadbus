@@ -1,5 +1,7 @@
 package com.sshtools.jadbus;
 
+import com.sshtools.jadbus.lib.OS;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -21,10 +23,6 @@ public interface Platform {
     }
     
     boolean  isAdministrator();
-
-    default String publicPath(String publicPath) {
-        return System.getProperty("java.io.tmpdir", "/tmp") + "/jadbus";
-    }
 
     long usernameToUid(String username);
 

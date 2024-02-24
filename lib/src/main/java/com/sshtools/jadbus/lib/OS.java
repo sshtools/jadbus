@@ -1,4 +1,4 @@
-package com.sshtools.jadbus;
+package com.sshtools.jadbus.lib;
 
 public final class OS {
 
