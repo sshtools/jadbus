@@ -260,6 +260,21 @@ public class DBusDaemon implements Closeable, Callable<Integer> {
                 build();
 
         reloadConfig();
+        
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            try {
+                transport.close();
+            } catch (IOException e) {
+            }
+            finally {
+                if(path != null) {
+                    try {
+                        Files.delete(Paths.get(path));
+                    } catch (IOException e) {
+                    }
+                }
+            }
+        }));
 
         thread = new Thread(this::runLoop, getClass().getSimpleName() + "-Thread");
         thread.start();

@@ -1,7 +1,6 @@
 # Jadbus
 
-A DBus daemon for Windows, Mac OS and optionally Linux. While based on dbus-java, it is natively compiled and has a low
-memory footprint and fast start-up, at least compared to when execute with a full runtime.  
+A DBus daemon for Windows, Mac OS and optionally Linux.   
 
 *Linux of course already has it's own dbus broker. It is included here for demonstration purposes, and can co-exist with
 Jadbus*
@@ -17,6 +16,7 @@ Jadbus*
 
  * Installs a system bus service and a user bus on all platforms (in a similar way Linux does).
  * Supplies an environment variable in a users environment indicating location of bus.
+ * Natively compiled. Low memory footprint and fast start up.
  
 ## Caveats
 
