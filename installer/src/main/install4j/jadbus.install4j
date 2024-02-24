@@ -25,7 +25,7 @@
         <entry>*.dylib</entry>
         <entry>*.so</entry>
         <entry>*.jnilib</entry>
-        <entry>jadbus-daemon${compiler:install4j.exe.suffix}</entry>
+        <entry>*jadbus-daemon*</entry>
       </macAdditionalBinaries>
       <macSearchedJars>
         <entry>jna-*</entry>
