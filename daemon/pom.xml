@@ -137,6 +137,9 @@
                                     <buildArgs>
                                         <buildArg>-H:Log=registerResource:verbose</buildArg>
                                         
+                                        <!-- https://github.com/oracle/graal/issues/2900 -->
+                                        <buildArg>-H:+AddAllCharsets</buildArg>
+                                        
                                         <buildArg>-R:MaxHeapSize=64m</buildArg>
                                         <buildArg>--install-exit-handlers</buildArg>
                                         
