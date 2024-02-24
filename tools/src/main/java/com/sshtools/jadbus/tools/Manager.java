@@ -43,7 +43,7 @@ public class Manager implements Callable<Integer> {
         }
     }
 
-    @Command(name = "deregister", mixinStandardHelpOptions = true, description = "Register")
+    @Command(name = "deregister", mixinStandardHelpOptions = true, description = "De-register")
     public final static class Deregister implements Callable<Integer> {
 
         @Override
