@@ -28,8 +28,12 @@ public class JadbusAddress {
     }
     
     public final static String sessionBus() {
+        return sessionBus(true);
+    }
+    
+    public final static String sessionBus(boolean fallbackToStandardEnvVar) {
         var envvar = System.getenv("JADDBUS_SESSION_BUS_ADDRESS");
-        if(envvar == null || envvar.equals("")) {
+        if(fallbackToStandardEnvVar && (envvar == null || envvar.equals(""))) {
             envvar = System.getenv("DBUS_SESSION_BUS_ADDRESS");
         }
         if(envvar == null || envvar.equals("")) {
