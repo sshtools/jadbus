@@ -56,7 +56,7 @@ pipeline {
 					 			globalMavenSettingsConfig: '14324b85-c597-44e8-a575-61f925dba528'
 					 		) {
 					 		  	sh 'mvn -U -Dbuild.mediaTypes=unixInstaller,unixArchive,linuxRPM,linuxDeb ' +
-					 		  	   '-P cross-platform,installers ' +
+					 		  	   '-P cross-platform,native-image,installers ' +
 					 		  	   '-Dbuild.projectProperties=$BUILD_PROPERTIES ' +
 					 		  	   '-DbuildInstaller=true clean package'
 					 		  	
@@ -94,7 +94,7 @@ pipeline {
 					 		  	bat 'mvn -U -Dinstall4j.verbose=true -Dbuild.mediaTypes=windows,windowsArchive ' +
 					 		  	    '-Dinstall4j.exe.suffix=.exe ' +
 					 		  	    '"-Dbuild.projectProperties=%BUILD_PROPERTIES%" ' +
-					 		  	   '-P cross-platform,installers ' +
+					 		  	   '-P cross-platform,native-image,installers ' +
 				 		  	        'clean package'
 					 		  	
 					 		  	/* Stash installers */
