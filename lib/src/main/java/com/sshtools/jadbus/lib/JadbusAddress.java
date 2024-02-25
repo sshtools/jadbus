@@ -22,6 +22,10 @@ public class JadbusAddress {
         }
         return Paths.get(System.getProperty("java.io.tmpdir")).resolve("jadbus").resolve("system-bus");
     }
+
+    public final static String systemBus() {
+    	return "unix:path=" + systemBusPath().toString();
+    }
     
     public final static String sessionBus() {
         var envvar = System.getenv("JADDBUS_SESSION_BUS_ADDRESS");
