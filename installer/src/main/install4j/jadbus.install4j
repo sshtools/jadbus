@@ -44,9 +44,9 @@
   <files>
     <mountPoints>
       <mountPoint id="24" location="lib" />
-      <mountPoint id="142" />
       <mountPoint id="200" location="system-services.d" />
       <mountPoint id="201" location="session-services.d" />
+      <mountPoint id="142" />
     </mountPoints>
     <entries>
       <dirEntry mountPoint="24" file="../../../target/dependencies" subDirectory="dependencies" />
@@ -256,9 +256,8 @@ return console.askOkCancel(message, true);
                   </property>
                   <property name="keepConsoleWindow" type="boolean" value="true" />
                   <property name="logArguments" type="boolean" value="true" />
-                  <property name="stderrRedirectionMode" type="enum" class="com.install4j.runtime.installer.helper.launching.OutputRedirectionMode" value="INHERIT" />
-                  <property name="stdinRedirectionMode" type="enum" class="com.install4j.runtime.installer.helper.launching.InputRedirectionMode" value="INHERIT" />
-                  <property name="stdoutRedirectionMode" type="enum" class="com.install4j.runtime.installer.helper.launching.OutputRedirectionMode" value="INHERIT" />
+                  <property name="stderrRedirectionMode" type="enum" class="com.install4j.runtime.installer.helper.launching.OutputRedirectionMode" value="LOG_FILE" />
+                  <property name="stdoutRedirectionMode" type="enum" class="com.install4j.runtime.installer.helper.launching.OutputRedirectionMode" value="LOG_FILE" />
                   <property name="timeout" type="int" value="20" />
                   <property name="wait" type="boolean" value="true" />
                   <property name="workingDirectory">
@@ -447,9 +446,8 @@ return console.askYesNo(message, true);
                       <string>jadbusmgr</string>
                     </object>
                   </property>
-                  <property name="stderrRedirectionMode" type="enum" class="com.install4j.runtime.installer.helper.launching.OutputRedirectionMode" value="INHERIT" />
-                  <property name="stdinRedirectionMode" type="enum" class="com.install4j.runtime.installer.helper.launching.InputRedirectionMode" value="INHERIT" />
-                  <property name="stdoutRedirectionMode" type="enum" class="com.install4j.runtime.installer.helper.launching.OutputRedirectionMode" value="INHERIT" />
+                  <property name="stderrRedirectionMode" type="enum" class="com.install4j.runtime.installer.helper.launching.OutputRedirectionMode" value="LOG_FILE" />
+                  <property name="stdoutRedirectionMode" type="enum" class="com.install4j.runtime.installer.helper.launching.OutputRedirectionMode" value="LOG_FILE" />
                   <property name="timeout" type="int" value="20" />
                   <property name="wait" type="boolean" value="true" />
                   <property name="workingDirectory">
