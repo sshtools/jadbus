@@ -61,7 +61,7 @@ public class Manager implements Callable<Integer> {
         @Spec
         private CommandSpec spec;
 
-        @Parameters
+        @Parameters(arity = "0..1")
         private Optional<Phase> phase;
 
         @Override
