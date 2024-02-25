@@ -10,9 +10,4 @@ public class UnixPlatform implements Platform {
         return 0;
     }
 
-    @Override
-    public boolean isAdministrator() {
-        return "root".equals(System.getProperty("user.name"));
-    }
-
 }

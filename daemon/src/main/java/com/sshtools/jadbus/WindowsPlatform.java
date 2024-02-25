@@ -1,12 +1,5 @@
 package com.sshtools.jadbus;
 
-import com.sshtools.jadbus.lib.OS;
-import com.sun.jna.platform.win32.Advapi32Util;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -20,7 +13,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
-import java.util.UUID;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.sshtools.jadbus.lib.OS;
+import com.sun.jna.platform.win32.Advapi32Util;
 
 public class WindowsPlatform implements Platform {
     public final static String SID_ADMINISTRATORS_GROUP = "S-1-5-32-544";
@@ -29,7 +27,6 @@ public class WindowsPlatform implements Platform {
     public final static String SID_SYSTEM = "S-1-5-18";
 
     static Logger log = LoggerFactory.getLogger(WindowsPlatform.class);
-    private Boolean administrator;
 
     public WindowsPlatform() {
     }
@@ -50,7 +47,7 @@ public class WindowsPlatform implements Platform {
         file.setWritable(true, true);
         if (OS.isWindows()) {
             List<AclEntry> acl = new ArrayList<>();
-            if (isAdministrator()) {
+            if (OS.isAdministrator()) {
                 try {
                     acl.add(set(true, path, "Administrators", SID_ADMINISTRATORS_GROUP, AclEntryType.ALLOW,
                             AclEntryPermission.values()));
@@ -77,7 +74,7 @@ public class WindowsPlatform implements Platform {
     public void openToEveryone(Path path) throws IOException {
         AclFileAttributeView aclAttr = Files.getFileAttributeView(path, AclFileAttributeView.class);
         List<AclEntry> acl = new ArrayList<>();
-        if (isAdministrator()) {
+        if (OS.isAdministrator()) {
             try {
                 acl.add(set(true, path, "Administrators", SID_ADMINISTRATORS_GROUP, AclEntryType.ALLOW,
                         AclEntryPermission.values()));
@@ -144,27 +141,5 @@ public class WindowsPlatform implements Platform {
         builder.setPrincipal(user);
         builder.setType(type);
         return builder.build();
-    }
-
-    @Override
-    public boolean isAdministrator() {
-        if (administrator != null)
-            return administrator;
-        try {
-            String programFiles = System.getenv("ProgramFiles");
-            if (programFiles == null) {
-                programFiles = "C:\\Program Files";
-            }
-            File temp = new File(programFiles, UUID.randomUUID().toString() + ".txt");
-            temp.deleteOnExit();
-            if (temp.createNewFile()) {
-                temp.delete();
-                return administrator = true;
-            } else {
-                return administrator = false;
-            }
-        } catch (IOException e) {
-            return administrator = false;
-        }
     }
 }

@@ -22,8 +22,6 @@ public interface Platform {
             throw new UnsupportedOperationException("Not supported on this platform.");
     }
     
-    boolean  isAdministrator();
-
     long usernameToUid(String username);
 
     default void restrictToUser(Path path) throws IOException {
