@@ -4,6 +4,7 @@ import com.sshtools.jaul.AppCategory;
 import com.sshtools.jaul.AppRegistry;
 import com.sshtools.jaul.ArtifactVersion;
 import com.sshtools.jaul.JaulApp;
+import com.sshtools.jaul.Phase;
 import com.sshtools.jaul.UpdateDescriptor.MediaType;
 import com.sshtools.jaul.UpdateService;
 
@@ -16,10 +17,11 @@ import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Model.CommandSpec;
 import picocli.CommandLine.Option;
+import picocli.CommandLine.Parameters;
 import picocli.CommandLine.Spec;
 
 @Command(name = "jaul", mixinStandardHelpOptions = true, description = "Register or de-register to and from the Jaul update system", subcommands = {
-        Manager.Register.class, Manager.Deregister.class, Manager.Update.class })
+        Manager.Register.class, Manager.Deregister.class, Manager.Update.class, Manager.SetOrShowPhase.class })
 @JaulApp(id = Manager.TOOLBOX_APP_ID, category = AppCategory.SERVICE, updaterId = "54", updatesUrl = "https://sshtools-public.s3.eu-west-1.amazonaws.com/jadbus/${phase}/updates.xml")
 public class Manager implements Callable<Integer> {
 
@@ -53,6 +55,26 @@ public class Manager implements Callable<Integer> {
         }
     }
 
+    @Command(name = "phase", usageHelpAutoWidth = true, mixinStandardHelpOptions = true, description = "Set or show update phase.")
+    public final static class SetOrShowPhase implements Callable<Integer> {
+
+        @Spec
+        private CommandSpec spec;
+
+        @Parameters
+        private Optional<Phase> phase;
+
+        @Override
+        public Integer call() throws Exception {
+        	phase.ifPresentOrElse(p -> {
+        		updateService().getContext().setPhase(p);
+        	}, () -> 
+        		System.out.println(updateService().getContext().getPhase())
+        	);
+        	return 0;
+        }
+    }
+
     @Command(name = "update", usageHelpAutoWidth = true, mixinStandardHelpOptions = true, description = "Update the client.")
     public final static class Update implements Callable<Integer> {
 
@@ -70,13 +92,7 @@ public class Manager implements Callable<Integer> {
             var console = System.console();
             var writer = console.writer();
             
-            var updateService = UpdateService.autoConsoleUpdateService(
-                    Preferences.userNodeForPackage(Manager.class), 
-                    Optional.empty(), 
-                    Optional.of(AppRegistry.get().get(Manager.class)),
-                    ArtifactVersion.getVersion("com.sshtools", "jadbus-tools"),  
-                    Executors.newSingleThreadScheduledExecutor()
-            );
+            var updateService = updateService();
             
             updateService.checkForUpdate();
             if (updateService.isNeedsUpdating()) {
@@ -104,6 +120,16 @@ public class Manager implements Callable<Integer> {
             return 0;
         }
     }
+
+	protected static UpdateService updateService() {
+		return UpdateService.autoConsoleUpdateService(
+                Preferences.userNodeForPackage(Manager.class), 
+                Optional.empty(), 
+                Optional.of(AppRegistry.get().get(Manager.class)),
+                ArtifactVersion.getVersion("com.sshtools", "jadbus-tools"),  
+                Executors.newSingleThreadScheduledExecutor()
+        );
+	}
 
     public static void main(String[] args) {
         System.exit(new CommandLine(new Manager()).execute(args));
