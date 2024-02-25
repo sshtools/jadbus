@@ -37,7 +37,7 @@ public class JadbusAddress {
             envvar = System.getenv("DBUS_SESSION_BUS_ADDRESS");
         }
         if(envvar == null || envvar.equals("")) {
-            envvar = "~/.jadbus/session-bus";
+            envvar = "unix:path=~/.jadbus/session-bus";
         }
         envvar = processAddress(envvar);
         return envvar;
