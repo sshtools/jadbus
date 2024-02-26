@@ -74,7 +74,6 @@
         </modulePath>
       </java>
       <vmOptionsFile>
-        <content>-Dinstall4j.installationDir=${launcher:sys.launcherDirectory}</content>
       </vmOptionsFile>
       <iconImageFiles>
         <file path="../icons/icon.png" />
