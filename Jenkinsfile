@@ -95,7 +95,7 @@ pipeline {
 					 		  	    '-Dinstall4j.exe.suffix=.exe ' +
 					 		  	    '"-Dbuild.projectProperties=%BUILD_PROPERTIES%" ' +
 					 		  	   '-P cross-platform,native-image,installers ' +
-				 		  	        'clean package'
+				 		  	        '-DbuildInstaller=true clean package'
 					 		  	
 					 		  	/* Stash installers */
 			        			stash includes: 'installer/target/media/*', name: 'windows-jadbus'
@@ -131,8 +131,8 @@ pipeline {
 					 			// -Dinstall4j.disableNotarization=true 
 					 		  	sh 'mvn -U -Dbuild.mediaTypes=macos,macosFolder,macosFolderArchive ' +
 					 		  	   '-Dbuild.projectProperties=$BUILD_PROPERTIES ' +
-					 		  	   '-P cross-platform,installers ' +
-					 		  	   'clean package'
+					 		  	   '-P cross-platform,native0image,installers ' +
+					 		  	   '-DbuildInstaller=true clean package'
 					 		  	
 					 		  	/* Stash installers */
 			        			stash includes: 'installer/target/media/*', name: 'macos-jadbus'
