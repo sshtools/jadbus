@@ -157,6 +157,9 @@ public class DBusDaemon implements Closeable, Callable<Integer> {
     @Option(names = { "--configuration", "-C" }, description = "Path to configuration file. Defaults to conf/dbus.ini.")
     private Optional<Path> configurationPath;
 
+    @Option(names = { "--output", "-O" }, description = "Redirect all other output (logging etc) to a file. When not provided, will be decided based on current environment.")
+    private Optional<Path> outputPath;
+
     @Option(names = { "--print-address", "-r" }, description = "Print the DBus address on stdout.")
     private boolean printaddress;
 
@@ -210,6 +213,7 @@ public class DBusDaemon implements Closeable, Callable<Integer> {
     private Platform platform = Platform.get();
 
     private Thread watchThread;
+	private PrintStream originalOut = System.out;
 
 	public DBusDaemon() {
         names.put("org.freedesktop.DBus", null);
@@ -217,12 +221,7 @@ public class DBusDaemon implements Closeable, Callable<Integer> {
 
     @Override
     public Integer call() throws Exception {
-        if(Boolean.getBoolean("jadbus.redirectStd")) {
-            var strm = new PrintStream(new File("jadbus.log"));
-            System.setErr(strm);
-            System.setOut(strm);  
-                    
-        }
+    	redirectOutput();
 
         level.ifPresent(lvl -> System.getProperty("org.slf4j.simpleLogger.defaultLogLevel", lvl.toString()));
         LOGGER = LoggerFactory.getLogger(DBusDaemon.class);
@@ -264,7 +263,7 @@ public class DBusDaemon implements Closeable, Callable<Integer> {
 
         // print address to stdout
         if (printaddress) {
-            System.out.println(clientAddress.toString());
+        	originalOut.println(clientAddress.toString());
         }
 
         // print address to file
@@ -383,7 +382,8 @@ public class DBusDaemon implements Closeable, Callable<Integer> {
 		        	                	}
 		                			}
 		                			else {
-		                				LOGGER.info("Other file changed in configuration directory or services. {}, {}", event.kind(), event.context());
+		                				if(LOGGER.isTraceEnabled())
+		                					LOGGER.trace("Other file changed in configuration directory or services. {}, {}", event.kind(), event.context());
 		                			}
 	                			}
 	                		}
@@ -720,6 +720,41 @@ public class DBusDaemon implements Closeable, Callable<Integer> {
 			throw new IllegalStateException("Update of activation environment not allowed on system bus.");
 		activationEnvironment.putAll(_environment);
 	}
+
+    private void redirectOutput() {
+		try {
+	    	if(outputPath.isPresent()) {
+			    var strm = new PrintStream(Files.newOutputStream(outputPath.get()));
+	            System.setErr(strm);
+	            System.setOut(strm);
+	    	}
+	    	else if(OS.isDeveloperWorkspace()) {
+	    		return;
+	    	}
+	    	else  {
+	    		var cmdOr = ProcessHandle.current().info().command();
+	    		if(cmdOr.isPresent()) {
+	    			var cmd = cmdOr.get();
+	    			if(cmd.indexOf("java") == -1) {
+	    				Path dir;
+	    				if(OS.isAdministrator()) {
+	    		    		dir = Paths.get(System.getProperty("user.dir")).resolve("logs");
+	    				}
+	    		    	else {
+	    		    		dir = Paths.get(System.getProperty("user.home")).resolve(".jadbus");
+	    		    	}
+			    		Files.createDirectories(dir);
+		    		    var strm = new PrintStream(Files.newOutputStream(dir.resolve("jadbus.log")));
+		                System.setErr(strm);
+		                System.setOut(strm);
+	    			}
+	    		}
+	    	}
+		}
+		catch(IOException ioe) {
+			System.err.println("Failed to setup output redirection. " + ioe.getMessage());
+		}
+    }
 
     private Path configuration() {
     	if(configurationPath.isPresent()) {
