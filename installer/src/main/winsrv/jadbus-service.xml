@@ -1,0 +1,6 @@
+<service>
+  <id>jadbus-daemon</id>
+  <name>Jadbus System Bus</name>
+  <description>A system bus for applications using DBus</description>
+  <executable>%BASE%\jadbus-daemon.exe</executable>
+</service>

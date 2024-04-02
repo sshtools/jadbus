@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <install4j version="10.0.7" transformSequenceNumber="10">
-  <directoryPresets config="../ini/system-bus.ini" />
+  <directoryPresets config="../winsrv/jadbus-service.xml" />
   <application name="Jadbus" applicationId="8481-6265-9451-2326" mediaDir="target/media" mediaFilePattern="${compiler:sys.shortName}-${compiler:sys.platform}-${compiler:sys.version}" shortName="jadbus" publisher="JADAPTIVE Limited" publisherWeb="https://jadaptive.com" version="0.0.1" allPathsRelative="true" convertDotsToUnderscores="false" macVolumeId="ffee23fd2eeafa87" javaMinVersion="21" javaMaxVersion="21">
     <searchSequence>
       <directory location=".install4j/jre.bundle" />
@@ -56,6 +56,8 @@
       <fileEntry mountPoint="142" file="../icons/icon.png" />
       <fileEntry mountPoint="142" file="../ini/session-bus.ini" />
       <fileEntry mountPoint="142" file="../ini/system-bus.ini" />
+      <fileEntry mountPoint="142" file="../winsrv/jadbus-service.exe" />
+      <fileEntry mountPoint="142" file="../winsrv/jadbus-service.xml" />
     </entries>
     <components>
       <component name="Required Components" id="184" changeable="false">
@@ -73,8 +75,6 @@
           <directory location="lib" failOnError="false" />
         </modulePath>
       </java>
-      <vmOptionsFile>
-      </vmOptionsFile>
       <iconImageFiles>
         <file path="../icons/icon.png" />
       </iconImageFiles>
@@ -266,7 +266,7 @@ return console.askOkCancel(message, true);
                   </property>
                 </serializedBean>
               </action>
-              <action id="179" beanClass="com.install4j.runtime.beans.actions.services.InstallServiceAction" actionElevationType="elevated" rollbackBarrierExitCode="0">
+              <action name="Install service (non windows)" id="179" beanClass="com.install4j.runtime.beans.actions.services.InstallServiceAction" actionElevationType="elevated" rollbackBarrierExitCode="0">
                 <serializedBean>
                   <property name="description" type="string">A system bus for applications using DBus</property>
                   <property name="executable">
@@ -278,8 +278,27 @@ return console.askOkCancel(message, true);
                   <property name="macosIdentifier" type="string">com.sshtools.jadbus.SystemDBus</property>
                   <property name="serviceName" type="string">Jadbus System Bus</property>
                 </serializedBean>
+                <condition>!Util.isWindows()</condition>
               </action>
-              <action id="180" beanClass="com.install4j.runtime.beans.actions.services.StartServiceAction" actionElevationType="elevated" rollbackBarrierExitCode="0">
+              <action name="Install service (windows)" id="210" beanClass="com.install4j.runtime.beans.actions.misc.RunExecutableAction" actionElevationType="elevated" rollbackBarrierExitCode="0">
+                <serializedBean>
+                  <property name="arguments" type="array" elementType="string" length="1">
+                    <element index="0">install</element>
+                  </property>
+                  <property name="executable">
+                    <object class="java.io.File">
+                      <string>jadbus-service.exe</string>
+                    </object>
+                  </property>
+                  <property name="workingDirectory">
+                    <object class="java.io.File">
+                      <string>.</string>
+                    </object>
+                  </property>
+                </serializedBean>
+                <condition>Util.isWindows()</condition>
+              </action>
+              <action name="Start service (non windows)" id="180" beanClass="com.install4j.runtime.beans.actions.services.StartServiceAction" actionElevationType="elevated" rollbackBarrierExitCode="0">
                 <serializedBean>
                   <property name="autostartOnly" type="boolean" value="true" />
                   <property name="executable">
@@ -290,6 +309,25 @@ return console.askOkCancel(message, true);
                   <property name="launcherId" type="null" />
                   <property name="serviceName" type="string">Jadbus Sytsem Bus</property>
                 </serializedBean>
+                <condition>!Util.isWindows()</condition>
+              </action>
+              <action name="Start service (windows)" id="211" beanClass="com.install4j.runtime.beans.actions.misc.RunExecutableAction" actionElevationType="elevated" rollbackBarrierExitCode="0">
+                <serializedBean>
+                  <property name="arguments" type="array" elementType="string" length="1">
+                    <element index="0">start</element>
+                  </property>
+                  <property name="executable">
+                    <object class="java.io.File">
+                      <string>jadbus-service.exe</string>
+                    </object>
+                  </property>
+                  <property name="workingDirectory">
+                    <object class="java.io.File">
+                      <string>.</string>
+                    </object>
+                  </property>
+                </serializedBean>
+                <condition>Util.isWindows()</condition>
               </action>
               <action name="Session Bus Autostart (Mac Os and Windows)" id="189" beanClass="com.install4j.runtime.beans.actions.desktop.AddStartupItemAction" actionElevationType="elevated" rollbackBarrierExitCode="0">
                 <serializedBean>
@@ -456,7 +494,7 @@ return console.askYesNo(message, true);
                   </property>
                 </serializedBean>
               </action>
-              <action id="187" beanClass="com.install4j.runtime.beans.actions.services.StopServiceAction" actionElevationType="elevated" rollbackBarrierExitCode="0">
+              <action name="Stop service (non windows)" id="187" beanClass="com.install4j.runtime.beans.actions.services.StopServiceAction" actionElevationType="elevated" rollbackBarrierExitCode="0">
                 <serializedBean>
                   <property name="executable">
                     <object class="java.io.File">
@@ -466,6 +504,42 @@ return console.askYesNo(message, true);
                   <property name="launcherId" type="null" />
                   <property name="serviceName" type="string">Jadbus System Bus</property>
                 </serializedBean>
+              </action>
+              <action name="Stop service (windows)" id="213" beanClass="com.install4j.runtime.beans.actions.misc.RunExecutableAction" actionElevationType="elevated" rollbackBarrierExitCode="0">
+                <serializedBean>
+                  <property name="arguments" type="array" elementType="string" length="1">
+                    <element index="0">stop</element>
+                  </property>
+                  <property name="executable">
+                    <object class="java.io.File">
+                      <string>jadbus-service.exe</string>
+                    </object>
+                  </property>
+                  <property name="workingDirectory">
+                    <object class="java.io.File">
+                      <string>.</string>
+                    </object>
+                  </property>
+                </serializedBean>
+                <condition>Util.isWindows()</condition>
+              </action>
+              <action name="Uninstall service (windows)" id="214" beanClass="com.install4j.runtime.beans.actions.misc.RunExecutableAction" actionElevationType="elevated" rollbackBarrierExitCode="0">
+                <serializedBean>
+                  <property name="arguments" type="array" elementType="string" length="1">
+                    <element index="0">uninstall</element>
+                  </property>
+                  <property name="executable">
+                    <object class="java.io.File">
+                      <string>jadbus-service.exe</string>
+                    </object>
+                  </property>
+                  <property name="workingDirectory">
+                    <object class="java.io.File">
+                      <string>.</string>
+                    </object>
+                  </property>
+                </serializedBean>
+                <condition>Util.isWindows() &amp;&amp; !context.isUninstallForUpgrade()</condition>
               </action>
               <action id="199" beanClass="com.install4j.runtime.beans.actions.files.DeleteFileAction" actionElevationType="elevated" rollbackBarrierExitCode="0">
                 <serializedBean>
@@ -1345,6 +1419,8 @@ return true;</property>
     <linuxDeb name="Linux Deb Archive amd64" id="26" mediaFileName="${compiler:sys.shortName}-${compiler:sys.platform}-amd64-${compiler:sys.version}">
       <exclude>
         <entry location="VC_redist.x64.exe" />
+        <entry location="jadbus-service.exe" />
+        <entry location="jadbus-service.xml" />
       </exclude>
     </linuxDeb>
     <windows name="Windows x64" id="34" installDir="Jadaptive\Jadbus" architecture="64">
@@ -1358,34 +1434,46 @@ return true;</property>
     <macosFolder name="macOS Folder" id="36" architecture="universal" signLaunchers="true">
       <exclude>
         <entry location="VC_redist.x64.exe" />
+        <entry location="jadbus-service.exe" />
+        <entry location="jadbus-service.xml" />
       </exclude>
       <jreBundle usePack200="false" />
     </macosFolder>
     <linuxRPM name="Linux RPM x86_64" id="37" mediaFileName="${compiler:sys.shortName}-${compiler:sys.platform}-x86_64-${compiler:sys.version}">
       <exclude>
         <entry location="VC_redist.x64.exe" />
+        <entry location="jadbus-service.exe" />
+        <entry location="jadbus-service.xml" />
       </exclude>
     </linuxRPM>
     <unixInstaller name="Linux Installer amd64" id="116" mediaFileName="${compiler:sys.shortName}-linux-amd64-${compiler:sys.version}">
       <exclude>
         <entry location="VC_redist.x64.exe" />
+        <entry location="jadbus-service.exe" />
+        <entry location="jadbus-service.xml" />
       </exclude>
     </unixInstaller>
     <unixInstaller name="Linux Installer aarch64" id="133" mediaFileName="${compiler:sys.shortName}-linux-aarch64-${compiler:sys.version}">
       <exclude>
         <entry location="VC_redist.x64.exe" />
+        <entry location="jadbus-service.exe" />
+        <entry location="jadbus-service.xml" />
       </exclude>
       <jreBundle platform="linux-aarch64" />
     </unixInstaller>
     <linuxDeb name="Linux Deb Archive aarch64" id="136" mediaFileName="${compiler:sys.shortName}-${compiler:sys.platform}-aarch64-${compiler:sys.version}">
       <exclude>
         <entry location="VC_redist.x64.exe" />
+        <entry location="jadbus-service.exe" />
+        <entry location="jadbus-service.xml" />
       </exclude>
       <jreBundle platform="linux-aarch64" />
     </linuxDeb>
     <linuxRPM name="Linux RPM aarch64" id="139" mediaFileName="${compiler:sys.shortName}-${compiler:sys.platform}-aarch64-${compiler:sys.version}">
       <exclude>
         <entry location="VC_redist.x64.exe" />
+        <entry location="jadbus-service.exe" />
+        <entry location="jadbus-service.xml" />
       </exclude>
       <jreBundle platform="linux-aarch64" />
     </linuxRPM>
