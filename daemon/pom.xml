@@ -135,6 +135,7 @@
 								</goals>
 								<phase>package</phase>
 								<configuration>
+									<skip>false</skip>
 									<mainClass>com.sshtools.jadbus.DBusDaemon</mainClass>
 									<imageName>jadbus-daemon</imageName>
 									<metadataRepository>
@@ -163,5 +164,56 @@
 				</plugins>
 			</build>
 		</profile>
+         <!-- Native Driver Activation -->
+        <profile>
+            <id>windows</id>
+            <activation>
+                <os>
+                    <family>windows</family>
+                </os>
+            </activation>
+            
+            <build>
+				<plugins>
+					<plugin>
+						<groupId>org.graalvm.buildtools</groupId>
+						<artifactId>native-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>jadbus-daemon</id>
+								<goals>
+									<goal>compile-no-fork</goal>
+								</goals>
+								<phase>package</phase>
+								<configuration>
+                                    <buildArgs>
+                                        <buildArg>-H:NativeLinkerOption=/SUBSYSTEM:WINDOWS</buildArg>
+                                        <buildArg>-H:NativeLinkerOption=/ENTRY:mainCRTStartup</buildArg>
+                                    </buildArgs>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+        </profile>
+        <profile>
+            <id>linux</id>
+            <activation>
+                <os>
+                    <family>linux</family>
+                </os>
+            </activation>
+            <dependencies>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>macos</id>
+            <activation>
+                <os>
+                    <family>mac</family>
+                </os>
+            </activation>
+        </profile>
 	</profiles>
 </project>
