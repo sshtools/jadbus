@@ -789,7 +789,10 @@ public class DBusDaemon implements Closeable, Callable<Integer> {
                 var publicPath = JadbusAddress.systemBusPath();
                 return busAddress.toString() + ",path=" + publicPath;
             } else {
-                return "unix:path=~/.jadbus/session-bus";
+            	if(OS.isWindows())
+            		return "unix:path=%LOCALAPPDATA%\\DBus-Java\\%u";
+            	else
+            		return "unix:path=~/.jadbus/session-bus";
             }
         } else {
             return TransportBuilder.createDynamicSession("TCP", true);
