@@ -3,11 +3,14 @@ package com.sshtools.jadbus.lib;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Objects;
 
 public class JadbusAddress {
 
     public final static String processAddress(String address) {
-        return address.replace("~", System.getProperty("user.home")).replace("%u", System.getProperty("user.name"));
+        return address.replace("~", System.getProperty("user.home")).
+        		replace("%u", System.getProperty("user.name")).
+        		replace("%LOCALAPPDATA%", Objects.requireNonNullElse(System.getenv("LOCALAPPDATA"), ""));
     }
 
     public final static Path systemBusPath() {
