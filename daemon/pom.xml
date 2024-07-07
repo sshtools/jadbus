@@ -187,6 +187,11 @@
 								<phase>package</phase>
 								<configuration>
                                     <buildArgs>
+                                        <buildArg>-R:MaxHeapSize=64m</buildArg>
+                                        <buildArg>--install-exit-handlers</buildArg>
+                                        <!--TODO This should not be necessary! For some reason native-image-annotations is not working for these -->
+                                        <buildArg>-H:IncludeResources=win32.*</buildArg>
+                                        <buildArg>-H:+AddAllCharsets</buildArg>
                                         <buildArg>-H:NativeLinkerOption=/SUBSYSTEM:WINDOWS</buildArg>
                                         <buildArg>-H:NativeLinkerOption=/ENTRY:mainCRTStartup</buildArg>
                                     </buildArgs>
