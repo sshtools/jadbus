@@ -30,7 +30,7 @@
 		<install4j.macSigning>true</install4j.macSigning>
 		<install4j.macPkcs12File>~/.logonbox-developer-id.p12</install4j.macPkcs12File>
 		<install4j.windowsSigning>true</install4j.windowsSigning>
-		<install4j.updatesBase>http://localhost/${project.name}</install4j.updatesBase>
+		<install4j.updatesBase>https://sshtools-public.s3.eu-west-1.amazonaws.com/jadbus</install4j.updatesBase>
 		<install4j.jaulAppId>com.sshtools.Jadbus</install4j.jaulAppId>
 		<install4j.jaulUpdaterId>54</install4j.jaulUpdaterId>
 		
