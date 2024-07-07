@@ -124,6 +124,11 @@
 				<version>${dbus.version}</version>
 			</dependency>
 			<dependency>
+				<groupId>com.github.hypfvieh</groupId>
+				<artifactId>dbus-java-core</artifactId>
+				<version>${dbus.version}</version>
+			</dependency>
+			<dependency>
 				<groupId>com.sshtools</groupId>
 				<artifactId>dbus-java-transport-ssh</artifactId>
 				<version>0.9.0-SNAPSHOT</version>
@@ -291,7 +296,6 @@
 	<modules>
 		<module>daemon</module>
         <module>lib</module>
-        <module>tools</module>
 		<module>installer</module>
 	</modules>
 </project>

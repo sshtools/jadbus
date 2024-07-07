@@ -79,6 +79,7 @@
             <id>installers</id>
             <build>
 				<plugins>
+				
 		            <plugin>
 		                <groupId>org.apache.maven.plugins</groupId>
 		                <artifactId>maven-dependency-plugin</artifactId>
@@ -98,6 +99,25 @@
 		                            <outputDirectory>${project.build.directory}/dependencies</outputDirectory>
 		                        </configuration>
 		                    </execution>
+							<execution>
+								<id>copy-jaul</id>
+								<phase>package</phase>
+								<goals>
+									<goal>copy</goal>
+								</goals>
+								<configuration>
+									<stripVersion>false</stripVersion>
+									<outputDirectory>
+										${project.build.directory}/jaul</outputDirectory>
+									<artifactItems>
+										<artifactItem>
+											<groupId>com.sshtools</groupId>
+											<artifactId>jaul</artifactId>
+											<version>0.9.11-SNAPSHOT</version>
+										</artifactItem>
+									</artifactItems>
+								</configuration>
+							</execution>
 		                </executions>
 		            </plugin>
 		            <plugin>
