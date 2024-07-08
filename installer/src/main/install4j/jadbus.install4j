@@ -51,7 +51,7 @@
     <entries>
       <dirEntry mountPoint="24" file="../../../target/dependencies" subDirectory="dependencies" />
       <fileEntry mountPoint="142" file="../../../../LICENSE" />
-      <fileEntry mountPoint="142" file="../../../../daemon/target/jadbus-daemon${compiler:install4j.exe.suffix}" fileMode="755" overrideFileMode="true" />
+      <fileEntry mountPoint="142" file="../../../../daemon/target/jadbus-daemon${compiler:install4j.exe.suffix}" overwriteMode="1" fileMode="755" overrideFileMode="true" overrideOverwriteMode="true" />
       <fileEntry mountPoint="142" file="../redist/VC_redist.x64.exe" />
       <fileEntry mountPoint="142" file="../icons/icon.png" />
       <fileEntry mountPoint="142" file="../ini/session-bus.ini" />
