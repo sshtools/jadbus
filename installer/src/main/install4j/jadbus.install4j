@@ -1396,7 +1396,7 @@ return true;</property>
       </exclude>
       <jreBundle usePack200="false" />
     </windows>
-    <macosFolder name="macOS Folder" id="36" architecture="universal" signLaunchers="true">
+    <macosFolder name="macOS Intel Folder" id="36" mediaFileName="${compiler:sys.shortName}-${compiler:sys.platform}-x86_64-${compiler:sys.version}" signLaunchers="true">
       <exclude>
         <entry location="VC_redist.x64.exe" />
         <entry location="jadbus-service.exe" />
@@ -1442,5 +1442,13 @@ return true;</property>
       </exclude>
       <jreBundle platform="linux-aarch64" />
     </linuxRPM>
+    <macosFolder name="macOS Arm Folder" id="219" mediaFileName="${compiler:sys.shortName}-${compiler:sys.platform}-aarch64-${compiler:sys.version}" architecture="aarch64" signLaunchers="true">
+      <exclude>
+        <entry location="VC_redist.x64.exe" />
+        <entry location="jadbus-service.exe" />
+        <entry location="jadbus-service.xml" />
+      </exclude>
+      <jreBundle usePack200="false" />
+    </macosFolder>
   </mediaSets>
 </install4j>
