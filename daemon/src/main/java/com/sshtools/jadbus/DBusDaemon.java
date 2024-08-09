@@ -609,6 +609,7 @@ public class DBusDaemon implements Closeable, Callable<Integer> {
 	            }
 	        } else {
 	            LOGGER.warn("No configuration file at {}", configurationPath);
+	            configuration = INI.create();
 	        }
     	}
     }
