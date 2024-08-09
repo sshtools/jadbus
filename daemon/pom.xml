@@ -43,6 +43,14 @@
             <version>${native.image.annotations.version}</version> 
             <scope>provided</scope>
         </dependency>
+		<dependency>
+			<groupId>com.github.hypfvieh</groupId>
+			<artifactId>dbus-java-transport-native-unixsocket</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.github.hypfvieh</groupId>
+			<artifactId>dbus-java-transport-junixsocket</artifactId>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
@@ -169,12 +177,12 @@
                 </os>
             </activation>
             
-            <dependencies>
+            <!--<dependencies>
 				<dependency>
 					<groupId>com.github.hypfvieh</groupId>
 					<artifactId>dbus-java-transport-junixsocket</artifactId> 
 				</dependency>
-            </dependencies>
+            </dependencies>-->
             
             <build>
 				<plugins>
@@ -213,12 +221,12 @@
                 </os>
             </activation>
             
-            <dependencies>
+            <!--<dependencies>
 				<dependency>
 					<groupId>com.github.hypfvieh</groupId>
 					<artifactId>dbus-java-transport-junixsocket</artifactId> 
 				</dependency>
-            </dependencies>
+            </dependencies>-->
         </profile>
         <profile>
             <id>macos</id>
@@ -227,13 +235,13 @@
                     <family>mac</family>
                 </os>
             </activation>
-            
+           <!-- 
             <dependencies>
 				<dependency>
 					<groupId>com.github.hypfvieh</groupId>
 					<artifactId>dbus-java-transport-native-unixsocket</artifactId>
 				</dependency>
-            </dependencies>
+            </dependencies>-->
         </profile>
 	</profiles>
 </project>
