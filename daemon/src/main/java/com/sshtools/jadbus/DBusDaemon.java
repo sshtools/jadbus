@@ -68,6 +68,7 @@ import picocli.CommandLine.Option;
  */
 @Command(name = "dbus-java-daemon", mixinStandardHelpOptions = true, description = "Alternative DBus broker", versionProvider = DBusDaemon.Version.class)
 public class DBusDaemon implements Closeable, Callable<Integer> {
+
     public final static class Version implements IVersionProvider {
 
         private static final String VERSION = System.getProperty("build.version", "Unknown");
@@ -223,6 +224,11 @@ public class DBusDaemon implements Closeable, Callable<Integer> {
         level.ifPresent(lvl -> System.getProperty("org.slf4j.simpleLogger.defaultLogLevel", lvl.toString()));
         LOGGER = LoggerFactory.getLogger(DBusDaemon.class);
 
+        if(OS.isMacOs() && "amd64".equals(System.getProperty("os.arch"))) {
+        	System.setProperty("os.arch", "x86_64");
+        	LOGGER.warn("Activating native compiled os.arch workaround");
+        }
+        LOGGER.info("Arch: {}" , System.getProperty("os.arch"));
         var addr = JadbusAddress.processAddress(this.addr.orElseGet(this::defaultAddress));
 
         var address = BusAddress.of(addr);

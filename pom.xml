@@ -9,13 +9,13 @@
 	<packaging>pom</packaging>
 	<description>A DBus Broker based on dbus-java.</description>
 	<properties>
-		<maven.compiler.target>17</maven.compiler.target>
-		<maven.compiler.source>17</maven.compiler.source>
+		<maven.compiler.target>21</maven.compiler.target>
+		<maven.compiler.source>21</maven.compiler.source>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<main.class>coms.sshtools.jadbus.DBusDaemon</main.class>
-		<dbus.version>5.0.0</dbus.version>
-		<graalvm.version>0.10.1</graalvm.version>
+		<dbus.version>5.1.0</dbus.version>
+		<graalvm.version>0.10.2</graalvm.version>
 
 		<build.phase>continuous</build.phase>
 		<build.mediaTypes>
@@ -34,8 +34,8 @@
 		<install4j.jaulAppId>com.sshtools.Jadbus</install4j.jaulAppId>
 		<install4j.jaulUpdaterId>54</install4j.jaulUpdaterId>
 		
-		<picocli.version>4.7.5</picocli.version>
-		<native.image.annotations.version>0.9.1</native.image.annotations.version>
+		<picocli.version>4.7.6</picocli.version>
+		<native.image.annotations.version>0.9.3</native.image.annotations.version>
 	</properties>
 	<url>https://jadaptive.com</url>
 	<licenses>
