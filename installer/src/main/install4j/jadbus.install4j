@@ -287,7 +287,7 @@ return console.askOkCancel(message, true);
                     </object>
                   </property>
                   <property name="launcherId" type="null" />
-                  <property name="serviceName" type="string">Jadbus Sytsem Bus</property>
+                  <property name="serviceName" type="string">Jadbus System Bus</property>
                 </serializedBean>
                 <condition>!Util.isWindows()</condition>
               </action>
