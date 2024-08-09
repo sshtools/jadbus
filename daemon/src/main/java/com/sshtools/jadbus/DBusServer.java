@@ -174,7 +174,7 @@ public class DBusServer implements DBus, Jadbus, Introspectable, Peer {
 
 	@Override
 	public String[] ListActivatableNames() {
-		return dBusDaemon.services.keySet().toArray(new String[0]);
+		return dBusDaemon.getServices().keySet().toArray(new String[0]);
 	}
 
 	@Override
@@ -224,7 +224,7 @@ public class DBusServer implements DBus, Jadbus, Introspectable, Peer {
 
 	@Override
 	public void ReloadConfig() {
-		dBusDaemon.reloadConfig();
+//		dBusDaemon.reloadConfig();
 	}
 
 	@Override

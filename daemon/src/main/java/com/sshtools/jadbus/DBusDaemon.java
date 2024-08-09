@@ -10,12 +10,9 @@ import java.lang.ProcessBuilder.Redirect;
 import java.lang.ref.WeakReference;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardWatchEventKinds;
-import java.nio.file.WatchKey;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.MessageFormat;
@@ -58,6 +55,8 @@ import org.slf4j.event.Level;
 import com.sshtools.jadbus.lib.JadbusAddress;
 import com.sshtools.jadbus.lib.OS;
 import com.sshtools.jini.INI;
+import com.sshtools.jini.config.INISet;
+import com.sshtools.jini.config.Monitor;
 
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
@@ -182,17 +181,15 @@ public class DBusDaemon implements Closeable, Callable<Integer> {
     private boolean startLaunchD;
     private Thread thread;
 
-    private INI configuration;
-                                                                                              private final Map<ConnectionStruct, DBusDaemonReaderThread> conns = new ConcurrentHashMap<>();
-    final Map<String, ConnectionStruct> connsByUnique = new ConcurrentHashMap<>();
-
-    final Map<String, ConnectionStruct> names = Collections.synchronizedMap(new HashMap<>()); // required because of
-
-    // "null" key
-    final BlockingDeque<Pair<Message, WeakReference<ConnectionStruct>>> outqueue = new LinkedBlockingDeque<>();
-
-    final BlockingDeque<Pair<Message, WeakReference<ConnectionStruct>>> inqueue = new LinkedBlockingDeque<>();
+    private INISet configurationSet;
+    private final Map<ConnectionStruct, DBusDaemonReaderThread> conns = new ConcurrentHashMap<>();
+    
+	final Map<String, ConnectionStruct> connsByUnique = new ConcurrentHashMap<>();
+    final Map<String, ConnectionStruct> names = Collections.synchronizedMap(new HashMap<>()); // required because of "null" key
     final List<ConnectionStruct> sigrecips = new ArrayList<>();
+
+    private final BlockingDeque<Pair<Message, WeakReference<ConnectionStruct>>> outqueue = new LinkedBlockingDeque<>();
+    private final BlockingDeque<Pair<Message, WeakReference<ConnectionStruct>>> inqueue = new LinkedBlockingDeque<>();
 
     private final DBusServer dbusServer = new DBusServer(this);
 
@@ -200,15 +197,15 @@ public class DBusDaemon implements Closeable, Callable<Integer> {
     private final AtomicBoolean run = new AtomicBoolean(false);
     private AbstractTransport transport;
 
-    final Map<String, INI> services = new ConcurrentHashMap<>();
+    private final Map<String, INI> services = new ConcurrentHashMap<>();
 
-    final Map<String, String> activationEnvironment = new ConcurrentHashMap<>(System.getenv());
-    final Map<String, Process> servicePids = new ConcurrentHashMap<>();
+    private final Map<String, String> activationEnvironment = new ConcurrentHashMap<>(System.getenv());
+    private final Map<String, Process> servicePids = new ConcurrentHashMap<>();
     private final Map<String, Long> pendingActivation = new ConcurrentHashMap<>();
 
 	private BusAddress clientAddress;
 
-    private Path actualConfigurationPath;
+//    private Path actualConfigurationPath;
 
     private Platform platform = Platform.get();
 
@@ -325,82 +322,87 @@ public class DBusDaemon implements Closeable, Callable<Integer> {
                 build();
 
 
-        actualConfigurationPath = configuration();
-        reloadConfig();
+        configurationSet = configuration();
+        
+        LOGGER.info("DBUS ID: {}", getMachineId());
+        LOGGER.info("DBUS machine ID: {}", getId());
+        
+//        actualConfigurationPath = configuration().do;
+//        reloadConfig();
         
         // watch for config changes
-        var watchService = FileSystems.getDefault().newWatchService();
-        var confDir = actualConfigurationPath.getParent();
-        var servicesDir = getServicesDir();
-        confDir.register(watchService, StandardWatchEventKinds.ENTRY_CREATE, StandardWatchEventKinds.ENTRY_DELETE, StandardWatchEventKinds.ENTRY_MODIFY);
-        if(!confDir.equals(servicesDir)) {
-            servicesDir.register(watchService, StandardWatchEventKinds.ENTRY_CREATE, StandardWatchEventKinds.ENTRY_DELETE, StandardWatchEventKinds.ENTRY_MODIFY);
-        }
-        watchThread =new Thread(() -> {
-        	WatchKey key;
-        	try {
-	            while ((key = watchService.take()) != null) {
-	                for (var event : key.pollEvents()) {
-	                	try {
-	                		var changedPath = (Path)event.context();
-	                		if(changedPath.equals(actualConfigurationPath)) {
-	    	                	if(event.kind().equals(StandardWatchEventKinds.ENTRY_DELETE)) {
-	                    			LOGGER.error("Configuration file {} deleted!", changedPath);
-	    	                	}
-	                			reloadConfig();
-	                		}
-	                		else {
-	                			synchronized(services) {
-		                			if(event.context().toString().endsWith(".service")) {
-		        	                	if(event.kind().equals(StandardWatchEventKinds.ENTRY_DELETE)) {
-		        	                		var srvName = changedPath.toString().substring(0, changedPath.toString().length() - 8);
-		                        			LOGGER.warn("Service {} deleted from {}", srvName, changedPath);
-		                        			services.remove(srvName);
-		                        			var prc = servicePids.get(srvName); 
-		                        			if(prc != null) {
-		                        				LOGGER.warn("{} is currently active, stopping now.");
-		                        				/* TODO maybe need to be more forceful */
-		                        				prc.destroy();
-		                        			}
-		        	                	}
-		        	                	else {
-											var serviceIni = INI.fromFile(servicesDir.resolve(changedPath));
-		                                    var serviceSection = serviceIni.section("D-Bus Service");
-		                                    var name = serviceSection.get("Name");
-		                                    if(changedPath.getFileName().toString().equals(name + ".service")) {
-			                                    var was = services.put(name, serviceIni);
-			                                    if(was == null) {
-			                                    	LOGGER.info("Added service {} from {}", name, changedPath);
-			                                    }
-			                                    else {
-			                                    	LOGGER.info("Changed service {} from {}", name, changedPath);
-			                                    }
-		                                    }
-		                                    else {
-		                                    	LOGGER.warn("Ignoring {}. The service Name inside {} should be the same as the file name, less the .service extension.", changedPath, name);
-		                                    }
-		        	                	}
-		                			}
-		                			else {
-		                				if(LOGGER.isTraceEnabled())
-		                					LOGGER.trace("Other file changed in configuration directory or services. {}, {}", event.kind(), event.context());
-		                			}
-	                			}
-	                		}
-	                	}
-	                	catch(Exception e) {
-	                		LOGGER.error("Failed to handle file change.", e);
-	                	}
-	                }
-	                key.reset();
-	            }
-        	}
-        	catch(InterruptedException ie) {
-        	}
-        	
-        }, "FileChangeMonitor");
-        watchThread.setDaemon(true);
-        watchThread.start();
+//        var watchService = FileSystems.getDefault().newWatchService();
+//        var confDir = actualConfigurationPath.getParent();
+//        var servicesDir = getServicesDir();
+//        confDir.register(watchService, StandardWatchEventKinds.ENTRY_CREATE, StandardWatchEventKinds.ENTRY_DELETE, StandardWatchEventKinds.ENTRY_MODIFY);
+//        if(!confDir.equals(servicesDir)) {
+//            servicesDir.register(watchService, StandardWatchEventKinds.ENTRY_CREATE, StandardWatchEventKinds.ENTRY_DELETE, StandardWatchEventKinds.ENTRY_MODIFY);
+//        }
+//        watchThread =new Thread(() -> {
+//        	WatchKey key;
+//        	try {
+//	            while ((key = watchService.take()) != null) {
+//	                for (var event : key.pollEvents()) {
+//	                	try {
+//	                		var changedPath = (Path)event.context();
+//	                		if(changedPath.equals(actualConfigurationPath)) {
+//	    	                	if(event.kind().equals(StandardWatchEventKinds.ENTRY_DELETE)) {
+//	                    			LOGGER.error("Configuration file {} deleted!", changedPath);
+//	    	                	}
+//	                			reloadConfig();
+//	                		}
+//	                		else {
+//	                			synchronized(services) {
+//		                			if(event.context().toString().endsWith(".service")) {
+//		        	                	if(event.kind().equals(StandardWatchEventKinds.ENTRY_DELETE)) {
+//		        	                		var srvName = changedPath.toString().substring(0, changedPath.toString().length() - 8);
+//		                        			LOGGER.warn("Service {} deleted from {}", srvName, changedPath);
+//		                        			services.remove(srvName);
+//		                        			var prc = servicePids.get(srvName); 
+//		                        			if(prc != null) {
+//		                        				LOGGER.warn("{} is currently active, stopping now.");
+//		                        				/* TODO maybe need to be more forceful */
+//		                        				prc.destroy();
+//		                        			}
+//		        	                	}
+//		        	                	else {
+//											var serviceIni = INI.fromFile(servicesDir.resolve(changedPath));
+//		                                    var serviceSection = serviceIni.section("D-Bus Service");
+//		                                    var name = serviceSection.get("Name");
+//		                                    if(changedPath.getFileName().toString().equals(name + ".service")) {
+//			                                    var was = services.put(name, serviceIni);
+//			                                    if(was == null) {
+//			                                    	LOGGER.info("Added service {} from {}", name, changedPath);
+//			                                    }
+//			                                    else {
+//			                                    	LOGGER.info("Changed service {} from {}", name, changedPath);
+//			                                    }
+//		                                    }
+//		                                    else {
+//		                                    	LOGGER.warn("Ignoring {}. The service Name inside {} should be the same as the file name, less the .service extension.", changedPath, name);
+//		                                    }
+//		        	                	}
+//		                			}
+//		                			else {
+//		                				if(LOGGER.isTraceEnabled())
+//		                					LOGGER.trace("Other file changed in configuration directory or services. {}, {}", event.kind(), event.context());
+//		                			}
+//	                			}
+//	                		}
+//	                	}
+//	                	catch(Exception e) {
+//	                		LOGGER.error("Failed to handle file change.", e);
+//	                	}
+//	                }
+//	                key.reset();
+//	            }
+//        	}
+//        	catch(InterruptedException ie) {
+//        	}
+//        	
+//        }, "FileChangeMonitor");
+//        watchThread.setDaemon(true);
+//        watchThread.start();
        
         
         
@@ -439,6 +441,14 @@ public class DBusDaemon implements Closeable, Callable<Integer> {
 
     }
 
+	public BlockingDeque<Pair<Message, WeakReference<ConnectionStruct>>> getOutQueue() {
+		return outqueue;
+	}
+
+	public BlockingDeque<Pair<Message, WeakReference<ConnectionStruct>>> getInQueue() {
+		return inqueue;
+	}
+
 	@Override
     public void close() {
         run.set(false);
@@ -462,6 +472,10 @@ public class DBusDaemon implements Closeable, Callable<Integer> {
         thread.interrupt();
         watchThread.interrupt();
     }
+
+	public Map<String, INI> getServices() {
+		return services;
+	}
 
     public synchronized boolean isRunning() {
         return run.get();
@@ -548,12 +562,12 @@ public class DBusDaemon implements Closeable, Callable<Integer> {
     }
 
     String getId() {
-        return configuration.getOr("id").map(str -> str.equals("auto") ? getDefaultId() : str)
+        return configurationSet.document().getOr("id").map(str -> str.equals("auto") ? getDefaultId() : str)
                 .orElseGet(() -> getDefaultId());
     }
 
     String getMachineId() {
-        return configuration.getOr("machine-id").map(str -> str.equals("auto") ? getDefaultMachineId() : str)
+        return configurationSet.document().getOr("machine-id").map(str -> str.equals("auto") ? getDefaultMachineId() : str)
                 .orElseGet(() -> getDefaultMachineId());
     }
 
@@ -579,40 +593,38 @@ public class DBusDaemon implements Closeable, Callable<Integer> {
         return exists;
     }
 
-    void reloadConfig() {
-    	LOGGER.info("Reloading configuration");
-    	/* TODO stop any services that are now gone */
-    	/* TODO check pending services */
-    	synchronized(services) {
-	    	services.clear();
-	        if (Files.exists(actualConfigurationPath)) {
-	            configuration = INI.fromFile(actualConfigurationPath);
-	            var servicesDir = getServicesDir();
-	            if (Files.exists(servicesDir) && Files.isDirectory(servicesDir)) {
-	                try (var str = Files.newDirectoryStream(servicesDir)) {
-	                    for (var servicePath : str) {
-	                        var serviceIni = INI.fromFile(servicePath);
-	                        var serviceSection = serviceIni.section("D-Bus Service");
-	                        var name = serviceSection.get("Name");
-                            if(servicePath.getFileName().toString().equals(name + ".service")) {
-                            	services.put(name, serviceIni);
-                            }
-                            else {
-                            	LOGGER.warn("Ignoring {}. The service Name inside {} should be the same as the file name, less the .service extension.", servicePath, name);                            	
-                            }
-	                    }
-	                } catch (IOException ioe) {
-	                    throw new UncheckedIOException(ioe);
-	                }
-	            } else {
-	                LOGGER.warn("No services configuration directory at {} or is not a directory.", servicesDir);
-	            }
-	        } else {
-	            LOGGER.warn("No configuration file at {}", configurationPath);
-	            configuration = INI.create();
-	        }
-    	}
-    }
+//    void reloadConfig() {
+//    	LOGGER.info("Reloading configuration");
+//    	/* TODO stop any services that are now gone */
+//    	/* TODO check pending services */
+//    	synchronized(services) {
+//	    	services.clear();
+//	        if (Files.exists(actualConfigurationPath)) {
+//	            var servicesDir = getServicesDir();
+//	            if (Files.exists(servicesDir) && Files.isDirectory(servicesDir)) {
+//	                try (var str = Files.newDirectoryStream(servicesDir)) {
+//	                    for (var servicePath : str) {
+//	                        var serviceIni = INI.fromFile(servicePath);
+//	                        var serviceSection = serviceIni.section("D-Bus Service");
+//	                        var name = serviceSection.get("Name");
+//                            if(servicePath.getFileName().toString().equals(name + ".service")) {
+//                            	services.put(name, serviceIni);
+//                            }
+//                            else {
+//                            	LOGGER.warn("Ignoring {}. The service Name inside {} should be the same as the file name, less the .service extension.", servicePath, name);                            	
+//                            }
+//	                    }
+//	                } catch (IOException ioe) {
+//	                    throw new UncheckedIOException(ioe);
+//	                }
+//	            } else {
+//	                LOGGER.warn("No services configuration directory at {} or is not a directory.", servicesDir);
+//	            }
+//	        } else {
+//	            LOGGER.warn("No configuration file at {}", configurationPath);
+//	        }
+//    	}
+//    }
 
     void removeConnection(ConnectionStruct _c) {
 
@@ -730,6 +742,7 @@ public class DBusDaemon implements Closeable, Callable<Integer> {
 	            System.setOut(strm);
 	    	}
 	    	else if(OS.isDeveloperWorkspace()) {
+	    		System.err.println("[DEVELOPER] No ojutput redirection, all output to console.");
 	    		return;
 	    	}
 	    	else  {
@@ -756,8 +769,24 @@ public class DBusDaemon implements Closeable, Callable<Integer> {
 			System.err.println("Failed to setup output redirection. " + ioe.getMessage());
 		}
     }
+    
+    private INISet configuration() {
 
-    private Path configuration() {
+	    var bldr = new INISet.Builder(OS.isAdministrator() ? "system-bus" : "session-bus").
+                withMonitor(new Monitor()).
+                withApp("jadbus").
+                withoutSystemPropertyOverrides();
+	    
+	    if(OS.isDeveloperWorkspace()) {
+            bldr.withScopes(com.sshtools.jini.config.INISet.Scope.USER).
+                withPath(com.sshtools.jini.config.INISet.Scope.USER, Paths.get("conf")).
+                withWriteScope(com.sshtools.jini.config.INISet.Scope.USER);
+	    }	        
+	    
+        return bldr.build();
+    }
+    
+    private Path configurationX() {
     	if(configurationPath.isPresent()) {
     		return configurationPath.get();
     	}
@@ -803,7 +832,7 @@ public class DBusDaemon implements Closeable, Callable<Integer> {
     private String getDefaultId() {
         try {
             return Hexdump.toHex(MessageDigest.getInstance("MD5")
-                    .digest((System.getProperty("user.name") + ":" + System.getProperty("user.dir")).getBytes()));
+                    .digest((System.getProperty("user.name") + ":" + System.getProperty("user.dir")).getBytes()), false);
         } catch (NoSuchAlgorithmException _ex) {
             return this.hashCode() + "";
         }
@@ -812,25 +841,11 @@ public class DBusDaemon implements Closeable, Callable<Integer> {
     private String getDefaultMachineId() {
         try {
             return Hexdump.toHex(
-                    MessageDigest.getInstance("MD5").digest(InetAddress.getLocalHost().getHostName().getBytes()));
+                    MessageDigest.getInstance("MD5").digest(InetAddress.getLocalHost().getHostName().getBytes()), false);
         } catch (NoSuchAlgorithmException | UnknownHostException _ex) {
             return this.hashCode() + "";
         }
     }
-
-    private Path getServicesDir() {
-		return configuration.getOr("services").map(p -> { 
-			var a = Paths.get(p);
-			if(a.isAbsolute())
-				return a;
-			else
-				return actualConfigurationPath.getParent().resolve(p);
-			}).orElseGet(() -> getServicesDirForConfigurationFile(actualConfigurationPath));
-	}
-
-    private Path getServicesDirForConfigurationFile(Path path) {
-		return path.getParent().resolve(path.getFileName().toString().replace("bus", "services").replace(".ini", ".d"));
-	}
 
     private String processArg(String arg) {
         var rnd = UUID.randomUUID().toString();

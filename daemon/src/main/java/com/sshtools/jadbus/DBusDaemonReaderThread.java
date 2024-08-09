@@ -53,7 +53,7 @@ public class DBusDaemonReaderThread extends Thread {
             if (null != m) {
             	DBusDaemon.logMessage("Read {} from {}", m, conn.unique);
 
-                this.dBusDaemon.inqueue.add(new Pair<>(m, weakconn));
+                this.dBusDaemon.getInQueue().add(new Pair<>(m, weakconn));
             }
         }
         conn = null;

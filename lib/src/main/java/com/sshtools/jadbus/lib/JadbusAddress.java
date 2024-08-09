@@ -36,6 +36,9 @@ public class JadbusAddress {
     
     public final static String sessionBus(boolean fallbackToStandardEnvVar) {
         var envvar = System.getenv("JADDBUS_SESSION_BUS_ADDRESS");
+        if(!envvar.startsWith("tcp:") && !envvar.startsWith("unix:")) {
+        	envvar = "unix:path=" +envvar;
+        }
         if(fallbackToStandardEnvVar && (envvar == null || envvar.equals(""))) {
             envvar = System.getenv("DBUS_SESSION_BUS_ADDRESS");
         }
@@ -45,4 +48,5 @@ public class JadbusAddress {
         envvar = processAddress(envvar);
         return envvar;
     }
+    
 }

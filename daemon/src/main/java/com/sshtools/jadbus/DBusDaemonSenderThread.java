@@ -31,7 +31,7 @@ public class DBusDaemonSenderThread extends Thread {
 
             // block on outqueue
             try {
-                Pair<Message, WeakReference<ConnectionStruct>> pollFirst = this.dBusDaemon.outqueue.take();
+                Pair<Message, WeakReference<ConnectionStruct>> pollFirst = this.dBusDaemon.getOutQueue().take();
                 if (pollFirst != null) {
                     ConnectionStruct connectionStruct = pollFirst.second.get();
                     if (connectionStruct != null) {
