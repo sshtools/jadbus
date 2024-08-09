@@ -37,7 +37,7 @@
         <entry>jansi*</entry>
       </macSearchedJars>
     </codeSigning>
-    <jreBundles jdkProviderId="AdoptOpenJDK" release="21/jdk-21.0.1+12">
+    <jreBundles jdkProviderId="AdoptOpenJDK" release="21/jdk-21.0.4+7">
       <modules />
     </jreBundles>
   </application>
