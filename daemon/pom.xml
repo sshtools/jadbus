@@ -45,11 +45,18 @@
         </dependency>
 		<dependency>
 			<groupId>com.github.hypfvieh</groupId>
-			<artifactId>dbus-java-transport-native-unixsocket</artifactId>
+			<artifactId>dbus-java-transport-junixsocket</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>com.kohlschutter.junixsocket</groupId>
+					<artifactId>junixsocket-core</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
-			<groupId>com.github.hypfvieh</groupId>
-			<artifactId>dbus-java-transport-junixsocket</artifactId>
+		    <groupId>com.kohlschutter.junixsocket</groupId>
+		    <artifactId>junixsocket-common</artifactId>
+		    <version>2.10.0</version>
 		</dependency>
 	</dependencies>
 	<build>
@@ -220,13 +227,6 @@
                     <family>linux</family>
                 </os>
             </activation>
-            
-            <!--<dependencies>
-				<dependency>
-					<groupId>com.github.hypfvieh</groupId>
-					<artifactId>dbus-java-transport-junixsocket</artifactId> 
-				</dependency>
-            </dependencies>-->
         </profile>
         <profile>
             <id>macos</id>
@@ -235,13 +235,6 @@
                     <family>mac</family>
                 </os>
             </activation>
-           <!-- 
-            <dependencies>
-				<dependency>
-					<groupId>com.github.hypfvieh</groupId>
-					<artifactId>dbus-java-transport-native-unixsocket</artifactId>
-				</dependency>
-            </dependencies>-->
         </profile>
 	</profiles>
 </project>

@@ -2,7 +2,6 @@ module com.sshtools.jadbus {
 	requires transitive org.freedesktop.dbus;
 	requires java.prefs;
 	requires transitive static org.freedesktop.dbus.transport.junixsocket;
-	requires transitive static org.freedesktop.dbus.transport.jre;
 	requires static org.freedesktop.dbus.transport.tcp;
 	requires info.picocli; 
 	requires com.sshtools.jini;
