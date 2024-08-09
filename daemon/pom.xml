@@ -15,10 +15,6 @@
 			<artifactId>dbus-java-transport-tcp</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.github.hypfvieh</groupId>
-			<artifactId>dbus-java-transport-junixsocket</artifactId> 
-		</dependency>
-		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-simple</artifactId>
 		</dependency>
@@ -173,6 +169,13 @@
                 </os>
             </activation>
             
+            <dependencies>
+				<dependency>
+					<groupId>com.github.hypfvieh</groupId>
+					<artifactId>dbus-java-transport-junixsocket</artifactId> 
+				</dependency>
+            </dependencies>
+            
             <build>
 				<plugins>
 					<plugin>
@@ -209,7 +212,12 @@
                     <family>linux</family>
                 </os>
             </activation>
+            
             <dependencies>
+				<dependency>
+					<groupId>com.github.hypfvieh</groupId>
+					<artifactId>dbus-java-transport-junixsocket</artifactId> 
+				</dependency>
             </dependencies>
         </profile>
         <profile>
@@ -219,6 +227,13 @@
                     <family>mac</family>
                 </os>
             </activation>
+            
+            <dependencies>
+				<dependency>
+					<groupId>com.github.hypfvieh</groupId>
+					<artifactId>dbus-java-transport-native-unixsocket</artifactId>
+				</dependency>
+            </dependencies>
         </profile>
 	</profiles>
 </project>

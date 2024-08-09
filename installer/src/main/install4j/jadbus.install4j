@@ -1394,6 +1394,9 @@ return true;</property>
         <entry location="linux" />
         <entry location="linux-aarch64" />
       </exclude>
+      <variables>
+        <variable name="install4j.exe.suffix" value=".exe" />
+      </variables>
       <jreBundle usePack200="false" />
     </windows>
     <macosFolder name="macOS Intel Folder" id="36" mediaFileName="${compiler:sys.shortName}-${compiler:sys.platform}-x86_64-${compiler:sys.version}" signLaunchers="true">
@@ -1450,5 +1453,16 @@ return true;</property>
       </exclude>
       <jreBundle usePack200="false" />
     </macosFolder>
+    <windows name="Windows x64 (MSI)" id="222" installDir="Jadaptive\Jadbus" msi="true" msiProductIdType="version" architecture="64">
+      <exclude>
+        <entry location="mac" />
+        <entry location="linux" />
+        <entry location="linux-aarch64" />
+      </exclude>
+      <variables>
+        <variable name="install4j.exe.suffix" value=".exe" />
+      </variables>
+      <jreBundle usePack200="false" />
+    </windows>
   </mediaSets>
 </install4j>
