@@ -56,7 +56,7 @@ pipeline {
 					 			globalMavenSettingsConfig: '14324b85-c597-44e8-a575-61f925dba528'
 					 		) {
 					 		  	sh 'mvn -U -Dinstall4j.mediaTypes=unixInstaller,unixArchive,linuxRPM,linuxDeb ' +
-					 		  	   '-Dbuild.buildIds=26,37,116 '
+					 		  	   '-Dbuild.buildIds=26,37,116 ' +
 					 		  	   '-P cross-platform,native-image,installers ' +
 					 		  	   '-Dbuild.projectProperties=$BUILD_PROPERTIES ' +
 					 		  	   '-DbuildInstaller=true clean package'
@@ -95,7 +95,7 @@ pipeline {
 					 		) {
 					 		  	sh 'mvn -U -Dinstall4j.mediaTypes=unixInstaller,unixArchive,linuxRPM,linuxDeb ' +
 					 		  	   '-P cross-platform,native-image,installers ' +
-					 		  	   '-Dbuild.buildIds=133,136,139 '
+					 		  	   '-Dbuild.buildIds=133,136,139 ' +
 					 		  	   '-Dbuild.projectProperties=$BUILD_PROPERTIES ' +
 					 		  	   '-DbuildInstaller=true clean package'
 					 		  	
