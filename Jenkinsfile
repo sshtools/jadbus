@@ -37,11 +37,11 @@ pipeline {
                 }
                 
 				/*
-				 * Linux Installers and Packages
+				 * Linux AMD64 Installers and Packages
 				 */
-				stage ('Linux Jadbus Installers') {
+				stage ('Linux AMD64 Jadbus Installers') {
 					agent {
-						label 'install4j && linux'
+						label 'install4j && linux && x86_64'
 					}
 					steps {
 						configFileProvider([
@@ -61,11 +61,47 @@ pipeline {
 					 		  	   '-DbuildInstaller=true clean package'
 					 		  	
 					 		  	/* Stash installers */
-			        			stash includes: 'installer/target/media/*', name: 'linux-jadbus'
+			        			stash includes: 'installer/target/media/*', name: 'linux-jadbus-amd64'
 			        			
 			        			/* Stash updates.xml */
 			        			dir('installer/target/media') {
-									stash includes: 'updates.xml', name: 'linux-jadbus-updates-xml'
+									stash includes: 'updates.xml', name: 'linux-jadbus-amd64-updates-xml'
+			        			}
+					 		}
+        				}
+					}
+				}
+                
+				/*
+				 * Linux AARCH64 Installers and Packages
+				 */
+				stage ('Linux AARCH64 Jadbus Installers') {
+					agent {
+						label 'install4j && linux && aarch64'
+					}
+					steps {
+						configFileProvider([
+					 			configFile(
+					 				fileId: 'b60f3998-d8fd-434b-b3c8-ed52aa52bc2e',  
+					 				replaceTokens: true,
+					 				targetLocation: 'jadaptive.build.properties',
+					 				variable: 'BUILD_PROPERTIES'
+					 			)
+					 		]) {
+					 		withMaven(
+					 			globalMavenSettingsConfig: '14324b85-c597-44e8-a575-61f925dba528'
+					 		) {
+					 		  	sh 'mvn -U -Dbuild.mediaTypes=unixInstaller,unixArchive,linuxRPM,linuxDeb ' +
+					 		  	   '-P cross-platform,native-image,installers ' +
+					 		  	   '-Dbuild.projectProperties=$BUILD_PROPERTIES ' +
+					 		  	   '-DbuildInstaller=true clean package'
+					 		  	
+					 		  	/* Stash installers */
+			        			stash includes: 'installer/target/media/*', name: 'linux-jadbus-aarch64'
+			        			
+			        			/* Stash updates.xml */
+			        			dir('installer/target/media') {
+									stash includes: 'updates.xml', name: 'linux-jadbus-aarch64-updates-xml'
 			        			}
 					 		}
         				}
@@ -172,13 +208,17 @@ pipeline {
 				}
 				
 				/* Unstash installers */
-	 		  	unstash 'linux-jadbus'
+	 		  	unstash 'linux-amd64-jadbus'
+	 		  	unstash 'linux-aarch64-jadbus'
 	 		  	unstash 'windows-jadbus'
 	 		  	unstash 'macos-jadbus'
 	 		  	
 				/* Unstash updates.xml */
-	 		  	dir('installer/target/media-linux') {
-	 		  		unstash 'linux-jadbus-updates-xml'
+	 		  	dir('installer/target/media-linux-amd64') {
+	 		  		unstash 'linux-jadbus-amd64-updates-xml'
+    			}
+	 		  	dir('installer/target/media-linux-aarch64') {
+	 		  		unstash 'linux-jadbus-aarch64-updates-xml'
     			}
 	 		  	dir('installer/target/media-windows') {
 	 		  		unstash 'windows-jadbus-updates-xml'
