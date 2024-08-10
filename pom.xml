@@ -17,16 +17,14 @@
 		<dbus.version>5.1.0</dbus.version>
 		<graalvm.version>0.10.2</graalvm.version>
 
-		<build.phase>continuous</build.phase>
-		<build.mediaTypes>
-			windows,unixInstaller,macos,macosFolder,windowsArchive,unixArchive,linuxRPM,linuxDeb,macosArchive,macosFolderArchive</build.mediaTypes>
 		<build.install4j.project>
 			${project.basedir}/src/main/install4j/jadbus.install4j</build.install4j.project>
 		<build.projectProperties>${basedir}/hypersocket.build.properties</build.projectProperties>
 		<build.userProperties>${user.home}/.hypersocket.build.properties</build.userProperties>
 		
-		<install4j.phase>stable</install4j.phase>
 		<install4j.mediaTypes>windows,unixInstaller,macos,macosFolder,windowsArchive,unixArchive,linuxRPM,linuxDeb,macosArchive,macosFolderArchive</install4j.mediaTypes>
+		<install4j.buildIds></install4j.buildIds>
+		<install4j.phase>stable</install4j.phase>
 		<install4j.macSigning>true</install4j.macSigning>
 		<install4j.macPkcs12File>~/.logonbox-developer-id.p12</install4j.macPkcs12File>
 		<install4j.windowsSigning>true</install4j.windowsSigning>
