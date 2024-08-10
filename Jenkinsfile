@@ -89,6 +89,7 @@ pipeline {
 					 			)
 					 		]) {
 					 		withMaven(
+								jdk: 'Graal JDK 21',
 					 			globalMavenSettingsConfig: '14324b85-c597-44e8-a575-61f925dba528'
 					 		) {
 					 		  	sh 'mvn -U -Dbuild.mediaTypes=unixInstaller,unixArchive,linuxRPM,linuxDeb ' +
