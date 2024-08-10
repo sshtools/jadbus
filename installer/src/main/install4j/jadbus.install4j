@@ -105,8 +105,6 @@
             <actions>
               <action id="22" beanClass="com.install4j.runtime.beans.actions.misc.RequestPrivilegesAction" actionElevationType="none" rollbackBarrierExitCode="0">
                 <serializedBean>
-                  <property name="failIfNotObtainedMac" type="boolean" value="false" />
-                  <property name="failIfNotObtainedWin" type="boolean" value="false" />
                   <property name="linuxPrivilegeRequirement" type="enum" class="com.install4j.runtime.beans.actions.misc.PrivilegeRequirement" value="OBTAIN" />
                   <property name="obtainIfAdminMac" type="boolean" value="true" />
                   <property name="obtainIfNormalMac" type="boolean" value="true" />
@@ -369,7 +367,7 @@ X-GNOME-Autostart-enabled=true</property>
                   <property name="mode" type="string">755</property>
                 </serializedBean>
               </action>
-              <action id="215" beanClass="com.sshtools.jaul.RegisterJaulAppAction" rollbackBarrierExitCode="0">
+              <action id="215" beanClass="com.sshtools.jaul.RegisterJaulAppAction" actionElevationType="elevated" rollbackBarrierExitCode="0">
                 <serializedBean>
                   <property name="appCategory" type="enum" class="com.sshtools.jaul.AppCategory" value="SERVICE" />
                 </serializedBean>
