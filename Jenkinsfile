@@ -211,8 +211,8 @@ pipeline {
 				}
 				
 				/* Unstash installers */
-	 		  	unstash 'linux-amd64-jadbus'
-	 		  	unstash 'linux-aarch64-jadbus'
+	 		  	unstash 'linux-jadbus-amd64'
+	 		  	unstash 'linux-jadbus-aarch64'
 	 		  	unstash 'windows-jadbus'
 	 		  	unstash 'macos-jadbus'
 	 		  	
