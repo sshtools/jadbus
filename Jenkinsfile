@@ -55,7 +55,7 @@ pipeline {
 					 		withMaven(
 					 			globalMavenSettingsConfig: '14324b85-c597-44e8-a575-61f925dba528'
 					 		) {
-					 		  	sh 'mvn -U -Dinstall4j.mediaTypes=unixInstaller,unixArchive,linuxRPM,linuxDeb ' +
+					 		  	sh 'mvn -U -Dbuild.mediaTypes=unixInstaller,unixArchive,linuxRPM,linuxDeb ' +
 					 		  	   '-Dbuild.buildIds=26,37,116 ' +
 					 		  	   '-P cross-platform,native-image,installers ' +
 					 		  	   '-Dbuild.projectProperties=$BUILD_PROPERTIES ' +
@@ -93,7 +93,7 @@ pipeline {
 								jdk: 'Graal JDK 21',
 					 			globalMavenSettingsConfig: '14324b85-c597-44e8-a575-61f925dba528'
 					 		) {
-					 		  	sh 'mvn -U -Dinstall4j.mediaTypes=unixInstaller,unixArchive,linuxRPM,linuxDeb ' +
+					 		  	sh 'mvn -U -Dbuild.mediaTypes=unixInstaller,unixArchive,linuxRPM,linuxDeb ' +
 					 		  	   '-P cross-platform,native-image,installers ' +
 					 		  	   '-Dbuild.buildIds=133,136,139 ' +
 					 		  	   '-Dbuild.projectProperties=$BUILD_PROPERTIES ' +
@@ -130,7 +130,7 @@ pipeline {
 					 		withMaven(
 					 			globalMavenSettingsConfig: '14324b85-c597-44e8-a575-61f925dba528'
 					 		) {
-					 		  	bat 'mvn -U -Dinstall4j.verbose=true -Dinstall4j.mediaTypes=windows,windowsArchive ' +
+					 		  	bat 'mvn -U -Dinstall4j.verbose=true -Dbuild.mediaTypes=windows,windowsArchive ' +
 					 		  	    '-Dinstall4j.exe.suffix=.exe ' +
 					 		  	    '"-Dbuild.projectProperties=%BUILD_PROPERTIES%" ' +
 					 		  	   '-P cross-platform,native-image,installers ' +
@@ -168,7 +168,7 @@ pipeline {
 					 			globalMavenSettingsConfig: '14324b85-c597-44e8-a575-61f925dba528'
 					 		) {
 					 			// -Dinstall4j.disableNotarization=true 
-					 		  	sh 'mvn -U -Dinstall4j.mediaTypes=macos,macosFolder,macosFolderArchive ' +
+					 		  	sh 'mvn -U -Dbuild.mediaTypes=macos,macosFolder,macosFolderArchive ' +
 					 		  	   '-Dbuild.projectProperties=$BUILD_PROPERTIES ' +
 					 		  	   '-P cross-platform,native-image,installers ' +
 					 		  	   '-DbuildInstaller=true clean package'

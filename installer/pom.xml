@@ -146,8 +146,8 @@
 		                                <install4j.jaulUpdaterId>${install4j.jaulUpdaterId}</install4j.jaulUpdaterId>
 		                            </variables>
 		                            <release>${product.version}-${build.number}</release>
-		                            <mediaTypes>${install4j.mediaTypes}</mediaTypes>
-		                            <buildIds>${install4j.buildIds}</buildIds>
+		                            <mediaTypes>${build.mediaTypes}</mediaTypes>
+		                            <buildIds>${build.buildIds}</buildIds>
 		                            <projectFile>${build.install4j.project}</projectFile>
 		                        </configuration>
 		                    </execution>
