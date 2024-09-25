@@ -2,7 +2,14 @@ pipeline {
  	agent none
  	tools {
 		maven 'Maven 3.9.0' 
-		jdk 'Graal JDK 21' 
+		jdk 'Graal JDK 22' 
+	}
+	
+	environment {
+	    /* Constants / Configuration */
+	    BUILD_PROPERTIES_ID = "b60f3998-d8fd-434b-b3c8-ed52aa52bc2e"
+	    BUILD_PROPERTIES_NAME = "jadaptive.build.properties"
+	    MAVEN_CONFIG_ID = "14324b85-c597-44e8-a575-61f925dba528"
 	}
 
 	stages {
@@ -18,14 +25,14 @@ pipeline {
                     steps {
                         configFileProvider([
                                 configFile(
-                                    fileId: 'b60f3998-d8fd-434b-b3c8-ed52aa52bc2e',  
-                                    replaceTokens: true,
-                                    targetLocation: 'jadaptive.build.properties',
-                                    variable: 'BUILD_PROPERTIES'
+					 				fileId: "${env.BUILD_PROPERTIES_ID}",  
+					 				replaceTokens: true,
+					 				targetLocation: "${env.BUILD_PROPERTIES_NAME}",
+					 				variable: 'BUILD_PROPERTIES'
                                 )
                             ]) {
                             withMaven(
-                                globalMavenSettingsConfig: '14324b85-c597-44e8-a575-61f925dba528'
+					 			globalMavenSettingsConfig: "${env.MAVEN_CONFIG_ID}"
                             ) {
                                 sh 'mvn -U ' +
                                    '-DperformRelease=true ' +
@@ -46,14 +53,14 @@ pipeline {
 					steps {
 						configFileProvider([
 					 			configFile(
-					 				fileId: 'b60f3998-d8fd-434b-b3c8-ed52aa52bc2e',  
+					 				fileId: "${env.BUILD_PROPERTIES_ID}",  
 					 				replaceTokens: true,
-					 				targetLocation: 'jadaptive.build.properties',
+					 				targetLocation: "${env.BUILD_PROPERTIES_NAME}",
 					 				variable: 'BUILD_PROPERTIES'
 					 			)
 					 		]) {
 					 		withMaven(
-					 			globalMavenSettingsConfig: '14324b85-c597-44e8-a575-61f925dba528'
+					 			globalMavenSettingsConfig: "${env.MAVEN_CONFIG_ID}"
 					 		) {
 					 		  	sh 'mvn -U -Dbuild.mediaTypes=unixInstaller,unixArchive,linuxRPM,linuxDeb ' +
 					 		  	   '-Dbuild.buildIds=26,37,116 ' +
@@ -77,23 +84,27 @@ pipeline {
 				 * Linux AARCH64 Installers and Packages
 				 */
 				stage ('Linux AARCH64 Jadbus Installers') {
+					/*
+					when {
+        				expression { false }
+      				}
+      				*/
 					agent {
 						label 'install4j && linux && aarch64'
 					}
 					steps {
 						configFileProvider([
 					 			configFile(
-					 				fileId: 'b60f3998-d8fd-434b-b3c8-ed52aa52bc2e',  
+					 				fileId: "${env.BUILD_PROPERTIES_ID}",  
 					 				replaceTokens: true,
-					 				targetLocation: 'jadaptive.build.properties',
+					 				targetLocation: "${env.BUILD_PROPERTIES_NAME}",
 					 				variable: 'BUILD_PROPERTIES'
 					 			)
 					 		]) {
 					 		withMaven(
-								jdk: 'Graal JDK 21',
-					 			globalMavenSettingsConfig: '14324b85-c597-44e8-a575-61f925dba528'
+					 			globalMavenSettingsConfig: "${env.MAVEN_CONFIG_ID}"
 					 		) {
-					 		  	sh 'mvn -U -Dbuild.mediaTypes=unixInstaller,unixArchive,linuxRPM,linuxDeb ' +
+					 		  	sh 'mvn -X -U -Dbuild.mediaTypes=unixInstaller,unixArchive,linuxRPM,linuxDeb ' +
 					 		  	   '-P cross-platform,native-image,installers ' +
 					 		  	   '-Dbuild.buildIds=133,136,139 ' +
 					 		  	   '-Dbuild.projectProperties=$BUILD_PROPERTIES ' +
@@ -121,14 +132,14 @@ pipeline {
 					steps {
 						configFileProvider([
 					 			configFile(
-					 				fileId: 'b60f3998-d8fd-434b-b3c8-ed52aa52bc2e',  
+					 				fileId: "${env.BUILD_PROPERTIES_ID}",  
 					 				replaceTokens: true,
-					 				targetLocation: 'jadaptive.build.properties',
+					 				targetLocation: "${env.BUILD_PROPERTIES_NAME}",
 					 				variable: 'BUILD_PROPERTIES'
 					 			)
 					 		]) {
 					 		withMaven(
-					 			globalMavenSettingsConfig: '14324b85-c597-44e8-a575-61f925dba528'
+					 			globalMavenSettingsConfig: "${env.MAVEN_CONFIG_ID}"
 					 		) {
 					 		  	bat 'mvn -U -Dinstall4j.verbose=true -Dbuild.mediaTypes=windows,windowsArchive ' +
 					 		  	    '-Dinstall4j.exe.suffix=.exe ' +
@@ -149,36 +160,75 @@ pipeline {
 				}
 				
 				/*
-				 * MacOS installers
+				 * MacOS Intel installers
 				 */
 				stage ('MacOS Jadbus Installers') {
 					agent {
-						label 'install4j && macos'
+						label 'install4j && macos && x86_64'
 					}
 					steps {
 						configFileProvider([
 					 			configFile(
-					 				fileId: 'b60f3998-d8fd-434b-b3c8-ed52aa52bc2e',  
+					 				fileId: "${env.BUILD_PROPERTIES_ID}",  
 					 				replaceTokens: true,
-					 				targetLocation: 'jadaptive.build.properties',
+					 				targetLocation: "${env.BUILD_PROPERTIES_NAME}",
 					 				variable: 'BUILD_PROPERTIES'
 					 			)
 					 		]) {
 					 		withMaven(
-					 			globalMavenSettingsConfig: '14324b85-c597-44e8-a575-61f925dba528'
+					 			globalMavenSettingsConfig: "${env.MAVEN_CONFIG_ID}"
 					 		) {
 					 			// -Dinstall4j.disableNotarization=true 
 					 		  	sh 'mvn -U -Dbuild.mediaTypes=macos,macosFolder,macosFolderArchive ' +
 					 		  	   '-Dbuild.projectProperties=$BUILD_PROPERTIES ' +
 					 		  	   '-P cross-platform,native-image,installers ' +
+					 		  	   '-Dbuild.buildIds=36 ' +
 					 		  	   '-DbuildInstaller=true clean package'
 					 		  	
 					 		  	/* Stash installers */
-			        			stash includes: 'installer/target/media/*', name: 'macos-jadbus'
+			        			stash includes: 'installer/target/media/*', name: 'macos-jadbus-amd64'
 			        			
 			        			/* Stash updates.xml */
 			        			dir('installer/target/media') {
-									stash includes: 'updates.xml', name: 'macos-jadbus-updates-xml'
+									stash includes: 'updates.xml', name: 'macos-jadbus-amd64-updates-xml'
+			        			}
+					 		}
+        				}
+					}
+				}
+				
+				/*
+				 * MacOS Aarch64 installers
+				 */
+				stage ('MacOS Aarch64 Jadbus Installers') {
+					agent {
+						label 'install4j && macos && aarch64'
+					}
+					steps {
+						configFileProvider([
+					 			configFile(
+					 				fileId: "${env.BUILD_PROPERTIES_ID}",  
+					 				replaceTokens: true,
+					 				targetLocation: "${env.BUILD_PROPERTIES_NAME}",
+					 				variable: 'BUILD_PROPERTIES'
+					 			)
+					 		]) {
+					 		withMaven(
+					 			globalMavenSettingsConfig: "${env.MAVEN_CONFIG_ID}"
+					 		) {
+					 			// -Dinstall4j.disableNotarization=true 
+					 		  	sh 'mvn -U -Dbuild.mediaTypes=macos,macosFolder,macosFolderArchive ' +
+					 		  	   '-Dbuild.projectProperties=$BUILD_PROPERTIES ' +
+					 		  	   '-P cross-platform,native-image,installers ' +
+					 		  	   '-Dbuild.buildIds=219 ' +
+					 		  	   '-DbuildInstaller=true clean package'
+					 		  	
+					 		  	/* Stash installers */
+			        			stash includes: 'installer/target/media/*', name: 'macos-jadbus-aarch64'
+			        			
+			        			/* Stash updates.xml */
+			        			dir('installer/target/media') {
+									stash includes: 'updates.xml', name: 'macos-jadbus-aarch64-updates-xml'
 			        			}
 					 		}
         				}
@@ -194,9 +244,7 @@ pipeline {
 			steps {
     			
     			/* Clean */
-    			withMaven(
-		 			globalMavenSettingsConfig: '14324b85-c597-44e8-a575-61f925dba528',
-		 		) {
+    			withMaven(globalMavenSettingsConfig: "${env.MAVEN_CONFIG_ID}",) {
 					sh 'mvn clean'
 		 		}
 			
@@ -214,7 +262,8 @@ pipeline {
 	 		  	unstash 'linux-jadbus-amd64'
 	 		  	unstash 'linux-jadbus-aarch64'
 	 		  	unstash 'windows-jadbus'
-	 		  	unstash 'macos-jadbus'
+	 		  	unstash 'macos-jadbus-amd64'
+	 		  	unstash 'macos-jadbus-aarch64'
 	 		  	
 				/* Unstash updates.xml */
 	 		  	dir('installer/target/media-linux-amd64') {
@@ -226,14 +275,15 @@ pipeline {
 	 		  	dir('installer/target/media-windows') {
 	 		  		unstash 'windows-jadbus-updates-xml'
     			}
-	 		  	dir('installer/target/media-macos') {
-	 		  		unstash 'macos-jadbus-updates-xml'
+	 		  	dir('installer/target/media-macos-aarch64') {
+	 		  		unstash 'macos-jadbus-aarch64-updates-xml'
+    			}
+	 		  	dir('installer/target/media-macos-amd64') {
+	 		  		unstash 'macos-jadbus-amd64-updates-xml'
     			}
     			
     			/* Merge all updates.xml into one */
-    			withMaven(
-		 			globalMavenSettingsConfig: '14324b85-c597-44e8-a575-61f925dba528',
-		 		) {
+    			withMaven(globalMavenSettingsConfig: "${env.MAVEN_CONFIG_ID}",) {
 					sh 'mvn -P merge-installers -pl installer com.sshtools:updatesxmlmerger-maven-plugin:merge'
 		 		}
 		 		

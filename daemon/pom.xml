@@ -21,7 +21,7 @@
 		<dependency>
 			<groupId>com.sshtools</groupId>
 			<artifactId>jini-config</artifactId>
-			<version>0.3.3-SNAPSHOT</version>
+			<version>0.3.3</version>
 		</dependency>
         <dependency>
             <groupId>com.sshtools</groupId>
