@@ -313,24 +313,38 @@ return console.askOkCancel(message, true);
                 <serializedBean>
                   <property name="file">
                     <object class="java.io.File">
-                      <string>jadbus-session-bus.app</string>
+                      <string>${installer:sys.installationDir}/jadbus-session-bus.app</string>
                     </object>
                   </property>
-                  <property name="text" type="string">do shell script "${installer:sys.installationDir}/jadbus-daemon"</property>
+                  <property name="text" type="string">do shell script "${installer:sys.installationDir}/jadbus-daemon"
+</property>
                 </serializedBean>
-                <condition>Util.isMacOS()</condition>
+                <condition>Util.isMacOS() || Util.isMacosInstaller()</condition>
+              </action>
+              <action id="227" beanClass="com.install4j.runtime.beans.actions.files.SetModeAction" actionElevationType="elevated" rollbackBarrierExitCode="0">
+                <serializedBean>
+                  <property name="files" type="array" class="java.io.File" length="1">
+                    <element index="0">
+                      <object class="java.io.File">
+                        <string>${installer:sys.installationDir}/jadbus-session-bus.app</string>
+                      </object>
+                    </element>
+                  </property>
+                  <property name="mode" type="string">755</property>
+                </serializedBean>
+                <condition>Util.isMacOS() || Util.isMacosInstaller()</condition>
               </action>
               <action name="Session Bus Autostart (Mac Os)" id="224" beanClass="com.install4j.runtime.beans.actions.desktop.AddStartupItemAction" actionElevationType="elevated" rollbackBarrierExitCode="0">
                 <serializedBean>
                   <property name="allUsers" type="boolean" value="true" />
                   <property name="executable">
                     <object class="java.io.File">
-                      <string>jadbus-session-bus.app</string>
+                      <string>${installer:sys.installationDir}/jadbus-session-bus.app</string>
                     </object>
                   </property>
                   <property name="name" type="string">Session Bus</property>
                 </serializedBean>
-                <condition>Util.isMacOS()</condition>
+                <condition>Util.isMacOS() || Util.isMacosInstaller()</condition>
               </action>
               <action name="Session Bus Autostart (Windows)" id="189" beanClass="com.install4j.runtime.beans.actions.desktop.AddStartupItemAction" actionElevationType="elevated" rollbackBarrierExitCode="0">
                 <serializedBean>
@@ -544,7 +558,7 @@ return console.askYesNo(message, true);
                     </element>
                   </property>
                 </serializedBean>
-                <condition>Util.isMacOS()</condition>
+                <condition>Util.isMacOS() || Util.isMacosInstaller()</condition>
               </action>
               <action name="Uninstall service (windows)" id="214" beanClass="com.install4j.runtime.beans.actions.misc.RunExecutableAction" actionElevationType="elevated" rollbackBarrierExitCode="0">
                 <serializedBean>
