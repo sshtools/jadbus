@@ -313,7 +313,7 @@ return console.askOkCancel(message, true);
                 <serializedBean>
                   <property name="file">
                     <object class="java.io.File">
-                      <string>jaddaemon-session-bus.app</string>
+                      <string>jadbus-session-bus.app</string>
                     </object>
                   </property>
                   <property name="text" type="string">do shell script "${installer:sys.installationDir}/jadbus-daemon"</property>
