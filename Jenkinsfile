@@ -239,7 +239,7 @@ pipeline {
 		
 		stage ('Deploy') {
 			agent {
-				label 'linux'
+				label 'linux && !remote'
 			}
 			steps {
     			
