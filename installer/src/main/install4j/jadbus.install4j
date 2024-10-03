@@ -507,6 +507,28 @@ return console.askYesNo(message, true);
                 </serializedBean>
                 <condition>!Util.isWindows()</condition>
               </action>
+              <action name="Killall Jadbus Daemon (MacOS - mainly for user daemon but just in case)" id="231" beanClass="com.install4j.runtime.beans.actions.misc.RunExecutableAction" actionElevationType="elevated" rollbackBarrierExitCode="0">
+                <serializedBean>
+                  <property name="arguments" type="array" elementType="string" length="1">
+                    <element index="0">jadbus-daemon</element>
+                  </property>
+                  <property name="executable">
+                    <object class="java.io.File">
+                      <string>/usr/bin/killall</string>
+                    </object>
+                  </property>
+                  <property name="logArguments" type="boolean" value="true" />
+                  <property name="stderrRedirectionMode" type="enum" class="com.install4j.runtime.installer.helper.launching.OutputRedirectionMode" value="INHERIT" />
+                  <property name="stdinRedirectionMode" type="enum" class="com.install4j.runtime.installer.helper.launching.InputRedirectionMode" value="INHERIT" />
+                  <property name="stdoutRedirectionMode" type="enum" class="com.install4j.runtime.installer.helper.launching.OutputRedirectionMode" value="INHERIT" />
+                  <property name="workingDirectory">
+                    <object class="java.io.File">
+                      <string>.</string>
+                    </object>
+                  </property>
+                </serializedBean>
+                <condition>Util.isMacOS() || Util.isMacosInstaller()</condition>
+              </action>
               <action id="216" beanClass="com.sshtools.jaul.DeregisterJaulAppAction" rollbackBarrierExitCode="0" />
               <action name="Stop service (non windows)" id="187" beanClass="com.install4j.runtime.beans.actions.services.StopServiceAction" actionElevationType="elevated" rollbackBarrierExitCode="0">
                 <serializedBean>
@@ -589,10 +611,11 @@ return console.askYesNo(message, true);
                   <property name="files" type="array" class="java.io.File" length="1">
                     <element index="0">
                       <object class="java.io.File">
-                        <string>logs</string>
+                        <string>JADBUS Session Bus.app</string>
                       </object>
                     </element>
                   </property>
+                  <property name="recursive" type="boolean" value="true" />
                 </serializedBean>
                 <condition>Util.isMacOS() || Util.isMacosInstaller()</condition>
               </action>
