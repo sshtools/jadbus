@@ -313,6 +313,9 @@ return console.askOkCancel(message, true);
               </action>
               <action name="Mac OS Work Around for Session Bus Launch" id="228" beanClass="com.sshtools.jaul.CreateMacAppAction" actionElevationType="elevated" rollbackBarrierExitCode="0">
                 <serializedBean>
+                  <property name="arguments" type="array" elementType="string" length="1">
+                    <element index="0">-Dapple.awt.UIElement=true</element>
+                  </property>
                   <property name="hideDock" type="boolean" value="true" />
                   <property name="name" type="string">JADBUS Session Bus</property>
                   <property name="target">
