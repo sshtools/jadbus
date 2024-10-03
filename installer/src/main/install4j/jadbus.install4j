@@ -485,7 +485,7 @@ return console.askYesNo(message, true);
           <screen id="27" beanClass="com.install4j.runtime.beans.screens.UninstallationScreen" rollbackBarrierExitCode="0">
             <actions>
               <action id="196" beanClass="com.install4j.runtime.beans.actions.misc.CheckRunningProcessesAction" actionElevationType="none" rollbackBarrierExitCode="0" failureStrategy="quit" />
-              <action name="Killall Jadbus Daemon (mainly for user daemon but just in case)" id="226" beanClass="com.install4j.runtime.beans.actions.misc.RunExecutableAction" rollbackBarrierExitCode="0">
+              <action name="Killall Jadbus Daemon (mainly for user daemon but just in case)" id="226" beanClass="com.install4j.runtime.beans.actions.misc.RunExecutableAction" actionElevationType="elevated" rollbackBarrierExitCode="0">
                 <serializedBean>
                   <property name="arguments" type="array" elementType="string" length="1">
                     <element index="0">jadbus-daemon</element>
@@ -536,18 +536,6 @@ return console.askYesNo(message, true);
                   </property>
                 </serializedBean>
                 <condition>Util.isWindows()</condition>
-              </action>
-              <action name="Delete Mac Session Bus Workaround" id="225" beanClass="com.install4j.runtime.beans.actions.files.DeleteFileAction" actionElevationType="elevated" rollbackBarrierExitCode="0">
-                <serializedBean>
-                  <property name="files" type="array" class="java.io.File" length="1">
-                    <element index="0">
-                      <object class="java.io.File">
-                        <string>jadbus-session-bus.app</string>
-                      </object>
-                    </element>
-                  </property>
-                </serializedBean>
-                <condition>Util.isMacOS() || Util.isMacosInstaller()</condition>
               </action>
               <action name="Uninstall service (windows)" id="214" beanClass="com.install4j.runtime.beans.actions.misc.RunExecutableAction" actionElevationType="elevated" rollbackBarrierExitCode="0">
                 <serializedBean>
