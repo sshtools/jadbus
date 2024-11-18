@@ -429,7 +429,7 @@ X-GNOME-Autostart-enabled=true</property>
                   </property>
                   <property name="executable">
                     <object class="java.io.File">
-                      <string>cmd.exe</string>
+                      <string>${installer:sys.system32Dir}/cmd.exe</string>
                     </object>
                   </property>
                   <property name="logArguments" type="boolean" value="true" />
