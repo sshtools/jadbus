@@ -415,10 +415,33 @@ X-GNOME-Autostart-enabled=true</property>
           </screen>
           <screen id="20" beanClass="com.install4j.runtime.beans.screens.FinishedScreen" styleId="7" rollbackBarrierExitCode="0" finishScreen="true">
             <actions>
-              <action id="119" beanClass="com.install4j.runtime.beans.actions.finish.ExecuteLauncherAction" actionElevationType="none" rollbackBarrierExitCode="0">
+              <action id="119" beanClass="com.install4j.runtime.beans.actions.finish.ExecuteLauncherAction" enabled="false" actionElevationType="none" rollbackBarrierExitCode="0">
                 <serializedBean>
                   <property name="launcherId" type="string">194</property>
                 </serializedBean>
+              </action>
+              <action id="233" beanClass="com.install4j.runtime.beans.actions.misc.RunExecutableAction" actionElevationType="none" rollbackBarrierExitCode="0" errorMessage="Failed to start user JADBUS daemon.">
+                <serializedBean>
+                  <property name="arguments" type="array" elementType="string" length="3">
+                    <element index="0">/c</element>
+                    <element index="1">start</element>
+                    <element index="2">jadbus-daemon${compiler:install4j.exe.suffix}</element>
+                  </property>
+                  <property name="executable">
+                    <object class="java.io.File">
+                      <string>cmd.exe</string>
+                    </object>
+                  </property>
+                  <property name="logArguments" type="boolean" value="true" />
+                  <property name="stderrRedirectionMode" type="enum" class="com.install4j.runtime.installer.helper.launching.OutputRedirectionMode" value="INHERIT" />
+                  <property name="stdoutRedirectionMode" type="enum" class="com.install4j.runtime.installer.helper.launching.OutputRedirectionMode" value="INHERIT" />
+                  <property name="workingDirectory">
+                    <object class="java.io.File">
+                      <string>.</string>
+                    </object>
+                  </property>
+                </serializedBean>
+                <condition>Util.isWindows()</condition>
               </action>
             </actions>
             <formComponents>
