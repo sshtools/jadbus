@@ -443,6 +443,12 @@ X-GNOME-Autostart-enabled=true</property>
                 </serializedBean>
                 <condition>Util.isWindows()</condition>
               </action>
+              <action id="234" beanClass="com.install4j.runtime.beans.actions.control.SleepAction" actionElevationType="none" rollbackBarrierExitCode="0">
+                <serializedBean>
+                  <property name="sleepTimeMs" type="int" value="5000" />
+                </serializedBean>
+                <condition>Util.isWindows()</condition>
+              </action>
             </actions>
             <formComponents>
               <formComponent id="21" beanClass="com.install4j.runtime.beans.formcomponents.MultilineLabelComponent" insetBottom="10">
