@@ -30,7 +30,6 @@ import uk.co.bithatch.nativeimage.annotations.Proxy;
 import uk.co.bithatch.nativeimage.annotations.Reflectable;
 import uk.co.bithatch.nativeimage.annotations.TypeReflect;
 
-@Proxy
 @Reflectable
 @TypeReflect(methods = true, classes = true)
 public class DBusServer implements DBus, Jadbus, Introspectable, Peer {
