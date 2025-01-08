@@ -230,7 +230,46 @@
                 <os>
                     <family>mac</family>
                 </os>
+                
             </activation>
+            
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.graalvm.buildtools</groupId>
+						<artifactId>native-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>jadbus-daemon</id>
+								<goals>
+									<goal>compile-no-fork</goal>
+								</goals>
+								<phase>package</phase>
+								<configuration>
+									<skip>false</skip>
+									<mainClass>com.sshtools.jadbus.DBusDaemon</mainClass>
+									<imageName>jadbus-daemon</imageName>
+									<metadataRepository>
+										<enabled>true</enabled>
+									</metadataRepository>
+									<systemPropertyVariables>
+										<apple.awt.UIElement>true</apple.awt.UIElement>
+										<java.awt.headless>true</java.awt.headless>
+                                        <build.version>${product.version}</build.version>
+                                        <jadbus.redirectStd>true</jadbus.redirectStd>
+                                    </systemPropertyVariables>
+                                    <buildArgs>
+                                        <buildArg>-H:Log=registerResource:verbose</buildArg>                                                                                
+                                        <buildArg>-R:MaxHeapSize=64m</buildArg>
+                                        <buildArg>--install-exit-handlers</buildArg> 
+                                        <buildArg>-H:ConfigurationFileDirectories=src/main/resources/macos-resources</buildArg>                                       
+                                    </buildArgs>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
         </profile>
 	</profiles>
 </project>
