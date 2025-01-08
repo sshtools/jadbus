@@ -2,7 +2,7 @@ pipeline {
  	agent none
  	tools {
 		maven 'Maven 3.9.0' 
-		jdk 'Bellsoft Liberica NIK 23 (JDK 21)' 
+		jdk 'Bellsoft Liberica NIK 24 (JDK 23)' 
 	}
 	
 	environment {
@@ -126,6 +126,11 @@ pipeline {
 				 * Windows installers
 				 */
 				stage ('Windows Jadbus Installers') {
+					
+				 	tools {
+						jdk 'Bellsoft Liberica NIK 23 (JDK 21)' 
+					}
+	
 					agent {
 						label 'install4j && windows'
 					}
