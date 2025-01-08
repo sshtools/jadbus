@@ -84,6 +84,11 @@ public class DBusDaemon implements Closeable, Callable<Integer> {
     private static Logger LOGGER;
 
     public static void main(String[] args) throws Exception {
+    	if(OS.isMacOs()) {
+	    	System.setProperty("java.awt.headless", "true");
+	    	System.setProperty("apple.awt.UIElement", "true");
+	        java.awt.Toolkit.getDefaultToolkit();
+    	}
         System.exit(new CommandLine(new DBusDaemon()).execute(args));
     }
 
