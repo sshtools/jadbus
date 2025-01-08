@@ -2,7 +2,7 @@ pipeline {
  	agent none
  	tools {
 		maven 'Maven 3.9.0' 
-		jdk 'Graal JDK 22' 
+		jdk 'Bellsoft Liberica NIK 24 (JDK 23)' 
 	}
 	
 	environment {
