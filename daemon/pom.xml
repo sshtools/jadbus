@@ -153,7 +153,9 @@
 									<metadataRepository>
 										<enabled>true</enabled>
 									</metadataRepository>
-									<systemPropertyVariables> 
+									<systemPropertyVariables>
+										<apple.awt.UIElement>true</apple.awt.UIElement>
+										<java.awt.headless>true</java.awt.headless>
                                         <build.version>${product.version}</build.version>
                                         <jadbus.redirectStd>true</jadbus.redirectStd>
                                     </systemPropertyVariables>
