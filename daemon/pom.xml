@@ -254,6 +254,7 @@
 									</metadataRepository>
 									<systemPropertyVariables>
 										<apple.awt.UIElement>true</apple.awt.UIElement>
+										<apple.awt.BackgroundOnly>true</apple.awt.BackgroundOnly>
 										<java.awt.headless>true</java.awt.headless>
                                         <build.version>${product.version}</build.version>
                                         <jadbus.redirectStd>true</jadbus.redirectStd>
