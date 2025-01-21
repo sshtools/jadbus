@@ -311,7 +311,7 @@ return console.askOkCancel(message, true);
                 </serializedBean>
                 <condition>Util.isWindows()</condition>
               </action>
-              <action name="Mac OS Work Around for Session Bus Launch" id="228" beanClass="com.sshtools.jaul.CreateMacAppAction" actionElevationType="elevated" rollbackBarrierExitCode="0">
+              <action name="Mac OS Work Around for Session Bus Launch" id="228" beanClass="com.sshtools.jaul.CreateMacAppAction" enabled="false" actionElevationType="elevated" rollbackBarrierExitCode="0">
                 <serializedBean>
                   <property name="arguments" type="array" elementType="string" length="1">
                     <element index="0">-Dapple.awt.UIElement=true</element>
@@ -331,7 +331,7 @@ return console.askOkCancel(message, true);
                   <property name="allUsers" type="boolean" value="true" />
                   <property name="executable">
                     <object class="java.io.File">
-                      <string>${installer:sys.installationDir}/JADBUS Session Bus.app</string>
+                      <string>jadbus-daemon${compiler:install4j.exe.suffix}</string>
                     </object>
                   </property>
                   <property name="name" type="string">Session Bus</property>

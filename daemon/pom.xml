@@ -263,7 +263,11 @@
                                         <buildArg>-H:Log=registerResource:verbose</buildArg>                                                                                
                                         <buildArg>-R:MaxHeapSize=64m</buildArg>
                                         <buildArg>--install-exit-handlers</buildArg> 
-                                        <buildArg>-H:ConfigurationFileDirectories=src/main/macos-resources</buildArg>                                       
+                                        <buildArg>-H:ConfigurationFileDirectories=src/main/macos-resources</buildArg>
+		    							<buildArg>-H:NativeLinkerOption=-sectcreate</buildArg>
+		    							<buildArg>-H:NativeLinkerOption=__TEXT</buildArg>
+		    							<buildArg>-H:NativeLinkerOption=__info_plist</buildArg>
+		    							<buildArg>-H:NativeLinkerOption=${basedir}/src/main/macos/Info.plist</buildArg>                                        
                                     </buildArgs>
 								</configuration>
 							</execution>
