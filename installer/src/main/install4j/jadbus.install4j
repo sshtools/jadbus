@@ -334,6 +334,7 @@ return console.askOkCancel(message, true);
                       <string>jadbus-daemon${compiler:install4j.exe.suffix}</string>
                     </object>
                   </property>
+                  <property name="hide" type="boolean" value="true" />
                   <property name="name" type="string">Session Bus</property>
                 </serializedBean>
                 <condition>Util.isMacOS() || Util.isMacosInstaller()</condition>
