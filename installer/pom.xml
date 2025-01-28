@@ -113,7 +113,7 @@
 										<artifactItem>
 											<groupId>com.sshtools</groupId>
 											<artifactId>jaul</artifactId>
-											<version>0.9.12</version>
+											<version>0.9.14</version>
 										</artifactItem>
 									</artifactItems>
 								</configuration>
