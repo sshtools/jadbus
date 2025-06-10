@@ -21,7 +21,7 @@
       <variable name="install4j.jaulBranches" description="Branches" />
       <variable name="install4j.exe.suffix" description="Suffix for executables" />
     </variables>
-    <codeSigning macEnabled="true" macPkcs12File="${compiler:install4j.macPkcs12File}" windowsEnabled="true" windowsKeySource="windows" macNotarize="true">
+    <codeSigning macEnabled="true" macPkcs12File="${compiler:install4j.macPkcs12File}" windowsEnabled="true" windowsKeySource="windows">
       <windowsKeystoreIdentifier issuer="${compiler:install4j.windowsKeystoreIssuer}" serial="${compiler:install4j.windowsKeystoreSerial}" subject="${compiler:install4j.windowsKeystoreSubject}" />
       <macAdditionalBinaries>
         <entry>*.dylib</entry>
