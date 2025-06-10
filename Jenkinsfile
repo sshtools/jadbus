@@ -159,82 +159,6 @@ pipeline {
         				}
 					}
 				}
-				
-				/*
-				 * MacOS Intel installers
-				 */
-				stage ('MacOS Jadbus Installers') {
-					agent {
-						label 'install4j && macos && x86_64'
-					}
-					steps {
-						configFileProvider([
-					 			configFile(
-					 				fileId: "${env.BUILD_PROPERTIES_ID}",  
-					 				replaceTokens: true,
-					 				targetLocation: "${env.BUILD_PROPERTIES_NAME}",
-					 				variable: 'BUILD_PROPERTIES'
-					 			)
-					 		]) {
-					 		withMaven(
-					 			globalMavenSettingsConfig: "${env.MAVEN_CONFIG_ID}"
-					 		) {
-					 			// -Dinstall4j.disableNotarization=true 
-					 		  	sh 'mvn -U -Dbuild.mediaTypes=macosFolderArchive ' +
-					 		  	   '-Dbuild.projectProperties=$BUILD_PROPERTIES ' +
-					 		  	   '-P cross-platform,native-image,installers ' +
-					 		  	   '-Dbuild.buildIds=36 ' +
-					 		  	   '-DbuildInstaller=true clean package'
-					 		  	
-					 		  	/* Stash installers */
-			        			stash includes: 'installer/target/media/*', name: 'macos-jadbus-amd64'
-			        			
-			        			/* Stash updates.xml */
-			        			dir('installer/target/media') {
-									stash includes: 'updates.xml', name: 'macos-jadbus-amd64-updates-xml'
-			        			}
-					 		}
-        				}
-					}
-				}
-				
-				/*
-				 * MacOS Aarch64 installers
-				 */
-				stage ('MacOS Aarch64 Jadbus Installers') {
-					agent {
-						label 'install4j && macos && aarch64'
-					}
-					steps {
-						configFileProvider([
-					 			configFile(
-					 				fileId: "${env.BUILD_PROPERTIES_ID}",  
-					 				replaceTokens: true,
-					 				targetLocation: "${env.BUILD_PROPERTIES_NAME}",
-					 				variable: 'BUILD_PROPERTIES'
-					 			)
-					 		]) {
-					 		withMaven(
-					 			globalMavenSettingsConfig: "${env.MAVEN_CONFIG_ID}"
-					 		) {
-					 			// -Dinstall4j.disableNotarization=true 
-					 		  	sh 'mvn -U -Dbuild.mediaTypes=macosFolderArchive ' +
-					 		  	   '-Dbuild.projectProperties=$BUILD_PROPERTIES ' +
-					 		  	   '-P cross-platform,native-image,installers ' +
-					 		  	   '-Dbuild.buildIds=219 ' +
-					 		  	   '-DbuildInstaller=true clean package'
-					 		  	
-					 		  	/* Stash installers */
-			        			stash includes: 'installer/target/media/*', name: 'macos-jadbus-aarch64'
-			        			
-			        			/* Stash updates.xml */
-			        			dir('installer/target/media') {
-									stash includes: 'updates.xml', name: 'macos-jadbus-aarch64-updates-xml'
-			        			}
-					 		}
-        				}
-					}
-				}
 			}
 		}
 		
@@ -263,8 +187,6 @@ pipeline {
 	 		  	unstash 'linux-jadbus-amd64'
 	 		  	unstash 'linux-jadbus-aarch64'
 	 		  	unstash 'windows-jadbus'
-	 		  	unstash 'macos-jadbus-amd64'
-	 		  	unstash 'macos-jadbus-aarch64'
 	 		  	
 				/* Unstash updates.xml */
 	 		  	dir('installer/target/media-linux-amd64') {
@@ -275,12 +197,6 @@ pipeline {
     			}
 	 		  	dir('installer/target/media-windows') {
 	 		  		unstash 'windows-jadbus-updates-xml'
-    			}
-	 		  	dir('installer/target/media-macos-aarch64') {
-	 		  		unstash 'macos-jadbus-aarch64-updates-xml'
-    			}
-	 		  	dir('installer/target/media-macos-amd64') {
-	 		  		unstash 'macos-jadbus-amd64-updates-xml'
     			}
     			
     			/* Merge all updates.xml into one */
