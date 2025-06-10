@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<install4j version="10.0.8" transformSequenceNumber="10">
+<install4j version="11.0.3" transformSequenceNumber="11">
   <directoryPresets config="../../../target" />
-  <application name="Jadbus" applicationId="8481-6265-9451-2326" mediaDir="target/media" mediaFilePattern="${compiler:sys.shortName}-${compiler:sys.platform}-${compiler:sys.version}" shortName="jadbus" publisher="JADAPTIVE Limited" publisherWeb="https://jadaptive.com" version="0.0.1" allPathsRelative="true" convertDotsToUnderscores="false" macVolumeId="ffee23fd2eeafa87" javaMinVersion="21" javaMaxVersion="21">
+  <application name="Jadbus" applicationId="8481-6265-9451-2326" mediaDir="target/media" mediaFilePattern="${compiler:sys.shortName}-${compiler:sys.platform}-${compiler:sys.version}" shortName="jadbus" publisher="JADAPTIVE Limited" publisherWeb="https://jadaptive.com" version="0.0.1" allPathsRelative="true" convertDotsToUnderscores="false" macVolumeId="ffee23fd2eeafa87" javaMinVersion="24" javaMaxVersion="24">
     <searchSequence>
       <directory location=".install4j/jre.bundle" />
       <directory location="jre" />
@@ -21,7 +21,7 @@
       <variable name="install4j.jaulBranches" description="Branches" />
       <variable name="install4j.exe.suffix" description="Suffix for executables" />
     </variables>
-    <codeSigning macEnabled="true" macPkcs12File="${compiler:install4j.macPkcs12File}" windowsEnabled="true" windowsKeySource="windows" macNotarize="true" appleId="${compiler:install4j.appleId}">
+    <codeSigning macEnabled="true" macPkcs12File="${compiler:install4j.macPkcs12File}" windowsEnabled="true" windowsKeySource="windows" macNotarize="true">
       <windowsKeystoreIdentifier issuer="${compiler:install4j.windowsKeystoreIssuer}" serial="${compiler:install4j.windowsKeystoreSerial}" subject="${compiler:install4j.windowsKeystoreSubject}" />
       <macAdditionalBinaries>
         <entry>*.dylib</entry>
@@ -41,7 +41,7 @@
         <entry>junixsocket*</entry>
       </macSearchedJars>
     </codeSigning>
-    <jreBundles jdkProviderId="AdoptOpenJDK" release="21/jdk-21.0.4+7">
+    <jreBundles jdkProviderId="AdoptOpenJDK" release="24/jdk-24.0.1+9">
       <modules />
     </jreBundles>
   </application>
@@ -370,14 +370,14 @@ X-GNOME-Autostart-enabled=true</property>
                 </serializedBean>
                 <condition>Util.isLinux()</condition>
               </action>
-              <action id="191" beanClass="com.install4j.runtime.beans.actions.misc.ModifyEnvironmentVariableAction" actionElevationType="elevated" failureStrategy="askQuit" errorMessage="JADDBUS_SESSION_BUS_ADDRESS environment variable could not be set">
+              <action id="191" beanClass="com.install4j.runtime.beans.actions.misc.ModifyEnvironmentVariableAction" actionElevationType="elevated" failureStrategy="ask" failureAskRetry="false" errorMessage="JADDBUS_SESSION_BUS_ADDRESS environment variable could not be set">
                 <serializedBean>
                   <property name="userSpecific" type="boolean" value="false" />
                   <property name="value" type="string">unix:path=%LOCALAPPDATA%\DBus-Java\%u</property>
                   <property name="variableName" type="string">JADDBUS_SESSION_BUS_ADDRESS</property>
                 </serializedBean>
               </action>
-              <action name="Write Session Bus Variable (Linux)" id="193" beanClass="com.install4j.runtime.beans.actions.text.WriteTextFileAction" actionElevationType="elevated" failureStrategy="askQuit" errorMessage="Could not configure agent environment on your .bash_profile">
+              <action name="Write Session Bus Variable (Linux)" id="193" beanClass="com.install4j.runtime.beans.actions.text.WriteTextFileAction" actionElevationType="elevated" failureStrategy="ask" failureAskRetry="false" errorMessage="Could not configure agent environment on your .bash_profile">
                 <serializedBean>
                   <property name="file">
                     <object class="java.io.File">
@@ -1527,7 +1527,7 @@ return true;</property>
       </variables>
       <jreBundle usePack200="false" />
     </windows>
-    <macosFolder name="macOS Intel Folder" id="36" mediaFileName="${compiler:sys.shortName}-${compiler:sys.platform}-x86_64-${compiler:sys.version}" signLaunchers="true">
+    <macosFolder name="macOS Intel Folder" id="36" mediaFileName="${compiler:sys.shortName}-${compiler:sys.platform}-x86_64-${compiler:sys.version}" architecture="amd64">
       <exclude>
         <entry location="VC_redist.x64.exe" />
         <entry location="jadbus-service.exe" />
@@ -1573,7 +1573,7 @@ return true;</property>
       </exclude>
       <jreBundle platform="linux-aarch64" />
     </linuxRPM>
-    <macosFolder name="macOS Arm Folder" id="219" mediaFileName="${compiler:sys.shortName}-${compiler:sys.platform}-aarch64-${compiler:sys.version}" architecture="aarch64" signLaunchers="true">
+    <macosFolder name="macOS Arm Folder" id="219" mediaFileName="${compiler:sys.shortName}-${compiler:sys.platform}-aarch64-${compiler:sys.version}">
       <exclude>
         <entry location="VC_redist.x64.exe" />
         <entry location="jadbus-service.exe" />

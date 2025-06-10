@@ -107,13 +107,12 @@
 								</goals>
 								<configuration>
 									<stripVersion>false</stripVersion>
-									<outputDirectory>
-										${project.build.directory}/jaul</outputDirectory>
+									<outputDirectory>${project.build.directory}/jaul</outputDirectory>
 									<artifactItems>
 										<artifactItem>
 											<groupId>com.sshtools</groupId>
 											<artifactId>jaul</artifactId>
-											<version>0.9.14</version>
+											<version>0.9.19</version>
 										</artifactItem>
 									</artifactItems>
 								</configuration>
@@ -131,6 +130,8 @@
 		                            <goal>compile</goal>
 		                        </goals>
 		                        <configuration>
+                                    <license>${install4j.testing.license}</license>
+                                    <installDir>${install4j11.home}</installDir>
 		                            <variables>
 		                                <install4j.phase>${install4j.phase}</install4j.phase>
 		                                <install4j.appleId>${install4j.appleId}</install4j.appleId>
@@ -163,7 +164,7 @@
                     <plugin>
                         <groupId>com.sshtools</groupId>
                         <artifactId>updatesxmlmerger-maven-plugin</artifactId>
-                        <version>0.0.1</version>
+                        <version>1.0.0</version>
                         <configuration>
                             <inputs>
                                 <input>${project.build.directory}/media-macos-amd64/updates.xml</input>

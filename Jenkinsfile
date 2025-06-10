@@ -1,8 +1,8 @@
 pipeline {
  	agent none
  	tools {
-		maven 'Maven 3.9.0' 
-		jdk 'Bellsoft Liberica NIK 24 (JDK 23)' 
+		maven 'Maven 3.9.0'
+		jdk 'Graal JDK 24' 
 	}
 	
 	environment {
@@ -127,10 +127,6 @@ pipeline {
 				 */
 				stage ('Windows Jadbus Installers') {
 					
-				 	tools {
-						jdk 'Bellsoft Liberica NIK 23 (JDK 21)' 
-					}
-	
 					agent {
 						label 'install4j && windows'
 					}
@@ -184,7 +180,7 @@ pipeline {
 					 			globalMavenSettingsConfig: "${env.MAVEN_CONFIG_ID}"
 					 		) {
 					 			// -Dinstall4j.disableNotarization=true 
-					 		  	sh 'mvn -U -Dbuild.mediaTypes=macos,macosFolder,macosFolderArchive ' +
+					 		  	sh 'mvn -U -Dbuild.mediaTypes=macosFolderArchive ' +
 					 		  	   '-Dbuild.projectProperties=$BUILD_PROPERTIES ' +
 					 		  	   '-P cross-platform,native-image,installers ' +
 					 		  	   '-Dbuild.buildIds=36 ' +
@@ -222,7 +218,7 @@ pipeline {
 					 			globalMavenSettingsConfig: "${env.MAVEN_CONFIG_ID}"
 					 		) {
 					 			// -Dinstall4j.disableNotarization=true 
-					 		  	sh 'mvn -U -Dbuild.mediaTypes=macos,macosFolder,macosFolderArchive ' +
+					 		  	sh 'mvn -U -Dbuild.mediaTypes=macosFolderArchive ' +
 					 		  	   '-Dbuild.projectProperties=$BUILD_PROPERTIES ' +
 					 		  	   '-P cross-platform,native-image,installers ' +
 					 		  	   '-Dbuild.buildIds=219 ' +

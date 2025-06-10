@@ -223,7 +223,8 @@ public class DBusDaemon implements Closeable, Callable<Integer> {
         names.put("org.freedesktop.DBus", null);
     }
 
-    @Override
+    @SuppressWarnings("unused")
+	@Override
     public Integer call() throws Exception {
     	redirectOutput();
 
@@ -798,31 +799,6 @@ public class DBusDaemon implements Closeable, Callable<Integer> {
         return bldr.build();
     }
     
-    private Path configurationX() {
-    	if(configurationPath.isPresent()) {
-    		return configurationPath.get();
-    	}
-    	else if(OS.isDeveloperWorkspace()) {
-    		return Paths.get("conf").resolve("session-bus.ini");
-    	}
-    	else  {
-    		var cmdOr = ProcessHandle.current().info().command();
-    		if(cmdOr.isPresent()) {
-    			var cmd = cmdOr.get();
-    			if(cmd.indexOf("java") == -1) {
-    				/* Natively compiled, can derive configuration directory from this */
-    				var path = Paths.get(cmd).toAbsolutePath();
-    				if(OS.isAdministrator())
-    	    			return path.getParent().resolve("system-bus.ini");
-    		    	else {
-    	    			return path.getParent().resolve("session-bus.ini");
-    		    	}
-    			}
-    		}
-   			throw new IllegalStateException("Cannot determine configuration directory, please supply -C option.");
-    	}
-    }
-
     private String defaultAddress() {
         if (unix && !tcp) {
             if (isSystemBus()) {

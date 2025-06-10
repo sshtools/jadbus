@@ -13,6 +13,12 @@
 		<dependency>
 			<groupId>com.github.hypfvieh</groupId>
 			<artifactId>dbus-java-transport-tcp</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-api</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -21,17 +27,23 @@
 		<dependency>
 			<groupId>com.sshtools</groupId>
 			<artifactId>jini-config</artifactId>
-			<version>0.3.3</version>
+			<version>0.5.3</version>
 		</dependency>
         <dependency>
             <groupId>com.sshtools</groupId>
             <artifactId>jadbus-lib</artifactId>
             <version>${project.version}</version>
+            <exclusions>
+            	<exclusion>
+            		<groupId>org.slf4j</groupId>
+            		<artifactId>slf4j-api</artifactId>
+            	</exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>net.java.dev.jna</groupId>
             <artifactId>jna-platform-jpms</artifactId>
-            <version>5.13.0</version>
+            <version>5.17.0</version>
         </dependency>
 		<dependency>
 			<groupId>info.picocli</groupId>
@@ -50,6 +62,10 @@
 				<exclusion>
 					<groupId>com.kohlschutter.junixsocket</groupId>
 					<artifactId>junixsocket-core</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-api</artifactId>
 				</exclusion>
 			</exclusions>
 		</dependency>
