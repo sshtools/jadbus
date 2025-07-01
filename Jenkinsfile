@@ -179,7 +179,7 @@ pipeline {
 					 			globalMavenSettingsConfig: "${env.MAVEN_CONFIG_ID}"
 					 		) {
 					 			// -Dinstall4j.disableNotarization=true 
-					 		  	sh 'mvn -U -Dbuild.mediaTypes=macosFolderArchive ' +
+					 		  	sh 'mvn -U -Dbuild.mediaTypes=macosFolder ' +
 					 		  	   '-Dbuild.projectProperties=$BUILD_PROPERTIES ' +
 					 		  	   '-P cross-platform,native-image,installers ' +
 					 		  	   '-Dbuild.buildIds=36 ' +
@@ -217,7 +217,7 @@ pipeline {
 					 			globalMavenSettingsConfig: "${env.MAVEN_CONFIG_ID}"
 					 		) {
 					 			// -Dinstall4j.disableNotarization=true 
-					 		  	sh 'mvn -U -Dbuild.mediaTypes=macosFolderArchive ' +
+					 		  	sh 'mvn -U -Dbuild.mediaTypes=macosFolder ' +
 					 		  	   '-Dbuild.projectProperties=$BUILD_PROPERTIES ' +
 					 		  	   '-P cross-platform,native-image,installers ' +
 					 		  	   '-Dbuild.buildIds=219 ' +
