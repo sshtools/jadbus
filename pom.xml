@@ -59,13 +59,9 @@
 	</developers>
 	<distributionManagement>
 		<snapshotRepository>
-			<id>central-sshtools-snapshots</id>
+			<id>central-sshtools</id>
 			<url>https://central.sonatype.com/repository/maven-snapshots/</url>
 		</snapshotRepository>
-		<repository>
-			<id>central-sshtools</id>
-			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-		</repository>
 	</distributionManagement>
 	<dependencyManagement>
 		<dependencies>
@@ -144,7 +140,7 @@
           		<version>0.8.0</version>
           		<extensions>true</extensions>
           		<configuration>
-            		<publishingServerId>central</publishingServerId>
+            		<publishingServerId>central-sshtools</publishingServerId>
           		</configuration>
         	</plugin>
             <plugin>
