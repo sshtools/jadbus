@@ -168,6 +168,8 @@
                         <version>1.0.0</version>
                         <configuration>
                             <inputs>
+                                <input>${project.build.directory}/media-macos-amd64/updates.xml</input>
+                                <input>${project.build.directory}/media-macos-aarch64/updates.xml</input>
                                 <input>${project.build.directory}/media-windows/updates.xml</input>
                                 <input>${project.build.directory}/media-linux-amd64/updates.xml</input>
                                 <input>${project.build.directory}/media-linux-aarch64/updates.xml</input>
