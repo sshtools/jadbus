@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <install4j version="11.0.3" transformSequenceNumber="11">
   <directoryPresets config="../../../target" />
-  <application name="Jadbus" applicationId="8481-6265-9451-2326" mediaDir="target/media" mediaFilePattern="${compiler:sys.shortName}-${compiler:sys.platform}-${compiler:sys.version}" shortName="jadbus" publisher="JADAPTIVE Limited" publisherWeb="https://jadaptive.com" version="0.0.1" allPathsRelative="true" convertDotsToUnderscores="false" macVolumeId="ffee23fd2eeafa87" javaMinVersion="24" javaMaxVersion="24">
+  <application name="Jadbus" applicationId="8481-6265-9451-2326" mediaDir="target/media" mediaFilePattern="${compiler:sys.shortName}-${compiler:sys.platform}-${compiler:sys.version}" shortName="jadbus" publisher="JADAPTIVE Limited" publisherWeb="https://jadaptive.com" version="0.0.1" allPathsRelative="true" convertDotsToUnderscores="false" macVolumeId="ffee23fd2eeafa87" javaMinVersion="21" javaMaxVersion="21">
     <searchSequence>
       <directory location=".install4j/jre.bundle" />
       <directory location="jre" />
@@ -9,6 +9,10 @@
     <variables>
       <variable name="install4j.phase" value="continuous" description="The phase under which the updates.xml will be initially placed. Usually &quot;continuous&quot;" />
       <variable name="install4j.appleId" value="unset@logonbox.com" description="The apple ID to use for notarisation" />
+      <variable name="install4j.appleIdPassword" />
+      <variable name="install4j.appleIssuerId" />
+      <variable name="install4j.appleKeyId" />
+      <variable name="install4j.applePrivateKeyFile" />
       <variable name="install4j.macSigning" value="false" description="Whether to sig for Mac" />
       <variable name="install4j.macPkcs12File" value="~/.logonbox-developer-id.p12" description="Location of Mac developer certificate" />
       <variable name="install4j.windowsSigning" value="false" description="Whether to sig for Windows" />
@@ -21,7 +25,7 @@
       <variable name="install4j.jaulBranches" description="Branches" />
       <variable name="install4j.exe.suffix" description="Suffix for executables" />
     </variables>
-    <codeSigning macEnabled="true" macPkcs12File="${compiler:install4j.macPkcs12File}" windowsEnabled="true" windowsKeySource="windows">
+    <codeSigning macEnabled="true" macPkcs12File="${compiler:install4j.macPkcs12File}" windowsEnabled="true" windowsKeySource="windows" macNotarize="true" macApiIssuer="${compiler:install4j.appleIssuerId}" macApiKey="${compiler:install4j.appleKeyId}" macApiPrivateKey="${compiler:install4j.applePrivateKeyFile}">
       <windowsKeystoreIdentifier issuer="${compiler:install4j.windowsKeystoreIssuer}" serial="${compiler:install4j.windowsKeystoreSerial}" subject="${compiler:install4j.windowsKeystoreSubject}" />
       <macAdditionalBinaries>
         <entry>*.dylib</entry>
@@ -41,7 +45,7 @@
         <entry>junixsocket*</entry>
       </macSearchedJars>
     </codeSigning>
-    <jreBundles jdkProviderId="AdoptOpenJDK" release="24/jdk-24.0.1+9">
+    <jreBundles jdkProviderId="AdoptOpenJDK" release="21/jdk-21.0.7+6">
       <modules />
     </jreBundles>
   </application>
@@ -339,6 +343,45 @@ return console.askOkCancel(message, true);
                 </serializedBean>
                 <condition>Util.isMacOS() || Util.isMacosInstaller()</condition>
               </action>
+              <action name="Session Bus Autostart (Mac OS)" id="235" beanClass="com.install4j.runtime.beans.actions.text.WriteTextFileAction" actionElevationType="elevated" rollbackBarrierExitCode="0">
+                <serializedBean>
+                  <property name="file">
+                    <object class="java.io.File">
+                      <string>/Library/LaunchAgents /com.sshtools.jadbus.plist</string>
+                    </object>
+                  </property>
+                  <property name="text" type="string">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"&gt;
+&lt;plist version="1.0"&gt;
+&lt;dict&gt;
+    &lt;key&gt;Label&lt;/key&gt;
+    &lt;string&gt;com.sshtools.jadbus&lt;/string&gt;
+
+    &lt;key&gt;ProgramArguments&lt;/key&gt;
+    &lt;array&gt;
+        &lt;string&gt;${installer:sys.installationDir}/jadbus-daemon&lt;/string&gt;
+        &lt;/array&gt;
+
+    &lt;key&gt;RunAtLoad&lt;/key&gt;
+    &lt;true/&gt;
+
+    &lt;key&gt;KeepAlive&lt;/key&gt;
+    &lt;true/&gt;
+
+&lt;!--
+    &lt;key&gt;StandardOutPath&lt;/key&gt;
+    &lt;string&gt;/var/log/myservice.log&lt;/string&gt;
+    &lt;key&gt;StandardErrorPath&lt;/key&gt;
+    &lt;string&gt;/var/log/myservice_error.log&lt;/string&gt;
+    --&gt;
+
+    &lt;key&gt;WorkingDirectory&lt;/key&gt;
+    &lt;string&gt;${installer:sys.installationDir}&lt;/string&gt;
+
+&lt;/dict&gt;</property>
+                </serializedBean>
+                <condition>Util.isMacOS() || Util.isMacosInstaller()</condition>
+              </action>
               <action name="Session Bus Autostart (Windows)" id="189" beanClass="com.install4j.runtime.beans.actions.desktop.AddStartupItemAction" actionElevationType="elevated" rollbackBarrierExitCode="0">
                 <serializedBean>
                   <property name="allUsers" type="boolean" value="true" />
@@ -420,6 +463,26 @@ X-GNOME-Autostart-enabled=true</property>
                 <serializedBean>
                   <property name="launcherId" type="string">194</property>
                 </serializedBean>
+              </action>
+              <action id="236" beanClass="com.install4j.runtime.beans.actions.misc.RunExecutableAction" actionElevationType="none" rollbackBarrierExitCode="0">
+                <serializedBean>
+                  <property name="arguments" type="array" elementType="string" length="3">
+                    <element index="0"> load</element>
+                    <element index="1"> -w</element>
+                    <element index="2"> /Library/LaunchAgents/com.sshtools.jadbus.plist</element>
+                  </property>
+                  <property name="executable">
+                    <object class="java.io.File">
+                      <string>launchctl</string>
+                    </object>
+                  </property>
+                  <property name="workingDirectory">
+                    <object class="java.io.File">
+                      <string>.</string>
+                    </object>
+                  </property>
+                </serializedBean>
+                <condition>Util.isMacOS() || Util.isMacosInstaller()</condition>
               </action>
               <action id="233" beanClass="com.install4j.runtime.beans.actions.misc.RunExecutableAction" actionElevationType="none" rollbackBarrierExitCode="0" errorMessage="Failed to start user JADBUS daemon.">
                 <serializedBean>

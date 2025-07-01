@@ -9,8 +9,8 @@
 	<packaging>pom</packaging>
 	<description>A DBus Broker based on dbus-java.</description>
 	<properties>
-		<maven.compiler.target>24</maven.compiler.target>
-		<maven.compiler.source>24</maven.compiler.source>
+		<maven.compiler.target>21</maven.compiler.target>
+		<maven.compiler.source>21</maven.compiler.source>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		
