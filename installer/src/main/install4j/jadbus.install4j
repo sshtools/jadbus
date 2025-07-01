@@ -330,24 +330,11 @@ return console.askOkCancel(message, true);
                 </serializedBean>
                 <condition>Util.isMacOS() || Util.isMacosInstaller()</condition>
               </action>
-              <action name="Session Bus Autostart (Mac Os)" id="224" beanClass="com.install4j.runtime.beans.actions.desktop.AddStartupItemAction" actionElevationType="elevated" rollbackBarrierExitCode="0">
-                <serializedBean>
-                  <property name="allUsers" type="boolean" value="true" />
-                  <property name="executable">
-                    <object class="java.io.File">
-                      <string>jadbus-daemon${compiler:install4j.exe.suffix}</string>
-                    </object>
-                  </property>
-                  <property name="hide" type="boolean" value="true" />
-                  <property name="name" type="string">Session Bus</property>
-                </serializedBean>
-                <condition>Util.isMacOS() || Util.isMacosInstaller()</condition>
-              </action>
               <action name="Session Bus Autostart (Mac OS)" id="235" beanClass="com.install4j.runtime.beans.actions.text.WriteTextFileAction" actionElevationType="elevated" rollbackBarrierExitCode="0">
                 <serializedBean>
                   <property name="file">
                     <object class="java.io.File">
-                      <string>/Library/LaunchAgents /com.sshtools.jadbus.plist</string>
+                      <string>/Library/LaunchAgents/com.sshtools.jadbus.plist</string>
                     </object>
                   </property>
                   <property name="text" type="string">&lt;?xml version="1.0" encoding="UTF-8"?&gt;

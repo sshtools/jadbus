@@ -132,7 +132,6 @@
 		                        <configuration>
                                     <license>${install4j.testing.license}</license>
                                     <installDir>${install4j11.home}</installDir>
-                                    <jvmArguments>-Djava.awt.headless=true</jvmArguments>
 		                            <variables>
 		                                <install4j.phase>${install4j.phase}</install4j.phase>
 		                                <install4j.appleId>${install4j.appleId}</install4j.appleId>
