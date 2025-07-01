@@ -276,7 +276,7 @@
     </profiles>
 	<repositories>
         <repository>
-            <id>ossrh-sshtools</id>
+            <id>ossrh-snapshots</id>
             <url>https://oss.sonatype.org/content/repositories/snapshots</url>
             <releases>
                 <enabled>false</enabled>
