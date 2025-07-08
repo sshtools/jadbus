@@ -365,7 +365,9 @@ return console.askOkCancel(message, true);
     &lt;key&gt;WorkingDirectory&lt;/key&gt;
     &lt;string&gt;${installer:sys.installationDir}&lt;/string&gt;
 
-&lt;/dict&gt;</property>
+&lt;/dict&gt;
+&lt;/plist&gt;
+</property>
                 </serializedBean>
                 <condition>Util.isMacOS() || Util.isMacosInstaller()</condition>
               </action>
