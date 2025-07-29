@@ -35,6 +35,7 @@ pipeline {
 					 			globalMavenSettingsConfig: "${env.MAVEN_CONFIG_ID}"
                             ) {
                                 sh 'mvn -U ' +
+                                   '-P translate ' +
                                    '-DperformRelease=true ' +
                                    '-Dbuild.projectProperties=$BUILD_PROPERTIES ' +
                                    'clean deploy'
@@ -62,7 +63,9 @@ pipeline {
 					 		withMaven(
 					 			globalMavenSettingsConfig: "${env.MAVEN_CONFIG_ID}"
 					 		) {
-					 		  	sh 'mvn -U -Dbuild.mediaTypes=unixInstaller,unixArchive,linuxRPM,linuxDeb ' +
+					 		  	sh 'mvn -U ' +
+                                   '-P translate ' + 
+					 		  	   '-Dbuild.mediaTypes=unixInstaller,unixArchive,linuxRPM,linuxDeb ' +
 					 		  	   '-Dbuild.buildIds=26,37,116 ' +
 					 		  	   '-P cross-platform,native-image,installers ' +
 					 		  	   '-Dbuild.projectProperties=$BUILD_PROPERTIES ' +
@@ -104,7 +107,9 @@ pipeline {
 					 		withMaven(
 					 			globalMavenSettingsConfig: "${env.MAVEN_CONFIG_ID}"
 					 		) {
-					 		  	sh 'mvn -X -U -Dbuild.mediaTypes=unixInstaller,unixArchive,linuxRPM,linuxDeb ' +
+					 		  	sh 'mvn -X -U ' +
+                                   '-P translate ' + 
+					 		  	   '-Dbuild.mediaTypes=unixInstaller,unixArchive,linuxRPM,linuxDeb ' +
 					 		  	   '-P cross-platform,native-image,installers ' +
 					 		  	   '-Dbuild.buildIds=133,136,139 ' +
 					 		  	   '-Dbuild.projectProperties=$BUILD_PROPERTIES ' +
@@ -141,7 +146,9 @@ pipeline {
 					 		withMaven(
 					 			globalMavenSettingsConfig: "${env.MAVEN_CONFIG_ID}"
 					 		) {
-					 		  	bat 'mvn -U -Dinstall4j.verbose=true -Dbuild.mediaTypes=windows,windowsArchive ' +
+					 		  	bat 'mvn -U ' +
+                                   '-P translate ' + 
+					 		  	    '-Dinstall4j.verbose=true -Dbuild.mediaTypes=windows,windowsArchive ' +
 					 		  	    '-Dinstall4j.exe.suffix=.exe ' +
 					 		  	    '"-Dbuild.projectProperties=%BUILD_PROPERTIES%" ' +
 					 		  	   '-P cross-platform,native-image,installers ' +
@@ -179,7 +186,9 @@ pipeline {
 					 			globalMavenSettingsConfig: "${env.MAVEN_CONFIG_ID}"
 					 		) {
 					 			// -Dinstall4j.disableNotarization=true 
-					 		  	sh 'mvn -U -Dbuild.mediaTypes=macosFolder ' +
+					 		  	sh 'mvn -U ' +
+                                   '-P translate ' +  
+					 		  	   '-Dbuild.mediaTypes=macosFolder ' +
 					 		  	   '-Dbuild.projectProperties=$BUILD_PROPERTIES ' +
 					 		  	   '-P cross-platform,native-image,installers ' +
 					 		  	   '-Dbuild.buildIds=36 ' +
@@ -217,7 +226,9 @@ pipeline {
 					 			globalMavenSettingsConfig: "${env.MAVEN_CONFIG_ID}"
 					 		) {
 					 			// -Dinstall4j.disableNotarization=true 
-					 		  	sh 'mvn -U -Dbuild.mediaTypes=macosFolder ' +
+					 		  	sh 'mvn -U ' +
+                                   '-P translate ' +  
+					 		  	   '-Dbuild.mediaTypes=macosFolder ' +
 					 		  	   '-Dbuild.projectProperties=$BUILD_PROPERTIES ' +
 					 		  	   '-P cross-platform,native-image,installers ' +
 					 		  	   '-Dbuild.buildIds=219 ' +

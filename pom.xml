@@ -232,6 +232,36 @@
 					<artifactId>native-maven-plugin</artifactId>
 					<version>${graalvm.version}</version>
 				</plugin>
+                <plugin>
+                    <groupId>com.nervepoint</groupId>
+                    <artifactId>google-translate-v2-java-maven-plugin</artifactId>
+                    <version>0.9.1-SNAPSHOT</version>
+                    <configuration>
+                        <distributedCache>mcp.hypersocket.io</distributedCache>
+                        <apikey>${googleAPIKey}</apikey>
+                        <cacheTag>main</cacheTag>
+                        <sourceDirectory>${basedir}/src/main/resources</sourceDirectory>
+                        <targetDirectory>${basedir}/target/classes</targetDirectory>
+                        <languages>${hypersocket.languages}</languages>
+                        <failOnMissingSourceDir>false</failOnMissingSourceDir>
+                        <noTranslatePattern>
+                            <param><![CDATA[<a.*href.*>.*</a>]]></param>
+                            <param>\$\{[/|!]*[a-zA-Z_\.0-9]*\}</param>
+                            <param>\%\{[/|!]*[a-zA-Z_\.0-9]*\}</param>
+                            <param>\=\{[/|!]*[a-zA-Z_\.0-9]*\}</param>
+                            <param>\#\{[/|!]*[a-zA-Z_\.0-9]*\}</param>
+                            <param>\{[0-9]+\}</param>
+                            <param><![CDATA[\&lt\;[\w/]+\&gt\;]]></param>
+                        </noTranslatePattern>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>translate</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
 			</plugins>
 		</pluginManagement>
 	</build>

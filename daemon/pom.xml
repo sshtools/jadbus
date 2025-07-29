@@ -147,6 +147,25 @@
 		</plugins>
 	</build>
 	<profiles>
+        <profile>
+            <id>translate</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.nervepoint</groupId>
+                        <artifactId>google-translate-v2-java-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <phase>process-resources</phase>
+                                <goals>
+                                    <goal>translate</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
 		<!-- Graal Native Image -->
 		<profile>
 			<id>native-image</id>

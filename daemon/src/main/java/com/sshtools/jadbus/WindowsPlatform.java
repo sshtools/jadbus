@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.ResourceBundle;
+
+import uk.co.bithatch.nativeimage.annotations.Bundle;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +23,11 @@ import org.slf4j.LoggerFactory;
 import com.sshtools.jadbus.lib.OS;
 import com.sun.jna.platform.win32.Advapi32Util;
 
+@Bundle
 public class WindowsPlatform implements Platform {
+    public final static ResourceBundle BUNDLE = ResourceBundle.getBundle(WindowsPlatform.class.getName());
+
+    
     public final static String SID_ADMINISTRATORS_GROUP = "S-1-5-32-544";
     public final static String SID_WORLD = "S-1-1-0";
     public final static String SID_USERS = "S-1-5-32-545";
@@ -120,16 +127,23 @@ public class WindowsPlatform implements Platform {
             return perms(asGroup, path, bestRealName, type, perms);
         } catch (Throwable t) {
             log.debug("Failed to get AclEntry using either SID of '" + sid + "' or name of " + name
-                    + ". Attempting using localised name.", t);
+                    + ". Attempting using english name.", t);
             return perms(asGroup, path, name, type, perms);
         }
     }
 
     public static String getBestRealName(String sid, String name) {
-        if (sid == null)
-            throw new NullPointerException();
-        var acc = Advapi32Util.getAccountBySid(sid);
-        return acc.name;
+        try {
+            if(sid == null)
+                throw new NullPointerException();
+            var acc = Advapi32Util.getAccountBySid(sid);
+            return acc.name;
+        }
+        catch(Exception e) {
+            /* Fallback to i18n */
+            log.warn("Falling back to I18N strings to determine best real group name for {}", name);
+            return BUNDLE.getString(name);
+        }
     }
 
     protected static AclEntry perms(boolean asGroup, Path path, String name, AclEntryType type,
