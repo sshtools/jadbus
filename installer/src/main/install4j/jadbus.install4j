@@ -478,7 +478,6 @@ X-GNOME-Autostart-enabled=true</property>
                   </property>
                   <property name="logArguments" type="boolean" value="true" />
                   <property name="timeout" type="int" value="10" />
-                  <property name="wait" type="boolean" value="true" />
                   <property name="workingDirectory">
                     <object class="java.io.File">
                       <string>.</string>
