@@ -570,7 +570,7 @@ return console.askYesNo(message, true);
           <screen id="27" beanClass="com.install4j.runtime.beans.screens.UninstallationScreen" rollbackBarrierExitCode="0">
             <actions>
               <action id="196" beanClass="com.install4j.runtime.beans.actions.misc.CheckRunningProcessesAction" actionElevationType="none" rollbackBarrierExitCode="0" failureStrategy="quit" />
-              <action name="Killall Jadbus Daemon (mainly for user daemon but just in case)" id="226" beanClass="com.install4j.runtime.beans.actions.misc.RunExecutableAction" actionElevationType="none" rollbackBarrierExitCode="0">
+              <action name="Killall Jadbus Daemon (mainly for user daemon but just in case)" id="226" beanClass="com.install4j.runtime.beans.actions.misc.RunExecutableAction" actionElevationType="elevated" rollbackBarrierExitCode="0">
                 <serializedBean>
                   <property name="arguments" type="array" elementType="string" length="1">
                     <element index="0">jadbus-daemon</element>
@@ -592,7 +592,7 @@ return console.askYesNo(message, true);
                 </serializedBean>
                 <condition>!Util.isWindows()</condition>
               </action>
-              <action name="Killall Jadbus Daemon (MacOS - mainly for user daemon but just in case)" id="231" beanClass="com.install4j.runtime.beans.actions.misc.RunExecutableAction" actionElevationType="none" rollbackBarrierExitCode="0">
+              <action name="Killall Jadbus Daemon (MacOS - mainly for user daemon but just in case)" id="231" beanClass="com.install4j.runtime.beans.actions.misc.RunExecutableAction" actionElevationType="elevated" rollbackBarrierExitCode="0">
                 <serializedBean>
                   <property name="arguments" type="array" elementType="string" length="1">
                     <element index="0">jadbus-daemon</element>
@@ -707,13 +707,29 @@ return console.askYesNo(message, true);
               <action id="29" beanClass="com.install4j.runtime.beans.actions.UninstallFilesAction" actionElevationType="elevated" rollbackBarrierExitCode="0" />
               <action name="Delete logs" id="229" beanClass="com.install4j.runtime.beans.actions.files.DeleteFileAction" actionElevationType="elevated" rollbackBarrierExitCode="0">
                 <serializedBean>
-                  <property name="files" type="array" class="java.io.File" length="1">
+                  <property name="files" type="array" class="java.io.File" length="4">
                     <element index="0">
                       <object class="java.io.File">
                         <string>logs</string>
                       </object>
                     </element>
+                    <element index="1">
+                      <object class="java.io.File">
+                        <string>jadbus-service.err.log</string>
+                      </object>
+                    </element>
+                    <element index="2">
+                      <object class="java.io.File">
+                        <string>jadbus-service.out.log</string>
+                      </object>
+                    </element>
+                    <element index="3">
+                      <object class="java.io.File">
+                        <string>jadbus-service.wrapper.log</string>
+                      </object>
+                    </element>
                   </property>
+                  <property name="recursive" type="boolean" value="true" />
                 </serializedBean>
               </action>
               <action name="Delete Mac OS Session Bus  Workaround" id="230" beanClass="com.install4j.runtime.beans.actions.files.DeleteFileAction" actionElevationType="elevated" rollbackBarrierExitCode="0">
