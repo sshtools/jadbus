@@ -475,14 +475,10 @@ X-GNOME-Autostart-enabled=true</property>
               </action>
               <action id="233" beanClass="com.install4j.runtime.beans.actions.misc.RunExecutableAction" actionElevationType="none" rollbackBarrierExitCode="0" errorMessage="Failed to start user JADBUS daemon.">
                 <serializedBean>
-                  <property name="arguments" type="array" elementType="string" length="3">
-                    <element index="0">/c</element>
-                    <element index="1">start</element>
-                    <element index="2">C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp\Session Bus.lnk</element>
-                  </property>
+                  <property name="arguments" type="array" elementType="string" length="0" />
                   <property name="executable">
                     <object class="java.io.File">
-                      <string>${installer:sys.system32Dir}/cmd.exe</string>
+                      <string>C:/ProgramData/Microsoft/Windows/Start Menu/Programs/StartUp/Session Bus.lnk</string>
                     </object>
                   </property>
                   <property name="logArguments" type="boolean" value="true" />
