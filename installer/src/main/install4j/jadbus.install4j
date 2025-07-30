@@ -478,7 +478,7 @@ X-GNOME-Autostart-enabled=true</property>
                   <property name="arguments" type="array" elementType="string" length="3">
                     <element index="0">/c</element>
                     <element index="1">start</element>
-                    <element index="2">jadbus-daemon${compiler:install4j.exe.suffix}</element>
+                    <element index="2">C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp\Session Bus.lnk</element>
                   </property>
                   <property name="executable">
                     <object class="java.io.File">
