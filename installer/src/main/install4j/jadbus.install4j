@@ -624,7 +624,7 @@ return console.askYesNo(message, true);
                   </property>
                   <property name="executable">
                     <object class="java.io.File">
-                      <string>taskkill</string>
+                      <string>C:/windows/system32/taskkill.exe</string>
                     </object>
                   </property>
                   <property name="logArguments" type="boolean" value="true" />
