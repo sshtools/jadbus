@@ -601,7 +601,7 @@ public class DBusDaemon implements Closeable, Callable<Integer> {
 		return systemBus.orElseGet(() -> {
 		    if(OS.isWindows()) {
 		        /* Windows people can and do login as administrator to desktop.
-		         * So detect if runnins ad service */
+		         * So detect if running as service */
 		        return System.getenv("SERVICE_ID") != null || System.getenv("WINSW_SERVICE_ID") != null;
 		    }
 		    else {
