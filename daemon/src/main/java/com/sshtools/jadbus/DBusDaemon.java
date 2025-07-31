@@ -340,6 +340,11 @@ public class DBusDaemon implements Closeable, Callable<Integer> {
         LOGGER.info("DBUS ID: {}", getMachineId());
         LOGGER.info("DBUS machine ID: {}", getId());
         
+        LOGGER.info("Environment :");
+        System.getenv().forEach((k,v) -> {
+            LOGGER.info(" {}={}", k, v);
+        });
+        
 //        actualConfigurationPath = configuration().do;
 //        reloadConfig();
         
