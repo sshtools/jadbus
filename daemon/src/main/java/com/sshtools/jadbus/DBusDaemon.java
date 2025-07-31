@@ -598,7 +598,18 @@ public class DBusDaemon implements Closeable, Callable<Integer> {
     }
 
     boolean isSystemBus() {
-		return systemBus.orElseGet(OS::isAdministrator);
+		return systemBus.orElseGet(() -> {
+		    if(OS.isWindows()) {
+		        /* Windows people can and do login as administrator to desktop.
+		         * So detect if runnins ad service */
+		        return System.getenv("SERVICE_ID") != null || System.getenv("WINSW_SERVICE_ID") != null;
+		    }
+		    else {
+		        /* Not much point of an administrator session bus on Mac Os so detecting
+		         * if administrator should be OK. TODO  Maybe revisit */
+		        return OS.isAdministrator();
+		    }
+		});
 	}
 
     boolean releaseName(String _name, ConnectionStruct connStruct) {
