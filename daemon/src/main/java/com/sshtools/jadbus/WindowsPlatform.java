@@ -59,12 +59,12 @@ public class WindowsPlatform implements Platform {
                     acl.add(set(true, path, "Administrators", SID_ADMINISTRATORS_GROUP, AclEntryType.ALLOW,
                             AclEntryPermission.values()));
                 } catch (Throwable upnfe2) {
-                    log.info("Failed to add administrators permission.", upnfe2);
+                    log.debug("Failed to add administrators permission.", upnfe2);
                 }
                 try {
                     acl.add(set(true, path, "SYSTEM", SID_SYSTEM, AclEntryType.ALLOW, AclEntryPermission.values()));
                 } catch (Throwable upnfe2) {
-                    log.info("Failed to add administrators permission.", upnfe2);
+                    log.debug("Failed to add administrators permission.", upnfe2);
                 }
             }
             if (acl.isEmpty()) {
@@ -86,12 +86,12 @@ public class WindowsPlatform implements Platform {
                 acl.add(set(true, path, "Administrators", SID_ADMINISTRATORS_GROUP, AclEntryType.ALLOW,
                         AclEntryPermission.values()));
             } catch (Throwable upnfe2) {
-                log.info("Failed to add administrators permission.", upnfe2);
+                log.debug("Failed to add administrators permission.", upnfe2);
             }
             try {
                 acl.add(set(true, path, "SYSTEM", SID_SYSTEM, AclEntryType.ALLOW, AclEntryPermission.values()));
             } catch (Throwable upnfe2) {
-                log.info("Failed to add administrators permission.", upnfe2);
+                log.debug("Failed to add administrators permission.", upnfe2);
             }
         }
         try {
@@ -120,13 +120,13 @@ public class WindowsPlatform implements Platform {
     protected static AclEntry set(boolean asGroup, Path path, String name, String sid, AclEntryType type,
             AclEntryPermission... perms) throws IOException {
         try {
-            log.info("Trying to set '" + sid + "' or name of " + name + " on " + path + " as Group: " + asGroup + " : "
+            log.debug("Trying to set '" + sid + "' or name of " + name + " on " + path + " as Group: " + asGroup + " : "
                     + type + " : " + Arrays.asList(perms));
             String bestRealName = getBestRealName(sid, name);
-            log.info("Best real name : " + bestRealName);
+            log.debug("Best real name : " + bestRealName);
             return perms(asGroup, path, bestRealName, type, perms);
         } catch (Throwable t) {
-            log.info("Failed to get AclEntry using either SID of '" + sid + "' or name of " + name
+            log.debug("Failed to get AclEntry using either SID of '" + sid + "' or name of " + name
                     + ". Attempting using english name.", t);
             return perms(asGroup, path, name, type, perms);
         }
@@ -137,7 +137,7 @@ public class WindowsPlatform implements Platform {
             if(sid == null)
                 throw new NullPointerException();
             var acc = Advapi32Util.getAccountBySid(sid);
-            log.info("Native call worked, best real name : " + acc.name);
+            log.debug("Native call worked, best real name : " + acc.name);
             return acc.name;
         }
         catch(Exception e) {

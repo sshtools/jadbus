@@ -33,6 +33,9 @@
 		<install4j.jaulAppId>com.sshtools.Jadbus</install4j.jaulAppId>
 		<install4j.jaulUpdaterId>54</install4j.jaulUpdaterId>
 		<install4j.jaulBranches>54</install4j.jaulBranches>
+		
+		<hypersocket.languages>da,nl,fi,fr,de,it,no,pl,ru,sv,es,ja,he,pt,tr</hypersocket.languages>
+        
 	</properties>
 	<url>https://jadaptive.com</url>
 	<licenses>
