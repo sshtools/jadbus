@@ -1,4 +1,4 @@
-module com.sshtools.jadbus {
+open module com.sshtools.jadbus {
 	requires transitive org.freedesktop.dbus;
 	requires java.prefs;
 	requires transitive static org.freedesktop.dbus.transport.junixsocket;
@@ -11,5 +11,4 @@ module com.sshtools.jadbus {
 	requires static uk.co.bithatch.nativeimage.annotations;
     requires com.sun.jna.platform;
 	exports com.sshtools.jadbus;
-	opens com.sshtools.jadbus;
 }

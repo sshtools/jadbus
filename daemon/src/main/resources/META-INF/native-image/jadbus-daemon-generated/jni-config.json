@@ -1,0 +1,268 @@
+[
+{
+  "name":"com.sun.jna.Callback"
+},
+{
+  "name":"com.sun.jna.CallbackReference",
+  "methods":[{"name":"getCallback","parameterTypes":["java.lang.Class","com.sun.jna.Pointer","boolean"] }, {"name":"getFunctionPointer","parameterTypes":["com.sun.jna.Callback","boolean"] }, {"name":"getNativeString","parameterTypes":["java.lang.Object","boolean"] }, {"name":"initializeThread","parameterTypes":["com.sun.jna.Callback","com.sun.jna.CallbackReference$AttachOptions"] }]
+},
+{
+  "name":"com.sun.jna.CallbackReference$AttachOptions"
+},
+{
+  "name":"com.sun.jna.FromNativeConverter",
+  "methods":[{"name":"nativeType","parameterTypes":[] }]
+},
+{
+  "name":"com.sun.jna.IntegerType",
+  "fields":[{"name":"value"}]
+},
+{
+  "name":"com.sun.jna.JNIEnv"
+},
+{
+  "name":"com.sun.jna.Native",
+  "methods":[{"name":"dispose","parameterTypes":[] }, {"name":"fromNative","parameterTypes":["com.sun.jna.FromNativeConverter","java.lang.Object","java.lang.reflect.Method"] }, {"name":"fromNative","parameterTypes":["java.lang.Class","java.lang.Object"] }, {"name":"fromNative","parameterTypes":["java.lang.reflect.Method","java.lang.Object"] }, {"name":"nativeType","parameterTypes":["java.lang.Class"] }, {"name":"toNative","parameterTypes":["com.sun.jna.ToNativeConverter","java.lang.Object"] }]
+},
+{
+  "name":"com.sun.jna.Native$ffi_callback",
+  "methods":[{"name":"invoke","parameterTypes":["long","long","long"] }]
+},
+{
+  "name":"com.sun.jna.NativeMapped",
+  "methods":[{"name":"toNative","parameterTypes":[] }]
+},
+{
+  "name":"com.sun.jna.Pointer",
+  "fields":[{"name":"peer"}],
+  "methods":[{"name":"<init>","parameterTypes":["long"] }]
+},
+{
+  "name":"com.sun.jna.PointerType",
+  "fields":[{"name":"pointer"}]
+},
+{
+  "name":"com.sun.jna.Structure",
+  "fields":[{"name":"memory"}, {"name":"typeInfo"}],
+  "methods":[{"name":"autoRead","parameterTypes":[] }, {"name":"autoWrite","parameterTypes":[] }, {"name":"getTypeInfo","parameterTypes":[] }, {"name":"newInstance","parameterTypes":["java.lang.Class","long"] }]
+},
+{
+  "name":"com.sun.jna.Structure$ByValue"
+},
+{
+  "name":"com.sun.jna.Structure$FFIType$FFITypes",
+  "fields":[{"name":"ffi_type_double"}, {"name":"ffi_type_float"}, {"name":"ffi_type_longdouble"}, {"name":"ffi_type_pointer"}, {"name":"ffi_type_sint16"}, {"name":"ffi_type_sint32"}, {"name":"ffi_type_sint64"}, {"name":"ffi_type_sint8"}, {"name":"ffi_type_uint16"}, {"name":"ffi_type_uint32"}, {"name":"ffi_type_uint64"}, {"name":"ffi_type_uint8"}, {"name":"ffi_type_void"}]
+},
+{
+  "name":"com.sun.jna.WString",
+  "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+},
+{
+  "name":"java.io.FileDescriptor",
+  "fields":[{"name":"fd"}, {"name":"handle"}]
+},
+{
+  "name":"java.lang.Boolean",
+  "fields":[{"name":"TYPE"}, {"name":"value"}],
+  "methods":[{"name":"<init>","parameterTypes":["boolean"] }]
+},
+{
+  "name":"java.lang.Byte",
+  "fields":[{"name":"TYPE"}, {"name":"value"}],
+  "methods":[{"name":"<init>","parameterTypes":["byte"] }]
+},
+{
+  "name":"java.lang.Character",
+  "fields":[{"name":"TYPE"}, {"name":"value"}],
+  "methods":[{"name":"<init>","parameterTypes":["char"] }]
+},
+{
+  "name":"java.lang.Class",
+  "methods":[{"name":"getComponentType","parameterTypes":[] }, {"name":"getName","parameterTypes":[] }]
+},
+{
+  "name":"java.lang.Double",
+  "fields":[{"name":"TYPE"}, {"name":"value"}],
+  "methods":[{"name":"<init>","parameterTypes":["double"] }]
+},
+{
+  "name":"java.lang.Float",
+  "fields":[{"name":"TYPE"}, {"name":"value"}],
+  "methods":[{"name":"<init>","parameterTypes":["float"] }]
+},
+{
+  "name":"java.lang.IllegalStateException",
+  "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+},
+{
+  "name":"java.lang.IndexOutOfBoundsException",
+  "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+},
+{
+  "name":"java.lang.Integer",
+  "fields":[{"name":"TYPE"}, {"name":"value"}],
+  "methods":[{"name":"<init>","parameterTypes":["int"] }, {"name":"intValue","parameterTypes":[] }]
+},
+{
+  "name":"java.lang.Long",
+  "fields":[{"name":"TYPE"}, {"name":"value"}],
+  "methods":[{"name":"<init>","parameterTypes":["long"] }]
+},
+{
+  "name":"java.lang.NullPointerException",
+  "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+},
+{
+  "name":"java.lang.Object",
+  "methods":[{"name":"getClass","parameterTypes":[] }, {"name":"toString","parameterTypes":[] }]
+},
+{
+  "name":"java.lang.ProcessBuilder$RedirectPipeImpl",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"java.lang.Short",
+  "fields":[{"name":"TYPE"}, {"name":"value"}],
+  "methods":[{"name":"<init>","parameterTypes":["short"] }]
+},
+{
+  "name":"java.lang.String",
+  "methods":[{"name":"<init>","parameterTypes":["byte[]"] }, {"name":"<init>","parameterTypes":["byte[]","java.lang.String"] }, {"name":"getBytes","parameterTypes":[] }, {"name":"getBytes","parameterTypes":["java.lang.String"] }, {"name":"toCharArray","parameterTypes":[] }]
+},
+{
+  "name":"java.lang.System",
+  "methods":[{"name":"getProperty","parameterTypes":["java.lang.String"] }]
+},
+{
+  "name":"java.lang.UnsatisfiedLinkError",
+  "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+},
+{
+  "name":"java.lang.Void",
+  "fields":[{"name":"TYPE"}]
+},
+{
+  "name":"java.lang.reflect.Method",
+  "methods":[{"name":"getParameterTypes","parameterTypes":[] }, {"name":"getReturnType","parameterTypes":[] }]
+},
+{
+  "name":"java.net.DatagramSocket"
+},
+{
+  "name":"java.net.InetSocketAddress",
+  "fields":[{"name":"holder"}],
+  "methods":[{"name":"<init>","parameterTypes":["int"] }]
+},
+{
+  "name":"java.net.InetSocketAddress$InetSocketAddressHolder",
+  "fields":[{"name":"port"}]
+},
+{
+  "name":"java.net.NoRouteToHostException",
+  "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+},
+{
+  "name":"java.net.ServerSocket",
+  "fields":[{"name":"impl"}]
+},
+{
+  "name":"java.net.Socket"
+},
+{
+  "name":"java.net.SocketException",
+  "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+},
+{
+  "name":"java.net.SocketTimeoutException",
+  "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+},
+{
+  "name":"java.nio.Buffer",
+  "methods":[{"name":"position","parameterTypes":[] }]
+},
+{
+  "name":"java.nio.ByteBuffer",
+  "methods":[{"name":"array","parameterTypes":[] }, {"name":"arrayOffset","parameterTypes":[] }]
+},
+{
+  "name":"java.nio.CharBuffer",
+  "methods":[{"name":"array","parameterTypes":[] }, {"name":"arrayOffset","parameterTypes":[] }]
+},
+{
+  "name":"java.nio.DoubleBuffer",
+  "methods":[{"name":"array","parameterTypes":[] }, {"name":"arrayOffset","parameterTypes":[] }]
+},
+{
+  "name":"java.nio.FloatBuffer",
+  "methods":[{"name":"array","parameterTypes":[] }, {"name":"arrayOffset","parameterTypes":[] }]
+},
+{
+  "name":"java.nio.IntBuffer",
+  "methods":[{"name":"array","parameterTypes":[] }, {"name":"arrayOffset","parameterTypes":[] }]
+},
+{
+  "name":"java.nio.LongBuffer",
+  "methods":[{"name":"array","parameterTypes":[] }, {"name":"arrayOffset","parameterTypes":[] }]
+},
+{
+  "name":"java.nio.ShortBuffer",
+  "methods":[{"name":"array","parameterTypes":[] }, {"name":"arrayOffset","parameterTypes":[] }]
+},
+{
+  "name":"java.nio.channels.ClosedChannelException",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"java.nio.channels.spi.AbstractSelectableChannel",
+  "methods":[{"name":"removeKey","parameterTypes":["java.nio.channels.SelectionKey"] }]
+},
+{
+  "name":"org.newsclub.net.unix.AFSelector$PollFd",
+  "fields":[{"name":"fds"}, {"name":"ops"}, {"name":"rops"}]
+},
+{
+  "name":"org.newsclub.net.unix.AFUNIXDatagramSocket"
+},
+{
+  "name":"org.newsclub.net.unix.AFUNIXServerSocket"
+},
+{
+  "name":"org.newsclub.net.unix.AFUNIXSocket"
+},
+{
+  "name":"org.newsclub.net.unix.AFUNIXSocketCredentials",
+  "fields":[{"name":"gids"}, {"name":"pid"}, {"name":"uid"}]
+},
+{
+  "name":"org.newsclub.net.unix.AddressUnavailableSocketException",
+  "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+},
+{
+  "name":"org.newsclub.net.unix.BrokenPipeSocketException",
+  "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+},
+{
+  "name":"org.newsclub.net.unix.ConnectionResetSocketException",
+  "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+},
+{
+  "name":"org.newsclub.net.unix.InvalidArgumentSocketException",
+  "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+},
+{
+  "name":"org.newsclub.net.unix.NoSuchDeviceSocketException",
+  "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+},
+{
+  "name":"org.newsclub.net.unix.NotConnectedSocketException",
+  "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+},
+{
+  "name":"org.newsclub.net.unix.OperationNotSupportedSocketException",
+  "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+},
+{
+  "name":"org.newsclub.net.unix.SocketClosedException",
+  "methods":[{"name":"<init>","parameterTypes":["java.lang.String"] }]
+}
+]

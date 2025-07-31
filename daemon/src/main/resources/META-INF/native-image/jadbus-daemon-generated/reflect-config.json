@@ -1,0 +1,266 @@
+[
+{
+  "name":"com.sshtools.jadbus.DBusDaemon",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true
+},
+{
+  "name":"com.sshtools.jadbus.DBusDaemon$Version",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"com.sshtools.jadbus.DBusServer",
+  "queryAllDeclaredMethods":true,
+  "methods":[{"name":"AddMatch","parameterTypes":["java.lang.String"] }, {"name":"GetConnectionUnixProcessID","parameterTypes":["java.lang.String"] }, {"name":"GetNameOwner","parameterTypes":["java.lang.String"] }, {"name":"Hello","parameterTypes":[] }, {"name":"Introspect","parameterTypes":[] }, {"name":"ListActivatableNames","parameterTypes":[] }, {"name":"ListNames","parameterTypes":[] }, {"name":"ReloadConfig","parameterTypes":[] }]
+},
+{
+  "name":"com.sshtools.jadbus.Jadbus",
+  "allDeclaredClasses":true,
+  "queryAllDeclaredMethods":true
+},
+{
+  "name":"com.sun.jna.CallbackProxy",
+  "methods":[{"name":"callback","parameterTypes":["java.lang.Object[]"] }]
+},
+{
+  "name":"com.sun.jna.platform.win32.WinNT$PSID",
+  "allDeclaredFields":true,
+  "fields":[{"name":"OPTIONS"}, {"name":"STRING_ENCODING"}, {"name":"STRUCTURE_ALIGNMENT"}, {"name":"TYPE_MAPPER"}]
+},
+{
+  "name":"com.sun.jna.platform.win32.WinNT$PSIDByReference",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"com.sun.jna.ptr.IntByReference",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"com.sun.jna.ptr.PointerByReference",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"com.sun.jna.win32.DLLCallback"
+},
+{
+  "name":"groovy.lang.Closure"
+},
+{
+  "name":"java.lang.Object",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true,
+  "methods":[{"name":"equals","parameterTypes":["java.lang.Object"] }, {"name":"hashCode","parameterTypes":[] }, {"name":"toString","parameterTypes":[] }]
+},
+{
+  "name":"java.lang.ProcessBuilder$RedirectPipeImpl"
+},
+{
+  "name":"java.lang.Thread",
+  "fields":[{"name":"threadLocalRandomProbe"}]
+},
+{
+  "name":"java.lang.Throwable",
+  "methods":[{"name":"addSuppressed","parameterTypes":["java.lang.Throwable"] }]
+},
+{
+  "name":"java.lang.invoke.MethodHandle",
+  "methods":[{"name":"bindTo","parameterTypes":["java.lang.Object"] }, {"name":"invokeWithArguments","parameterTypes":["java.lang.Object[]"] }]
+},
+{
+  "name":"java.lang.invoke.MethodHandles",
+  "methods":[{"name":"lookup","parameterTypes":[] }, {"name":"privateLookupIn","parameterTypes":["java.lang.Class","java.lang.invoke.MethodHandles$Lookup"] }]
+},
+{
+  "name":"java.lang.invoke.MethodHandles$Lookup",
+  "methods":[{"name":"findSpecial","parameterTypes":["java.lang.Class","java.lang.String","java.lang.invoke.MethodType","java.lang.Class"] }, {"name":"in","parameterTypes":["java.lang.Class"] }, {"name":"unreflectSpecial","parameterTypes":["java.lang.reflect.Method","java.lang.Class"] }]
+},
+{
+  "name":"java.lang.invoke.MethodType",
+  "methods":[{"name":"methodType","parameterTypes":["java.lang.Class","java.lang.Class[]"] }]
+},
+{
+  "name":"java.lang.reflect.Method",
+  "methods":[{"name":"isDefault","parameterTypes":[] }, {"name":"isVarArgs","parameterTypes":[] }]
+},
+{
+  "name":"java.net.InetSocketAddress"
+},
+{
+  "name":"java.nio.Buffer"
+},
+{
+  "name":"java.nio.channels.spi.AbstractSelectableChannel"
+},
+{
+  "name":"java.nio.file.Path"
+},
+{
+  "name":"java.nio.file.Paths",
+  "methods":[{"name":"get","parameterTypes":["java.lang.String","java.lang.String[]"] }]
+},
+{
+  "name":"java.security.SecureRandomParameters"
+},
+{
+  "name":"java.sql.Connection"
+},
+{
+  "name":"java.sql.Driver"
+},
+{
+  "name":"java.sql.Time"
+},
+{
+  "name":"java.sql.Timestamp"
+},
+{
+  "name":"java.time.Duration",
+  "methods":[{"name":"parse","parameterTypes":["java.lang.CharSequence"] }]
+},
+{
+  "name":"java.time.Instant",
+  "methods":[{"name":"parse","parameterTypes":["java.lang.CharSequence"] }]
+},
+{
+  "name":"java.time.LocalDate",
+  "methods":[{"name":"parse","parameterTypes":["java.lang.CharSequence"] }]
+},
+{
+  "name":"java.time.LocalDateTime",
+  "methods":[{"name":"parse","parameterTypes":["java.lang.CharSequence"] }]
+},
+{
+  "name":"java.time.LocalTime",
+  "methods":[{"name":"parse","parameterTypes":["java.lang.CharSequence"] }]
+},
+{
+  "name":"java.time.MonthDay",
+  "methods":[{"name":"parse","parameterTypes":["java.lang.CharSequence"] }]
+},
+{
+  "name":"java.time.OffsetDateTime",
+  "methods":[{"name":"parse","parameterTypes":["java.lang.CharSequence"] }]
+},
+{
+  "name":"java.time.OffsetTime",
+  "methods":[{"name":"parse","parameterTypes":["java.lang.CharSequence"] }]
+},
+{
+  "name":"java.time.Period",
+  "methods":[{"name":"parse","parameterTypes":["java.lang.CharSequence"] }]
+},
+{
+  "name":"java.time.Year",
+  "methods":[{"name":"parse","parameterTypes":["java.lang.CharSequence"] }]
+},
+{
+  "name":"java.time.YearMonth",
+  "methods":[{"name":"parse","parameterTypes":["java.lang.CharSequence"] }]
+},
+{
+  "name":"java.time.ZoneId",
+  "methods":[{"name":"of","parameterTypes":["java.lang.String"] }]
+},
+{
+  "name":"java.time.ZoneOffset",
+  "methods":[{"name":"of","parameterTypes":["java.lang.String"] }]
+},
+{
+  "name":"java.time.ZonedDateTime",
+  "methods":[{"name":"parse","parameterTypes":["java.lang.CharSequence"] }]
+},
+{
+  "name":"java.util.Optional",
+  "methods":[{"name":"empty","parameterTypes":[] }, {"name":"ofNullable","parameterTypes":["java.lang.Object"] }]
+},
+{
+  "name":"java.util.concurrent.atomic.AtomicBoolean",
+  "fields":[{"name":"value"}]
+},
+{
+  "name":"java.util.concurrent.atomic.Striped64",
+  "fields":[{"name":"base"}, {"name":"cellsBusy"}]
+},
+{
+  "name":"org.freedesktop.dbus.interfaces.DBus",
+  "allDeclaredClasses":true,
+  "queryAllDeclaredMethods":true
+},
+{
+  "name":"org.freedesktop.dbus.interfaces.DBus$NameAcquired",
+  "queryAllPublicConstructors":true
+},
+{
+  "name":"org.freedesktop.dbus.interfaces.DBus$NameLost",
+  "queryAllPublicConstructors":true
+},
+{
+  "name":"org.freedesktop.dbus.interfaces.DBus$NameOwnerChanged",
+  "queryAllDeclaredConstructors":true,
+  "queryAllPublicConstructors":true
+},
+{
+  "name":"org.freedesktop.dbus.interfaces.Introspectable",
+  "allDeclaredClasses":true,
+  "queryAllDeclaredMethods":true
+},
+{
+  "name":"org.freedesktop.dbus.interfaces.Peer",
+  "allDeclaredClasses":true,
+  "queryAllDeclaredMethods":true
+},
+{
+  "name":"org.freedesktop.dbus.interfaces.Properties",
+  "methods":[{"name":"Get","parameterTypes":["java.lang.String","java.lang.String"] }, {"name":"GetAll","parameterTypes":["java.lang.String"] }, {"name":"Set","parameterTypes":["java.lang.String","java.lang.String","java.lang.Object"] }]
+},
+{
+  "name":"org.newsclub.lib.junixsocket.common.NarMetadata"
+},
+{
+  "name":"org.newsclub.lib.junixsocket.custom.NarMetadata"
+},
+{
+  "name":"org.newsclub.net.unix.AddressUnavailableSocketException"
+},
+{
+  "name":"org.newsclub.net.unix.BrokenPipeSocketException"
+},
+{
+  "name":"org.newsclub.net.unix.ConnectionResetSocketException"
+},
+{
+  "name":"org.newsclub.net.unix.InvalidArgumentSocketException"
+},
+{
+  "name":"org.newsclub.net.unix.NoSuchDeviceSocketException"
+},
+{
+  "name":"org.newsclub.net.unix.OperationNotSupportedSocketException"
+},
+{
+  "name":"org.newsclub.net.unix.SocketClosedException"
+},
+{
+  "name":"picocli.CommandLine$AutoHelpMixin",
+  "allDeclaredFields":true,
+  "queryAllDeclaredMethods":true
+},
+{
+  "name":"sun.security.provider.DRBG",
+  "methods":[{"name":"<init>","parameterTypes":["java.security.SecureRandomParameters"] }]
+},
+{
+  "name":"sun.security.provider.MD5",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"sun.security.provider.SHA",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+},
+{
+  "name":"sun.security.provider.SHA2$SHA256",
+  "methods":[{"name":"<init>","parameterTypes":[] }]
+}
+]
