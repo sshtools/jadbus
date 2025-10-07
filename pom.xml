@@ -309,6 +309,14 @@
 				<enabled>false</enabled>
 			</releases>
 		</repository>
+		<repository>
+			<id>opensource-snapshots</id>
+			<url>https://artifactory.jadaptive.com/opensource-snapshots</url>
+			<snapshots />
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+		</repository>
 	</repositories>
 	<modules>
 		<module>daemon</module>
