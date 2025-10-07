@@ -19,7 +19,7 @@
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>jadbus-tools</artifactId>
+            <artifactId>jadbus-lib</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>
