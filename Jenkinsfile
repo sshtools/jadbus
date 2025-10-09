@@ -171,7 +171,7 @@ pipeline {
 				 */
 				stage ('MacOS Jadbus Installers') {
 					agent {
-						label 'install4j && macos && x86_64 && macos12'
+						label 'install4j && macos && x86_64 && macos14'
 					}
 					steps {
 						configFileProvider([
