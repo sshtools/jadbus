@@ -236,9 +236,9 @@
 					<version>${graalvm.version}</version>
 				</plugin>
                 <plugin>
-                    <groupId>com.nervepoint</groupId>
+                    <groupId>com.jadaptive</groupId>
                     <artifactId>google-translate-v2-java-maven-plugin</artifactId>
-                    <version>0.9.1-SNAPSHOT</version>
+                    <version>1.0.0</version>
                     <configuration>
                         <distributedCache>mcp.hypersocket.io</distributedCache>
                         <apikey>${googleAPIKey}</apikey>

@@ -162,7 +162,7 @@
             <build>
                 <plugins>
                     <plugin>
-                        <groupId>com.nervepoint</groupId>
+                    	<groupId>com.jadaptive</groupId>
                         <artifactId>google-translate-v2-java-maven-plugin</artifactId>
                         <executions>
                             <execution>
