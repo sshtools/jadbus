@@ -132,7 +132,7 @@ pipeline {
 				 */
 				stage ('Windows Jadbus Installers') {
 					agent {
-						label 'install4j && windows'
+						label 'install4j && windows && dynamic'
 					}
 					steps {
 						configFileProvider([
