@@ -205,6 +205,7 @@
                                         <jadbus.redirectStd>true</jadbus.redirectStd>
                                     </systemPropertyVariables>
                                     <buildArgs>
+                                    	<buildArg>-march=compatibility</buildArg>
                                         <buildArg>-H:Log=registerResource:verbose</buildArg>                                                                                
                                         <buildArg>-R:MaxHeapSize=64m</buildArg>
                                         <buildArg>--install-exit-handlers</buildArg>                                        
@@ -246,6 +247,7 @@
 								<phase>package</phase>
 								<configuration>
                                     <buildArgs>
+                                    	<buildArg>-march=compatibility</buildArg>
                                         <buildArg>-R:MaxHeapSize=64m</buildArg>
                                         <buildArg>--install-exit-handlers</buildArg>
                                         <!--TODO This should not be necessary! For some reason native-image-annotations is not working for these -->
@@ -305,6 +307,7 @@
                                         <jadbus.redirectStd>true</jadbus.redirectStd>
                                     </systemPropertyVariables>
                                     <buildArgs>
+                                    	<buildArg>-march=compatibility</buildArg>
                                         <buildArg>-H:Log=registerResource:verbose</buildArg>                                                                                
                                         <buildArg>-R:MaxHeapSize=64m</buildArg>
                                         <buildArg>--install-exit-handlers</buildArg> 
