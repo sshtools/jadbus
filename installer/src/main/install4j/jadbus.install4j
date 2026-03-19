@@ -459,7 +459,7 @@ X-GNOME-Autostart-enabled=true</property>
                   </property>
                   <property name="executable">
                     <object class="java.io.File">
-                      <string>launchctl</string>
+                      <string>/bin/launchctl</string>
                     </object>
                   </property>
                   <property name="workingDirectory">
