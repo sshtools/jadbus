@@ -20,7 +20,7 @@ pipeline {
                  */
                 stage ('Deploy Helper Library To Maven Repo') {
                     agent {
-                        label 'posix'
+                        label 'linux'
                     }
                     steps {
                         configFileProvider([
